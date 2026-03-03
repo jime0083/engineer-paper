@@ -138,22 +138,6 @@ export function validateContact(contact) {
 }
 
 /**
- * 職務要約のバリデーション
- */
-export function validateSummary(summary) {
-  const errors = {};
-
-  if (!isWithinLength(summary.summary, 200)) {
-    errors.summary = '200文字以内で入力してください';
-  }
-
-  return {
-    isValid: Object.keys(errors).length === 0,
-    errors,
-  };
-}
-
-/**
  * スキルのバリデーション
  */
 export function validateSkills(skills) {
@@ -215,8 +199,8 @@ export function validateWorkHistories(workHistories) {
 export function validateSelfPR(selfPR) {
   const errors = {};
 
-  if (!isWithinLength(selfPR.selfPR, 1000)) {
-    errors.selfPR = '1000文字以内で入力してください';
+  if (!isWithinLength(selfPR.selfPR, 300)) {
+    errors.selfPR = '300文字以内で入力してください';
   }
 
   return {
@@ -253,14 +237,12 @@ export function validateStep(step, formData) {
     case 3:
       return validateContact(formData.contact);
     case 4:
-      return validateSummary(formData.summary);
-    case 5:
       return validateSkills(formData.skills);
-    case 6:
+    case 5:
       return validateWorkHistories(formData.workHistories);
-    case 7:
+    case 6:
       return validateSelfPR(formData.selfPR);
-    case 8:
+    case 7:
       return validateCreationDate(formData.creationDate);
     default:
       return { isValid: true, errors: {} };

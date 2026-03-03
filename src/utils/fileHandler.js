@@ -75,7 +75,7 @@ export function validateLoadedData(data) {
   }
 
   // 必須フィールドのチェック
-  const requiredFields = ['profile', 'address', 'contact', 'summary', 'skills', 'workHistories', 'selfPR', 'creationDate'];
+  const requiredFields = ['profile', 'address', 'contact', 'skills', 'workHistories', 'selfPR', 'creationDate'];
   requiredFields.forEach(field => {
     if (!data[field]) {
       errors.push(`${field}のデータがありません`);

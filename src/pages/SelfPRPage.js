@@ -32,7 +32,7 @@ function SelfPRPage() {
   };
 
   const handlePrev = () => {
-    navigate('/step/6');
+    navigate('/step/5');
   };
 
   const handleNext = () => {
@@ -41,7 +41,7 @@ function SelfPRPage() {
       setErrors(result.errors);
       return;
     }
-    navigate('/step/8');
+    navigate('/step/7');
   };
 
   const handlePreview = () => {
@@ -50,8 +50,8 @@ function SelfPRPage() {
 
   return (
     <div className="step-page">
-      <StepIndicator currentStep={7} />
-      <ProgressBar currentStep={7} />
+      <StepIndicator currentStep={6} />
+      <ProgressBar currentStep={6} />
 
       <div className="step-page-content">
         <h2 className="step-page-title">自己PR</h2>
@@ -66,8 +66,8 @@ function SelfPRPage() {
             value={formData.selfPR}
             onChange={handleChange}
             placeholder="例：私は「粘り強さ」が強みです。前職では難易度の高い機能実装を任された際、関連技術の調査から始め、プロトタイプを何度も作り直しながら最終的に期限内に完成させました。この経験から、困難な課題にも諦めずに取り組む姿勢を身につけました。"
-            rows={10}
-            maxLength={1000}
+            rows={6}
+            maxLength={300}
             showCount
             error={errors.selfPR}
           />
@@ -75,7 +75,7 @@ function SelfPRPage() {
       </div>
 
       <StepNavigation
-        currentStep={7}
+        currentStep={6}
         onPrev={handlePrev}
         onNext={handleNext}
         onPreview={handlePreview}

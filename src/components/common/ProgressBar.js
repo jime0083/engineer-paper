@@ -5,7 +5,7 @@ import './ProgressBar.css';
  * プログレスバーコンポーネント
  * 現在のステップの進捗を視覚的に表示
  */
-function ProgressBar({ currentStep, totalSteps = 10 }) {
+function ProgressBar({ currentStep, totalSteps = 9 }) {
   const progressPercentage = (currentStep / totalSteps) * 100;
 
   return (

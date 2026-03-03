@@ -72,7 +72,7 @@ function CreationDatePage() {
   };
 
   const handlePrev = () => {
-    navigate('/step/7');
+    navigate('/step/6');
   };
 
   const handleNext = () => {
@@ -81,7 +81,7 @@ function CreationDatePage() {
       setErrors(result.errors);
       return;
     }
-    navigate('/step/9');
+    navigate('/step/8');
   };
 
   const handlePreview = () => {
@@ -98,8 +98,8 @@ function CreationDatePage() {
 
   return (
     <div className="step-page">
-      <StepIndicator currentStep={8} />
-      <ProgressBar currentStep={8} />
+      <StepIndicator currentStep={7} />
+      <ProgressBar currentStep={7} />
 
       <div className="step-page-content">
         <h2 className="step-page-title">作成日</h2>
@@ -142,7 +142,7 @@ function CreationDatePage() {
       </div>
 
       <StepNavigation
-        currentStep={8}
+        currentStep={7}
         onPrev={handlePrev}
         onNext={handleNext}
         onPreview={handlePreview}

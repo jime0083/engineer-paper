@@ -76,7 +76,7 @@ function WorkHistoryPage() {
   };
 
   const handlePrev = () => {
-    navigate('/step/5');
+    navigate('/step/4');
   };
 
   const handleNext = () => {
@@ -86,7 +86,7 @@ function WorkHistoryPage() {
       setShowError(true);
       return;
     }
-    navigate('/step/7');
+    navigate('/step/6');
   };
 
   const handlePreview = () => {
@@ -95,8 +95,8 @@ function WorkHistoryPage() {
 
   return (
     <div className="step-page">
-      <StepIndicator currentStep={6} />
-      <ProgressBar currentStep={6} />
+      <StepIndicator currentStep={5} />
+      <ProgressBar currentStep={5} />
 
       <div className="step-page-content">
         <h2 className="step-page-title">職務経歴</h2>
@@ -134,7 +134,7 @@ function WorkHistoryPage() {
       </div>
 
       <StepNavigation
-        currentStep={6}
+        currentStep={5}
         onPrev={handlePrev}
         onNext={handleNext}
         onPreview={handlePreview}

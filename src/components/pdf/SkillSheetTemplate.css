@@ -1,0 +1,200 @@
+/**
+ * スキルシートPDFテンプレート
+ * A4サイズ（210mm x 297mm）を想定したスタイル
+ * 794px x 1123px（96dpi）相当
+ */
+
+.skillsheet-template {
+  width: 794px;
+  min-height: 1123px;
+  padding: 40px;
+  background-color: #ffffff;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* ヘッダー */
+.skillsheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #333;
+}
+
+.skillsheet-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.skillsheet-date {
+  font-size: 12px;
+  color: #666;
+}
+
+/* セクションタイトル */
+.skillsheet-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-left: 4px solid #333;
+}
+
+/* 共通テーブルスタイル */
+.skillsheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.skillsheet-table th,
+.skillsheet-table td {
+  border: 1px solid #999;
+  padding: 6px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.skillsheet-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* 基本情報テーブル */
+.skillsheet-basic-info .label-cell {
+  width: 70px;
+  text-align: center;
+  background-color: #e8e8e8;
+}
+
+.skillsheet-basic-info .name-cell {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.skillsheet-basic-info .qualifications-cell {
+  white-space: pre-wrap;
+}
+
+/* スキルテーブル */
+.skillsheet-skills .skill-name-header {
+  width: 150px;
+}
+
+.skillsheet-skills .skill-exp-header {
+  width: 80px;
+  text-align: center;
+}
+
+.skillsheet-skills .skill-desc-header {
+  /* 残り幅を使用 */
+}
+
+.skillsheet-skills .skill-name-cell {
+  font-weight: bold;
+}
+
+.skillsheet-skills .skill-exp-cell {
+  text-align: center;
+}
+
+.skillsheet-skills .skill-desc-cell {
+  font-size: 11px;
+  color: #555;
+}
+
+/* 自己PR */
+.skillsheet-selfpr {
+  border: 1px solid #999;
+  padding: 10px;
+  background-color: #fafafa;
+  white-space: pre-wrap;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* 職務経歴テーブル */
+.skillsheet-work-history .period-header {
+  width: 100px;
+  text-align: center;
+}
+
+.skillsheet-work-history .duration-header {
+  width: 60px;
+  text-align: center;
+}
+
+.skillsheet-work-history .content-header {
+  /* 残り幅を使用 */
+}
+
+.skillsheet-work-history .role-header {
+  width: 80px;
+}
+
+.skillsheet-work-history .tech-header {
+  width: 150px;
+}
+
+.skillsheet-work-history .period-cell {
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.skillsheet-work-history .duration-cell {
+  font-size: 11px;
+  text-align: center;
+}
+
+.skillsheet-work-history .content-cell .project-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.skillsheet-work-history .content-cell .project-desc {
+  font-size: 11px;
+  color: #555;
+  white-space: pre-wrap;
+}
+
+.skillsheet-work-history .role-cell {
+  font-size: 11px;
+}
+
+.skillsheet-work-history .role-cell .scale {
+  color: #666;
+  margin-top: 3px;
+}
+
+.skillsheet-work-history .tech-cell {
+  font-size: 10px;
+}
+
+.skillsheet-work-history .tech-cell .tech-item {
+  margin-bottom: 3px;
+}
+
+.skillsheet-work-history .tech-cell .tech-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 印刷用スタイル */
+@media print {
+  .skillsheet-template {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10mm;
+    margin: 0;
+    box-shadow: none;
+  }
+}

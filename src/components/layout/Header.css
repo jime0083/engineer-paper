@@ -22,8 +22,37 @@
 }
 
 .header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
+  text-decoration: none;
   margin: 0;
+}
+
+.header-logo:hover {
+  opacity: 0.9;
+}
+
+.header-logo-image {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius-sm);
+}
+
+.header-logo-text {
+  color: var(--color-primary);
+}
+
+@media (max-width: 480px) {
+  .header-logo-image {
+    width: 28px;
+    height: 28px;
+  }
+
+  .header-logo-text {
+    font-size: var(--font-size-lg);
+  }
 }

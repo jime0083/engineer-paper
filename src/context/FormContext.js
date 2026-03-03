@@ -28,15 +28,11 @@ const initialFormData = {
     phone: '',
     email: '',
   },
-  // ステップ4: 職務要約
-  summary: {
-    summary: '',
-  },
-  // ステップ5: スキル
+  // ステップ4: スキル
   skills: [
     { id: 1, name: '', experience: '', description: '', isConfirmed: false },
   ],
-  // ステップ6: 職務経歴
+  // ステップ5: 職務経歴
   workHistories: [
     {
       id: 1,
@@ -52,11 +48,11 @@ const initialFormData = {
       isConfirmed: false,
     },
   ],
-  // ステップ7: 自己PR
+  // ステップ6: 自己PR
   selfPR: {
     selfPR: '',
   },
-  // ステップ8: 作成日
+  // ステップ7: 作成日
   creationDate: {
     creationDate: { year: '', month: '', day: '' },
   },
@@ -69,7 +65,6 @@ const ActionTypes = {
   UPDATE_PROFILE: 'UPDATE_PROFILE',
   UPDATE_ADDRESS: 'UPDATE_ADDRESS',
   UPDATE_CONTACT: 'UPDATE_CONTACT',
-  UPDATE_SUMMARY: 'UPDATE_SUMMARY',
   UPDATE_SKILLS: 'UPDATE_SKILLS',
   UPDATE_WORK_HISTORIES: 'UPDATE_WORK_HISTORIES',
   UPDATE_SELF_PR: 'UPDATE_SELF_PR',
@@ -89,8 +84,6 @@ function formReducer(state, action) {
       return { ...state, address: { ...state.address, ...action.payload } };
     case ActionTypes.UPDATE_CONTACT:
       return { ...state, contact: { ...state.contact, ...action.payload } };
-    case ActionTypes.UPDATE_SUMMARY:
-      return { ...state, summary: { ...state.summary, ...action.payload } };
     case ActionTypes.UPDATE_SKILLS:
       return { ...state, skills: action.payload };
     case ActionTypes.UPDATE_WORK_HISTORIES:
@@ -131,10 +124,6 @@ export function FormProvider({ children }) {
     dispatch({ type: ActionTypes.UPDATE_CONTACT, payload: data });
   }, []);
 
-  const updateSummary = useCallback((data) => {
-    dispatch({ type: ActionTypes.UPDATE_SUMMARY, payload: data });
-  }, []);
-
   const updateSkills = useCallback((skills) => {
     dispatch({ type: ActionTypes.UPDATE_SKILLS, payload: skills });
   }, []);
@@ -163,7 +152,7 @@ export function FormProvider({ children }) {
    * データが入力されているかチェック
    */
   const hasData = useCallback(() => {
-    const { profile, address, contact, summary, skills, workHistories, selfPR } = formData;
+    const { profile, address, contact, skills, workHistories, selfPR } = formData;
 
     // プロフィール
     if (profile.lastName || profile.firstName || profile.lastNameKana || profile.firstNameKana) {
@@ -175,10 +164,6 @@ export function FormProvider({ children }) {
     }
     // 連絡先
     if (contact.phone || contact.email) {
-      return true;
-    }
-    // 職務要約
-    if (summary.summary) {
       return true;
     }
     // スキル
@@ -213,7 +198,6 @@ export function FormProvider({ children }) {
     updateProfile,
     updateAddress,
     updateContact,
-    updateSummary,
     updateSkills,
     updateWorkHistories,
     updateSelfPR,

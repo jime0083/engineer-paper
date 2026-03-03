@@ -64,7 +64,7 @@ function SkillsPage() {
   };
 
   const handlePrev = () => {
-    navigate('/step/4');
+    navigate('/step/3');
   };
 
   const handleNext = () => {
@@ -74,7 +74,7 @@ function SkillsPage() {
       setShowError(true);
       return;
     }
-    navigate('/step/6');
+    navigate('/step/5');
   };
 
   const handlePreview = () => {
@@ -83,8 +83,8 @@ function SkillsPage() {
 
   return (
     <div className="step-page">
-      <StepIndicator currentStep={5} />
-      <ProgressBar currentStep={5} />
+      <StepIndicator currentStep={4} />
+      <ProgressBar currentStep={4} />
 
       <div className="step-page-content">
         <h2 className="step-page-title">スキル</h2>
@@ -118,7 +118,7 @@ function SkillsPage() {
       </div>
 
       <StepNavigation
-        currentStep={5}
+        currentStep={4}
         onPrev={handlePrev}
         onNext={handleNext}
         onPreview={handlePreview}

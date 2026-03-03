@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 
 /**
@@ -9,10 +10,14 @@ function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <h1 className="header-logo">
-          {/* アプリ名は後から設定 */}
-          スキルシート作成
-        </h1>
+        <Link to="/" className="header-logo">
+          <img
+            src={`${process.env.PUBLIC_URL}/logo.png`}
+            alt="スキルシートメーカー"
+            className="header-logo-image"
+          />
+          <span className="header-logo-text">スキルシートメーカー</span>
+        </Link>
       </div>
     </header>
   );

@@ -8,13 +8,12 @@ const STEPS = [
   { id: 1, label: 'プロフィール' },
   { id: 2, label: '住所' },
   { id: 3, label: '連絡先' },
-  { id: 4, label: '職務要約' },
-  { id: 5, label: 'スキル' },
-  { id: 6, label: '職務経歴' },
-  { id: 7, label: '自己PR' },
-  { id: 8, label: '作成日' },
-  { id: 9, label: '確認' },
-  { id: 10, label: '完了' },
+  { id: 4, label: 'スキル' },
+  { id: 5, label: '職務経歴' },
+  { id: 6, label: '自己PR' },
+  { id: 7, label: '作成日' },
+  { id: 8, label: '確認' },
+  { id: 9, label: '完了' },
 ];
 
 /**
