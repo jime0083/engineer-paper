@@ -28,6 +28,41 @@
   background-color: var(--color-gray-50);
   cursor: pointer;
   transition: background-color var(--transition-fast);
+  gap: var(--spacing-sm);
+}
+
+/* 並び替え矢印 */
+.work-history-card-reorder {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.work-history-card-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 20px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.work-history-card-arrow:hover:not(:disabled) {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.work-history-card-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .work-history-card--confirmed .work-history-card-header {

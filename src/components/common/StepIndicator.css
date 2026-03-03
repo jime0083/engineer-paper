@@ -8,6 +8,11 @@
   border-bottom: var(--border-width) solid var(--color-border);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  /* 上部に固定 */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .step-list {
@@ -23,6 +28,23 @@
   align-items: center;
   position: relative;
   flex: 1;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+/* クリック可能なステップ */
+.step-item--clickable {
+  cursor: pointer;
+}
+
+.step-item--clickable:hover {
+  background-color: var(--color-gray-100);
+}
+
+.step-item--clickable:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 /* ステップアイコン */

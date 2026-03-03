@@ -75,6 +75,22 @@ function WorkHistoryPage() {
     updateWorkHistories(newHistories);
   };
 
+  const handleMoveUp = (index) => {
+    if (index === 0) return;
+    const newHistories = [...workHistories];
+    [newHistories[index - 1], newHistories[index]] = [newHistories[index], newHistories[index - 1]];
+    setWorkHistories(newHistories);
+    updateWorkHistories(newHistories);
+  };
+
+  const handleMoveDown = (index) => {
+    if (index === workHistories.length - 1) return;
+    const newHistories = [...workHistories];
+    [newHistories[index], newHistories[index + 1]] = [newHistories[index + 1], newHistories[index]];
+    setWorkHistories(newHistories);
+    updateWorkHistories(newHistories);
+  };
+
   const handlePrev = () => {
     navigate('/step/4');
   };
@@ -126,7 +142,11 @@ function WorkHistoryPage() {
               onChange={handleChangeWorkHistory}
               onDelete={handleDeleteWorkHistory}
               onConfirm={handleConfirmWorkHistory}
+              onMoveUp={handleMoveUp}
+              onMoveDown={handleMoveDown}
               isConfirmed={history.isConfirmed}
+              isFirst={index === 0}
+              isLast={index === workHistories.length - 1}
               errors={errors[index]}
             />
           ))}

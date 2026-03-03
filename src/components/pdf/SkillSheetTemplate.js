@@ -6,7 +6,7 @@ import './SkillSheetTemplate.css';
  * A4サイズ（210mm x 297mm）に最適化されたレイアウト
  */
 function SkillSheetTemplate({ formData }) {
-  const { profile, address, skills, workHistories, selfPR, creationDate } = formData;
+  const { profile, address, contact, skills, workHistories, selfPR, creationDate } = formData;
 
   /**
    * 年齢を計算
@@ -62,6 +62,17 @@ function SkillSheetTemplate({ formData }) {
   };
 
   /**
+   * 住所をフォーマット
+   */
+  const formatAddress = () => {
+    const parts = [];
+    if (address.prefecture) parts.push(address.prefecture);
+    if (address.city) parts.push(address.city);
+    if (address.address) parts.push(address.address);
+    return parts.join(' ') || '-';
+  };
+
+  /**
    * 稼働期間を計算
    */
   const calculateWorkDuration = (history) => {
@@ -79,6 +90,7 @@ function SkillSheetTemplate({ formData }) {
       return '';
     }
 
+    // 開始月と終了月を含めるため +1
     const months = (endDate.getFullYear() - startDate.getFullYear()) * 12 +
                    (endDate.getMonth() - startDate.getMonth()) + 1;
     const years = Math.floor(months / 12);
@@ -109,7 +121,7 @@ function SkillSheetTemplate({ formData }) {
       end = `${endPeriod.year}/${String(endPeriod.month).padStart(2, '0')}`;
     }
 
-    return `${start} ～ ${end}`;
+    return `${start}～${end}`;
   };
 
   // 確定済みのスキルのみ表示
@@ -136,30 +148,36 @@ function SkillSheetTemplate({ formData }) {
       <table className="skillsheet-table skillsheet-basic-info">
         <tbody>
           <tr>
-            <th className="label-cell">氏名</th>
-            <td colSpan="3" className="name-cell">
-              {profile.lastName} {profile.firstName}
-            </td>
-            <th className="label-cell">ふりがな</th>
-            <td colSpan="3">
-              {profile.lastNameKana} {profile.firstNameKana}
-            </td>
+            <th>氏名</th>
+            <td className="name-cell">{profile.lastName} {profile.firstName}</td>
+            <th>ふりがな</th>
+            <td>{profile.lastNameKana} {profile.firstNameKana}</td>
           </tr>
           <tr>
-            <th className="label-cell">性別</th>
+            <th>性別</th>
             <td>{formatGender()}</td>
-            <th className="label-cell">生年月日</th>
+            <th>生年月日</th>
             <td>{formatBirthDate()}</td>
-            <th className="label-cell">年齢</th>
-            <td>{calculateAge() ? `${calculateAge()}歳` : ''}</td>
-            <th className="label-cell">最寄駅</th>
-            <td>{address.nearestStation}</td>
           </tr>
           <tr>
-            <th className="label-cell">資格</th>
-            <td colSpan="7" className="qualifications-cell">
-              {profile.qualifications || '-'}
-            </td>
+            <th>年齢</th>
+            <td>{calculateAge() ? `${calculateAge()}歳` : '-'}</td>
+            <th>最寄駅</th>
+            <td>{address.nearestStation || '-'}</td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td colSpan="3">{formatAddress()}</td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td>{contact?.phone || '-'}</td>
+            <th>メール</th>
+            <td>{contact?.email || '-'}</td>
+          </tr>
+          <tr>
+            <th>資格</th>
+            <td colSpan="3">{profile.qualifications || '-'}</td>
           </tr>
         </tbody>
       </table>
@@ -171,17 +189,17 @@ function SkillSheetTemplate({ formData }) {
           <table className="skillsheet-table skillsheet-skills">
             <thead>
               <tr>
-                <th className="skill-name-header">スキル</th>
-                <th className="skill-exp-header">経験年数</th>
-                <th className="skill-desc-header">習熟度・説明</th>
+                <th>スキル</th>
+                <th>経験年数</th>
+                <th>習熟度・説明</th>
               </tr>
             </thead>
             <tbody>
               {confirmedSkills.map((skill) => (
                 <tr key={skill.id}>
-                  <td className="skill-name-cell">{skill.name}</td>
-                  <td className="skill-exp-cell">{skill.experience}</td>
-                  <td className="skill-desc-cell">{skill.description || '-'}</td>
+                  <td>{skill.name}</td>
+                  <td className="center-cell">{skill.experience}</td>
+                  <td>{skill.description || '-'}</td>
                 </tr>
               ))}
             </tbody>
@@ -206,18 +224,18 @@ function SkillSheetTemplate({ formData }) {
           <table className="skillsheet-table skillsheet-work-history">
             <thead>
               <tr>
-                <th className="period-header">期間</th>
-                <th className="duration-header">稼働</th>
-                <th className="content-header">業務内容</th>
-                <th className="role-header">役割/規模</th>
-                <th className="tech-header">言語/FW/MW/ツール等</th>
+                <th>期間</th>
+                <th>稼働</th>
+                <th>業務内容</th>
+                <th>役割/規模</th>
+                <th>言語/FW/MW/ツール等</th>
               </tr>
             </thead>
             <tbody>
               {confirmedHistories.map((history) => (
                 <tr key={history.id}>
                   <td className="period-cell">{formatPeriod(history)}</td>
-                  <td className="duration-cell">{calculateWorkDuration(history)}</td>
+                  <td className="center-cell">{calculateWorkDuration(history)}</td>
                   <td className="content-cell">
                     <div className="project-name">{history.projectName}</div>
                     <div className="project-desc">{history.description}</div>
@@ -227,8 +245,8 @@ function SkillSheetTemplate({ formData }) {
                     {history.scale && <div className="scale">{history.scale}</div>}
                   </td>
                   <td className="tech-cell">
-                    {history.languages && <div className="tech-item">{history.languages}</div>}
-                    {history.tools && <div className="tech-item">{history.tools}</div>}
+                    {history.languages && <div>{history.languages}</div>}
+                    {history.tools && <div>{history.tools}</div>}
                   </td>
                 </tr>
               ))}

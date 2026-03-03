@@ -22,7 +22,9 @@ const calculateDuration = (startYear, startMonth, endYear, endMonth, isCurrentJo
     return '';
   }
 
-  const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+  // 開始月と終了月を含めるため +1 を追加
+  // 例: 2023/10 ~ 2024/09 = 12ヶ月（10月から9月まで稼働）
+  const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
 
@@ -46,7 +48,11 @@ function WorkHistoryCard({
   onChange,
   onDelete,
   onConfirm,
+  onMoveUp,
+  onMoveDown,
   isConfirmed = false,
+  isFirst = false,
+  isLast = false,
   errors = {},
 }) {
   const [isExpanded, setIsExpanded] = useState(!isConfirmed);
@@ -81,6 +87,35 @@ function WorkHistoryCard({
   return (
     <div className={`work-history-card ${isConfirmed ? 'work-history-card--confirmed' : ''}`}>
       <div className="work-history-card-header" onClick={handleToggle}>
+        {/* 並び替え矢印 */}
+        <div className="work-history-card-reorder">
+          <button
+            type="button"
+            className="work-history-card-arrow"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoveUp && onMoveUp(index);
+            }}
+            disabled={isFirst}
+            aria-label="上に移動"
+            title="上に移動"
+          >
+            ▲
+          </button>
+          <button
+            type="button"
+            className="work-history-card-arrow"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoveDown && onMoveDown(index);
+            }}
+            disabled={isLast}
+            aria-label="下に移動"
+            title="下に移動"
+          >
+            ▼
+          </button>
+        </div>
         <div className="work-history-card-title">
           <span className="work-history-card-number">{index + 1}</span>
           <div className="work-history-card-info">
