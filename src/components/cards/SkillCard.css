@@ -1,0 +1,165 @@
+/* ==========================================================================
+   SkillCard - スキルカード
+   ========================================================================== */
+
+.skill-card {
+  background-color: var(--color-bg-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.skill-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.skill-card--confirmed {
+  border-color: var(--color-primary);
+}
+
+.skill-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  background-color: var(--color-gray-50);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.skill-card--confirmed .skill-card-header {
+  background-color: rgba(74, 159, 110, 0.1);
+}
+
+.skill-card-header:hover {
+  background-color: var(--color-gray-100);
+}
+
+.skill-card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.skill-card-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--border-radius-full);
+  flex-shrink: 0;
+}
+
+.skill-card-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.skill-card-experience {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.skill-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.skill-card-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.skill-card-toggle:hover {
+  color: var(--color-text-primary);
+}
+
+.skill-card-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.skill-card-delete:hover {
+  color: var(--color-error);
+}
+
+.skill-card-body {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.skill-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-sm);
+}
+
+.skill-card-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.skill-card-button:active {
+  transform: scale(0.98);
+}
+
+.skill-card-button--ok {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+}
+
+.skill-card-button--ok:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.skill-card-button--edit {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+}
+
+.skill-card-button--edit:hover {
+  background-color: rgba(74, 159, 110, 0.1);
+}

@@ -1,0 +1,132 @@
+/* ==========================================================================
+   StepIndicator Component Styles
+   ========================================================================== */
+
+.step-indicator {
+  background-color: var(--color-white);
+  padding: var(--spacing-md) var(--spacing-sm);
+  border-bottom: var(--border-width) solid var(--color-border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.step-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-width: 700px;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+/* ステップアイコン */
+.step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  transition: all var(--transition-fast);
+  position: relative;
+  z-index: 1;
+}
+
+.step-icon--completed {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.step-icon--current {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(74, 159, 110, 0.2);
+}
+
+.step-icon--pending {
+  background-color: var(--color-white);
+  color: var(--color-gray-500);
+  border: 2px solid var(--color-gray-300);
+}
+
+.step-icon-completed {
+  font-size: var(--font-size-sm);
+}
+
+.step-icon-current {
+  font-size: 10px;
+}
+
+.step-icon-number {
+  font-size: var(--font-size-sm);
+}
+
+/* ステップラベル */
+.step-label {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-xs);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.step-label--completed {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.step-label--current {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.step-label--pending {
+  color: var(--color-text-disabled);
+}
+
+/* コネクター（ステップ間の線） */
+.step-connector {
+  position: absolute;
+  top: 16px;
+  left: calc(50% + 20px);
+  width: calc(100% - 40px);
+  height: 2px;
+  z-index: 0;
+}
+
+.step-connector--completed {
+  background-color: var(--color-primary);
+}
+
+.step-connector--pending {
+  background-color: var(--color-gray-300);
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 720px) {
+  .step-indicator {
+    padding: var(--spacing-sm);
+  }
+
+  .step-list {
+    min-width: 600px;
+  }
+
+  .step-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .step-connector {
+    top: 14px;
+    left: calc(50% + 18px);
+    width: calc(100% - 36px);
+  }
+}

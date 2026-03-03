@@ -1,0 +1,235 @@
+/* ==========================================================================
+   WorkHistoryCard - 職務経歴カード
+   ========================================================================== */
+
+.work-history-card {
+  background-color: var(--color-bg-card);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.work-history-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.work-history-card--confirmed {
+  border-color: var(--color-primary);
+}
+
+.work-history-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  background-color: var(--color-gray-50);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.work-history-card--confirmed .work-history-card-header {
+  background-color: rgba(74, 159, 110, 0.1);
+}
+
+.work-history-card-header:hover {
+  background-color: var(--color-gray-100);
+}
+
+.work-history-card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.work-history-card-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--border-radius-full);
+  flex-shrink: 0;
+}
+
+.work-history-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+}
+
+.work-history-card-name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-history-card-duration {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.work-history-card-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.work-history-card-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.work-history-card-toggle:hover {
+  color: var(--color-text-primary);
+}
+
+.work-history-card-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.work-history-card-delete:hover {
+  color: var(--color-error);
+}
+
+.work-history-card-body {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.work-history-card-period {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.work-history-card-period-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.work-history-card-period-separator {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  padding-bottom: var(--spacing-sm);
+}
+
+.work-history-card-current-job {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.work-history-card-calculated-duration {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.work-history-card-row {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.work-history-card-half {
+  flex: 1;
+  min-width: 150px;
+}
+
+.work-history-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-sm);
+}
+
+.work-history-card-button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.work-history-card-button:active {
+  transform: scale(0.98);
+}
+
+.work-history-card-button--ok {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+}
+
+.work-history-card-button--ok:hover {
+  background-color: var(--color-secondary-dark);
+}
+
+.work-history-card-button--edit {
+  background-color: var(--color-white);
+  color: var(--color-secondary);
+  border: var(--border-width) solid var(--color-secondary);
+}
+
+.work-history-card-button--edit:hover {
+  background-color: rgba(232, 90, 126, 0.1);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  .work-history-card-period-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work-history-card-period-separator {
+    display: none;
+  }
+
+  .work-history-card-row {
+    flex-direction: column;
+  }
+
+  .work-history-card-half {
+    flex: unset;
+    width: 100%;
+  }
+}

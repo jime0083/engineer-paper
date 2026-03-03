@@ -1,0 +1,129 @@
+/* ==========================================================================
+   HomePage - トップページ
+   ========================================================================== */
+
+.home-page {
+  padding: var(--spacing-xl) var(--spacing-md);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.home-page-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.home-page-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.home-page-description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.home-page-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.home-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background-color: var(--color-bg-card);
+  border: var(--border-width-thick) solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.home-card--active:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.home-card--active:active {
+  transform: translateY(0);
+}
+
+.home-card--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: var(--color-gray-100);
+}
+
+.home-card-coming-soon {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--border-radius-sm);
+}
+
+.home-card-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+}
+
+.home-card--disabled .home-card-icon {
+  color: var(--color-gray-400);
+}
+
+.home-card-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.home-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.home-card--disabled .home-card-title {
+  color: var(--color-text-disabled);
+}
+
+.home-card-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.home-card--disabled .home-card-subtitle {
+  color: var(--color-text-disabled);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+  .home-page-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .home-card {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .home-card-icon {
+    width: 48px;
+    height: 48px;
+  }
+}

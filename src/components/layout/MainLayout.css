@@ -1,0 +1,60 @@
+/* ==========================================================================
+   MainLayout Component Styles
+   ========================================================================== */
+
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-secondary);
+}
+
+.main-body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+}
+
+.main-content {
+  flex: 1;
+  max-width: var(--content-max-width);
+  padding: 0 var(--spacing-md);
+  background-color: var(--color-bg-primary);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 広告エリアとの間隔 */
+@media screen and (min-width: 991px) {
+  .main-body {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  .main-content {
+    margin: 0 var(--spacing-md);
+  }
+}
+
+@media screen and (min-width: 721px) and (max-width: 990px) {
+  .main-body {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  .main-content {
+    margin-right: var(--spacing-md);
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .main-body {
+    padding: var(--spacing-md);
+  }
+
+  .main-content {
+    border-radius: var(--border-radius-sm);
+  }
+}

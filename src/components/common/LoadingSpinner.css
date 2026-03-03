@@ -1,0 +1,83 @@
+/* ==========================================================================
+   LoadingSpinner - ローディングスピナー
+   ========================================================================== */
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.loading-spinner-circle {
+  border-radius: var(--border-radius-full);
+  border-style: solid;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* サイズ */
+.loading-spinner--small .loading-spinner-circle {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+.loading-spinner--medium .loading-spinner-circle {
+  width: 36px;
+  height: 36px;
+  border-width: 3px;
+}
+
+.loading-spinner--large .loading-spinner-circle {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+}
+
+/* カラー */
+.loading-spinner--primary .loading-spinner-circle {
+  border-color: var(--color-primary);
+}
+
+.loading-spinner--secondary .loading-spinner-circle {
+  border-color: var(--color-secondary);
+}
+
+.loading-spinner--white .loading-spinner-circle {
+  border-color: var(--color-white);
+}
+
+.loading-spinner--gray .loading-spinner-circle {
+  border-color: var(--color-gray-400);
+}
+
+/* テキスト */
+.loading-spinner-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* フルスクリーンオーバーレイ */
+.loading-spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-modal);
+}

@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Button - ボタンコンポーネント
+   ========================================================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(74, 159, 110, 0.4);
+}
+
+/* サイズ */
+.button--small {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+}
+
+.button--medium {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-base);
+}
+
+.button--large {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-lg);
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+/* バリアント: プライマリ（次へボタン） */
+.button--primary {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+}
+
+.button--primary:hover:not(:disabled) {
+  background-color: var(--color-secondary-dark);
+}
+
+/* バリアント: セカンダリ（前へボタン） */
+.button--secondary {
+  background-color: var(--color-white);
+  color: var(--color-text-primary);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.button--secondary:hover:not(:disabled) {
+  background-color: var(--color-gray-100);
+  border-color: var(--color-gray-400);
+}
+
+/* バリアント: 追加ボタン */
+.button--add {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+}
+
+.button--add:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.button--add .button-icon {
+  font-size: 1.2em;
+  font-weight: var(--font-weight-bold);
+}
+
+/* バリアント: 削除ボタン */
+.button--delete {
+  background-color: var(--color-white);
+  color: var(--color-error);
+  border: var(--border-width) solid var(--color-error);
+}
+
+.button--delete:hover:not(:disabled) {
+  background-color: var(--color-error);
+  color: var(--color-white);
+}
+
+.button--delete .button-icon {
+  font-size: 1.2em;
+}
+
+/* バリアント: OKボタン */
+.button--ok {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+}
+
+.button--ok:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+/* アイコン */
+.button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-text {
+  display: flex;
+  align-items: center;
+}

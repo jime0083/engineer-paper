@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Responsive Styles - レスポンシブブレークポイント定義
+   ========================================================================== */
+
+/* ========================================
+   ブレークポイント
+   ========================================
+
+   - 720px以下: 小画面（左右広告非表示、下部広告のみ）
+   - 721px〜990px: 中画面（左広告非表示、右+下部広告）
+   - 991px以上: 大画面（左右+下部広告すべて表示）
+
+   ======================================== */
+
+/* ========================================
+   広告エリアのレスポンシブ対応
+   ======================================== */
+
+/* デフォルト（991px以上）: すべての広告表示 */
+.ad-left,
+.ad-right,
+.ad-bottom {
+  display: block;
+}
+
+/* 中画面（721px〜990px）: 左広告非表示 */
+@media screen and (max-width: 990px) {
+  .ad-left {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+/* 小画面（720px以下）: 左右広告非表示 */
+@media screen and (max-width: 720px) {
+  .ad-left,
+  .ad-right {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* ========================================
+   レイアウトのレスポンシブ対応
+   ======================================== */
+
+/* 大画面（991px以上） */
+@media screen and (min-width: 991px) {
+  .layout-with-ads {
+    display: flex;
+    justify-content: center;
+  }
+
+  .layout-with-ads .main-content {
+    margin: 0 var(--ad-sidebar-width);
+    max-width: var(--content-max-width);
+  }
+}
+
+/* 中画面（721px〜990px） */
+@media screen and (min-width: 721px) and (max-width: 990px) {
+  .layout-with-ads {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .layout-with-ads .main-content {
+    margin-right: var(--ad-sidebar-width);
+    flex: 1;
+  }
+}
+
+/* 小画面（720px以下） */
+@media screen and (max-width: 720px) {
+  .layout-with-ads .main-content {
+    width: 100%;
+    padding: 0 var(--spacing-md);
+  }
+
+  /* フォーム要素の調整 */
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-row > * {
+    width: 100%;
+  }
+
+  /* ボタンの調整 */
+  .button-group {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+
+  /* ナビゲーションの調整 */
+  .step-indicator {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ========================================
+   フォントサイズのレスポンシブ対応
+   ======================================== */
+
+@media screen and (max-width: 720px) {
+  html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* ========================================
+   間隔のレスポンシブ対応
+   ======================================== */
+
+@media screen and (max-width: 720px) {
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .card {
+    padding: var(--spacing-md);
+  }
+
+  .section-spacing {
+    margin-bottom: var(--spacing-lg);
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .section-spacing {
+    margin-bottom: var(--spacing-xl);
+  }
+}

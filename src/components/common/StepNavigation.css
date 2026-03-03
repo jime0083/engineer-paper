@@ -1,0 +1,104 @@
+/* ==========================================================================
+   StepNavigation Component Styles
+   ========================================================================== */
+
+.step-navigation {
+  padding: var(--spacing-lg) 0;
+  border-top: var(--border-width) solid var(--color-border-light);
+  margin-top: var(--spacing-lg);
+}
+
+.step-navigation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ナビゲーションボタン共通 */
+.step-nav-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.step-nav-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* 前へボタン */
+.step-nav-button--prev {
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: none;
+}
+
+.step-nav-button--prev:hover:not(:disabled) {
+  color: var(--color-secondary-dark);
+}
+
+/* 次へボタン */
+.step-nav-button--next {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.step-nav-button--next:hover:not(:disabled) {
+  background-color: var(--color-secondary-dark);
+}
+
+.step-nav-icon {
+  font-size: var(--font-size-lg);
+}
+
+/* プレビューボタン */
+.step-navigation-preview {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: var(--border-width) solid var(--color-border-light);
+}
+
+.preview-button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background-color: var(--color-white);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preview-button:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.preview-icon {
+  font-size: var(--font-size-lg);
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 720px) {
+  .step-nav-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .step-nav-button--next {
+    min-width: 100px;
+  }
+}

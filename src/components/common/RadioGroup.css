@@ -1,0 +1,113 @@
+/* ==========================================================================
+   RadioGroup - ラジオボタングループ
+   ========================================================================== */
+
+.radio-group-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.radio-group-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.radio-group-required {
+  color: var(--color-error);
+  margin-left: var(--spacing-xs);
+}
+
+.radio-group {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.radio-group--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.radio-group--vertical {
+  flex-direction: column;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.radio-option:hover:not(.radio-option--disabled) {
+  background-color: var(--color-gray-100);
+}
+
+.radio-option--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.radio-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radio-custom {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-white);
+  position: relative;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 10px;
+  height: 10px;
+  border-radius: var(--border-radius-full);
+  background-color: var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+
+.radio-option--checked .radio-custom {
+  border-color: var(--color-primary);
+}
+
+.radio-option--checked .radio-custom::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.radio-input:focus + .radio-custom {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(74, 159, 110, 0.2);
+}
+
+.radio-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-base);
+}
+
+.radio-group-error {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  margin-top: var(--spacing-xs);
+}

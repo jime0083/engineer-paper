@@ -1,0 +1,116 @@
+/* ==========================================================================
+   CompletePage - 完了画面
+   ========================================================================== */
+
+.complete-section {
+  text-align: center;
+}
+
+.complete-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+  color: var(--color-success);
+}
+
+.complete-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.complete-message {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.complete-description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-xl) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.complete-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 300px;
+  margin: 0 auto var(--spacing-2xl);
+}
+
+.affiliate-section {
+  margin: var(--spacing-2xl) 0;
+  padding: var(--spacing-xl);
+  background-color: var(--color-gray-50);
+  border-radius: var(--border-radius-lg);
+}
+
+.affiliate-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+.affiliate-links {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.affiliate-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  text-decoration: none;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  min-width: 150px;
+}
+
+.affiliate-link:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.affiliate-link--freelance {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.affiliate-link--career {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.affiliate-link-label {
+  font-size: var(--font-size-xs);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-xs);
+}
+
+.affiliate-link-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+}
+
+.complete-back {
+  margin-top: var(--spacing-xl);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+  .affiliate-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .affiliate-link {
+    width: 100%;
+    max-width: 250px;
+  }
+}
