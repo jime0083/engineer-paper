@@ -1,0 +1,20 @@
+{
+  "short_name": "スキルシートメーカー",
+  "name": "スキルシートメーカー - エンジニア向けスキルシート作成ツール",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3366ff",
+  "background_color": "#ffffff"
+}
