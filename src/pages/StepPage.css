@@ -6,6 +6,8 @@
   padding: var(--spacing-md);
   max-width: var(--content-max-width);
   margin: 0 auto;
+  /* 固定されたStepIndicatorの高さ分の余白を追加 */
+  padding-top: calc(80px + var(--spacing-md));
 }
 
 .step-page-content {
@@ -106,6 +108,13 @@
 }
 
 /* レスポンシブ対応 */
+@media (max-width: 720px) {
+  .step-page {
+    /* モバイルではStepIndicatorの高さが小さくなる */
+    padding-top: calc(70px + var(--spacing-md));
+  }
+}
+
 @media (max-width: 600px) {
   .step-page-content {
     padding: var(--spacing-lg);

@@ -25,6 +25,9 @@
 /* 左側広告 */
 .ad-left {
   width: var(--ad-sidebar-width);
+  min-width: var(--ad-sidebar-width);
+  max-width: var(--ad-sidebar-width);
+  flex-shrink: 0;
   min-height: 600px;
   position: sticky;
   top: calc(var(--header-height) + var(--spacing-lg));
@@ -34,16 +37,24 @@
 /* 右側広告 */
 .ad-right {
   width: var(--ad-sidebar-width);
+  min-width: var(--ad-sidebar-width);
+  max-width: var(--ad-sidebar-width);
+  flex-shrink: 0;
   min-height: 600px;
   position: sticky;
   top: calc(var(--header-height) + var(--spacing-lg));
   align-self: flex-start;
 }
 
-/* 下部広告 */
+/* 下部広告 - 画面下部に固定 */
 .ad-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: var(--ad-bottom-height);
+  z-index: 100;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* レスポンシブ対応 */
@@ -64,5 +75,6 @@
 
   .ad-bottom {
     height: 60px;
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
   }
 }

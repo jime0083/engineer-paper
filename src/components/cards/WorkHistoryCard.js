@@ -207,8 +207,9 @@ function WorkHistoryCard({
             value={workHistory.description || ''}
             onChange={handleFieldChange}
             placeholder="担当した業務の内容を記入してください"
-            rows={4}
-            maxLength={500}
+            rows={6}
+            maxLength={300}
+            maxLines={10}
             showCount
           />
 

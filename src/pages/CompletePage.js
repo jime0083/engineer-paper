@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../context/FormContext';
 import { downloadAsJson } from '../utils/fileHandler';
 import { downloadPdf, generateFileName } from '../utils/pdfGenerator';
+import { downloadWord, generateWordFileName } from '../utils/wordGenerator';
+import { downloadExcel, generateExcelFileName } from '../utils/excelGenerator';
 import SkillSheetTemplate from '../components/pdf/SkillSheetTemplate';
 import Button from '../components/common/Button';
 import Alert from '../components/common/Alert';
@@ -19,14 +21,18 @@ function CompletePage() {
   const navigate = useNavigate();
   const { formData, getExportData } = useFormContext();
   const templateRef = useRef(null);
-  const [isDownloading, setIsDownloading] = useState(false);
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
+  const [isDownloadingWord, setIsDownloadingWord] = useState(false);
+  const [isDownloadingExcel, setIsDownloadingExcel] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+
+  const isDownloading = isDownloadingPdf || isDownloadingWord || isDownloadingExcel;
 
   const handleDownloadPDF = async () => {
     if (!templateRef.current) return;
 
-    setIsDownloading(true);
+    setIsDownloadingPdf(true);
     setError(null);
     setSuccess(null);
 
@@ -43,7 +49,51 @@ function CompletePage() {
     } catch (err) {
       setError('PDFの生成中にエラーが発生しました');
     } finally {
-      setIsDownloading(false);
+      setIsDownloadingPdf(false);
+    }
+  };
+
+  const handleDownloadWord = async () => {
+    setIsDownloadingWord(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const fileName = generateWordFileName(formData);
+      const result = await downloadWord(formData, fileName);
+
+      if (result.success) {
+        setSuccess('Wordファイルをダウンロードしました');
+        setTimeout(() => setSuccess(null), 3000);
+      } else {
+        setError(result.error || 'Wordファイルのダウンロードに失敗しました');
+      }
+    } catch (err) {
+      setError('Wordファイルの生成中にエラーが発生しました');
+    } finally {
+      setIsDownloadingWord(false);
+    }
+  };
+
+  const handleDownloadExcel = async () => {
+    setIsDownloadingExcel(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const fileName = generateExcelFileName(formData);
+      const result = await downloadExcel(formData, fileName);
+
+      if (result.success) {
+        setSuccess('Excelファイルをダウンロードしました');
+        setTimeout(() => setSuccess(null), 3000);
+      } else {
+        setError(result.error || 'Excelファイルのダウンロードに失敗しました');
+      }
+    } catch (err) {
+      setError('Excelファイルの生成中にエラーが発生しました');
+    } finally {
+      setIsDownloadingExcel(false);
     }
   };
 
@@ -100,7 +150,25 @@ function CompletePage() {
               onClick={handleDownloadPDF}
               disabled={isDownloading}
             >
-              {isDownloading ? 'ダウンロード中...' : 'PDFでダウンロード'}
+              {isDownloadingPdf ? 'ダウンロード中...' : 'PDFでダウンロード'}
+            </Button>
+            <Button
+              variant="primary"
+              size="large"
+              className="button--word"
+              onClick={handleDownloadWord}
+              disabled={isDownloading}
+            >
+              {isDownloadingWord ? 'ダウンロード中...' : 'Wordファイルで保存'}
+            </Button>
+            <Button
+              variant="primary"
+              size="large"
+              className="button--excel"
+              onClick={handleDownloadExcel}
+              disabled={isDownloading}
+            >
+              {isDownloadingExcel ? 'ダウンロード中...' : 'Excelファイルで保存'}
             </Button>
             <Button variant="secondary" size="large" onClick={handleSaveData}>
               入力情報をファイルで保存
@@ -116,8 +184,7 @@ function CompletePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="affiliate-link-label">フリーランス向け</span>
-                <span className="affiliate-link-text">案件を探す</span>
+                <span className="affiliate-link-text">案件を探しているフリーランスの方はこちら</span>
               </a>
               <a
                 href="#career"
@@ -125,8 +192,7 @@ function CompletePage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span className="affiliate-link-label">転職希望の方</span>
-                <span className="affiliate-link-text">転職サイトを見る</span>
+                <span className="affiliate-link-text">転職を考えている方はこちら</span>
               </a>
             </div>
           </div>
@@ -149,7 +215,16 @@ function CompletePage() {
       {/* ローディングオーバーレイ */}
       {isDownloading && (
         <div className="complete-loading-overlay">
-          <LoadingSpinner size="large" text="PDFを生成中..." />
+          <LoadingSpinner
+            size="large"
+            text={
+              isDownloadingPdf
+                ? 'PDFを生成中...'
+                : isDownloadingWord
+                  ? 'Wordファイルを生成中...'
+                  : 'Excelファイルを生成中...'
+            }
+          />
         </div>
       )}
     </div>

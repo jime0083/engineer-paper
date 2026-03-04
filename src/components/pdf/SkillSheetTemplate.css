@@ -4,6 +4,44 @@
  * 794px x 1123px（96dpi）相当
  */
 
+/* ページコンテナ */
+.skillsheet-pages {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+/* 各ページ */
+.skillsheet-page {
+  width: 794px;
+  height: 1123px;
+  padding: 30px;
+  background-color: #ffffff;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #333;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.skillsheet-page-content {
+  height: calc(100% - 20px);
+  overflow: hidden;
+}
+
+.skillsheet-page-number {
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  font-size: 10px;
+  color: #999;
+}
+
+/* 旧クラス互換（単一ページ表示用） */
 .skillsheet-template {
   width: 794px;
   min-height: 1123px;
@@ -38,54 +76,73 @@
 }
 
 /* セクションタイトル */
-.skillsheet-section-title {
-  font-size: 13px;
-  font-weight: bold;
-  margin: 15px 0 8px;
-  padding: 4px 8px;
-  background-color: #f0f0f0;
-  border-left: 3px solid #333;
+.skillsheet-page .skillsheet-section-title,
+.skillsheet-template .skillsheet-section-title {
+  font-size: 13px !important;
+  font-weight: bold !important;
+  margin: 15px 0 8px 0 !important;
+  padding: 6px 8px 6px 8px !important;
+  background-color: #f0f0f0 !important;
+  border-left: 3px solid #333 !important;
+  line-height: 1.4 !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }
 
 /* 共通テーブルスタイル */
 .skillsheet-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   table-layout: fixed;
 }
 
 .skillsheet-table th,
 .skillsheet-table td {
   border: 1px solid #666;
-  padding: 5px 6px;
+  padding: 8px 6px;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle !important;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  line-height: 1.4;
+  height: auto;
+  min-height: 28px;
 }
 
 .skillsheet-table th {
   background-color: #e8e8e8;
   font-weight: bold;
   text-align: center;
+  vertical-align: middle !important;
 }
 
 /* 基本情報テーブル */
+.skillsheet-basic-info {
+  margin-bottom: 12px;
+}
+
 .skillsheet-basic-info th {
   width: 70px;
+  vertical-align: middle !important;
 }
 
 .skillsheet-basic-info td {
   width: calc((100% - 140px) / 2);
+  vertical-align: middle !important;
 }
 
 .skillsheet-basic-info .name-cell {
   font-size: 13px;
   font-weight: bold;
+  vertical-align: middle !important;
 }
 
 /* スキルテーブル */
+.skillsheet-skills {
+  margin-bottom: 12px;
+}
+
 .skillsheet-skills th:nth-child(1) {
   width: 120px;
 }
@@ -94,8 +151,13 @@
   width: 70px;
 }
 
+.skillsheet-skills td {
+  vertical-align: middle !important;
+}
+
 .skillsheet-skills .center-cell {
   text-align: center;
+  vertical-align: middle !important;
 }
 
 /* 自己PR */
@@ -111,30 +173,70 @@
 }
 
 /* 職務経歴テーブル */
-.skillsheet-work-history th:nth-child(1) {
+.skillsheet-work-history {
+  margin-bottom: 0;
+}
+
+.skillsheet-work-history th:nth-child(1),
+.skillsheet-work-history td:nth-child(1) {
   width: 85px;
 }
 
-.skillsheet-work-history th:nth-child(2) {
+.skillsheet-work-history th:nth-child(2),
+.skillsheet-work-history td:nth-child(2) {
   width: 55px;
 }
 
-.skillsheet-work-history th:nth-child(3) {
+.skillsheet-work-history th:nth-child(3),
+.skillsheet-work-history td:nth-child(3) {
   /* 業務内容 - 残り幅を使用 */
 }
 
-.skillsheet-work-history th:nth-child(4) {
+.skillsheet-work-history th:nth-child(4),
+.skillsheet-work-history td:nth-child(4) {
   width: 70px;
 }
 
-.skillsheet-work-history th:nth-child(5) {
+.skillsheet-work-history th:nth-child(5),
+.skillsheet-work-history td:nth-child(5) {
   width: 130px;
+}
+
+.skillsheet-work-history td {
+  vertical-align: middle !important;
+}
+
+/* 職務経歴の各行は固定高さ（300文字/10行制限に基づく） */
+.skillsheet-work-history-row {
+  margin-top: -1px; /* ボーダーの重なりを調整 */
+}
+
+.skillsheet-work-history-row tbody tr {
+  height: 180px;
+  max-height: 180px;
+}
+
+.skillsheet-work-history-row tbody tr td {
+  height: 180px;
+  max-height: 180px;
+  overflow: hidden;
 }
 
 .skillsheet-work-history .period-cell {
   font-size: 10px;
   text-align: center;
-  white-space: nowrap;
+  vertical-align: middle !important;
+}
+
+.skillsheet-work-history .period-cell .period-start,
+.skillsheet-work-history .period-cell .period-end {
+  display: block;
+}
+
+.skillsheet-work-history .period-cell .period-separator {
+  display: block;
+  font-size: 8px;
+  color: #666;
 }
 
 .skillsheet-work-history .center-cell {
@@ -183,11 +285,20 @@
 
 /* 印刷用スタイル */
 @media print {
-  .skillsheet-template {
+  .skillsheet-pages {
+    gap: 0;
+  }
+
+  .skillsheet-page {
     width: 210mm;
-    min-height: 297mm;
+    height: 297mm;
     padding: 10mm;
     margin: 0;
     box-shadow: none;
+    page-break-after: always;
+  }
+
+  .skillsheet-page:last-child {
+    page-break-after: auto;
   }
 }

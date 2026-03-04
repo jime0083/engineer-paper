@@ -15,6 +15,7 @@ function TextArea({
   error = '',
   disabled = false,
   maxLength,
+  maxLines,
   rows = 5,
   showCount = false,
   guideText = '',
@@ -23,7 +24,32 @@ function TextArea({
   const textareaId = `textarea-${name}`;
   const hasError = !!error;
   const currentLength = value ? value.length : 0;
+  const currentLines = value ? value.split('\n').length : 0;
   const isOverLimit = maxLength && currentLength > maxLength;
+  const isOverLines = maxLines && currentLines > maxLines;
+
+  // 行数制限を適用するハンドラー
+  const handleChange = (e) => {
+    const newValue = e.target.value;
+    const lines = newValue.split('\n');
+
+    // 行数制限がある場合、超過分を切り詰める
+    if (maxLines && lines.length > maxLines) {
+      const truncatedValue = lines.slice(0, maxLines).join('\n');
+      const syntheticEvent = {
+        ...e,
+        target: {
+          ...e.target,
+          name: e.target.name,
+          value: truncatedValue,
+        },
+      };
+      onChange(syntheticEvent);
+      return;
+    }
+
+    onChange(e);
+  };
 
   return (
     <div className={`textarea-wrapper ${className}`}>
@@ -38,12 +64,12 @@ function TextArea({
         id={textareaId}
         name={name}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
         maxLength={maxLength}
         rows={rows}
-        className={`textarea ${hasError || isOverLimit ? 'textarea--error' : ''}`}
+        className={`textarea ${hasError || isOverLimit || isOverLines ? 'textarea--error' : ''}`}
         aria-invalid={hasError}
         aria-describedby={hasError ? `${textareaId}-error` : undefined}
       />
@@ -53,13 +79,22 @@ function TextArea({
             {error}
           </span>
         )}
-        {showCount && maxLength && (
-          <span
-            className={`textarea-count ${isOverLimit ? 'textarea-count--error' : ''}`}
-          >
-            {currentLength} / {maxLength}
-          </span>
-        )}
+        <div className="textarea-counts">
+          {showCount && maxLength && (
+            <span
+              className={`textarea-count ${isOverLimit ? 'textarea-count--error' : ''}`}
+            >
+              {currentLength} / {maxLength}文字
+            </span>
+          )}
+          {showCount && maxLines && (
+            <span
+              className={`textarea-count ${isOverLines ? 'textarea-count--error' : ''}`}
+            >
+              {currentLines} / {maxLines}行
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

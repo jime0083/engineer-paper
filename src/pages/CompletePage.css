@@ -40,6 +40,41 @@
   margin: 0 auto var(--spacing-2xl);
 }
 
+/* PDFボタン - ホバー時に反転 */
+.complete-actions .button--primary:not(.button--word):not(.button--excel) {
+  border: 2px solid var(--color-secondary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.complete-actions .button--primary:not(.button--word):not(.button--excel):hover:not(:disabled) {
+  background-color: var(--color-white);
+  color: var(--color-secondary);
+}
+
+/* Wordボタン - Microsoft Word青 */
+.complete-actions .button--word {
+  background-color: #2B579A;
+  border: 2px solid #2B579A;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.complete-actions .button--word:hover:not(:disabled) {
+  background-color: var(--color-white);
+  color: #2B579A;
+}
+
+/* Excelボタン - Microsoft Excel緑 */
+.complete-actions .button--excel {
+  background-color: #217346;
+  border: 2px solid #217346;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.complete-actions .button--excel:hover:not(:disabled) {
+  background-color: var(--color-white);
+  color: #217346;
+}
+
 .affiliate-section {
   margin: var(--spacing-2xl) 0;
   padding: var(--spacing-xl);
@@ -56,20 +91,24 @@
 
 .affiliate-links {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-md);
-  justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
 .affiliate-link {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius-md);
   text-decoration: none;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  min-width: 150px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
+  width: 100%;
+  max-width: 350px;
+  min-height: 56px;
+  text-align: center;
+  border: 2px solid transparent;
 }
 
 .affiliate-link:hover {
@@ -80,17 +119,23 @@
 .affiliate-link--freelance {
   background-color: var(--color-primary);
   color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.affiliate-link--freelance:hover {
+  background-color: var(--color-white);
+  color: var(--color-primary);
 }
 
 .affiliate-link--career {
   background-color: var(--color-secondary);
   color: var(--color-white);
+  border-color: var(--color-secondary);
 }
 
-.affiliate-link-label {
-  font-size: var(--font-size-xs);
-  opacity: 0.9;
-  margin-bottom: var(--spacing-xs);
+.affiliate-link--career:hover {
+  background-color: var(--color-white);
+  color: var(--color-secondary);
 }
 
 .affiliate-link-text {
@@ -106,8 +151,9 @@
 .pdf-template-hidden {
   position: absolute;
   left: -9999px;
-  top: -9999px;
-  visibility: hidden;
+  top: 0;
+  width: 210mm;
+  /* visibility: hiddenは使用しない（html2canvasがキャプチャできなくなるため） */
 }
 
 /* ローディングオーバーレイ */
@@ -126,13 +172,12 @@
 
 /* レスポンシブ対応 */
 @media (max-width: 480px) {
-  .affiliate-links {
-    flex-direction: column;
-    align-items: center;
+  .affiliate-link {
+    max-width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 
-  .affiliate-link {
-    width: 100%;
-    max-width: 250px;
+  .affiliate-link-text {
+    font-size: var(--font-size-sm);
   }
 }

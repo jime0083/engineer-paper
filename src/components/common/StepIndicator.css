@@ -8,9 +8,11 @@
   border-bottom: var(--border-width) solid var(--color-border);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  /* 上部に固定 */
-  position: sticky;
-  top: 0;
+  /* 上部に固定（ヘッダーの下） */
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -43,7 +45,7 @@
 }
 
 .step-item--clickable:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid #0103F9;
   outline-offset: 2px;
 }
 
@@ -63,14 +65,14 @@
 }
 
 .step-icon--completed {
-  background-color: var(--color-primary);
+  background-color: #0103F9;
   color: var(--color-white);
 }
 
 .step-icon--current {
-  background-color: var(--color-primary);
+  background-color: #0103F9;
   color: var(--color-white);
-  box-shadow: 0 0 0 4px rgba(74, 159, 110, 0.2);
+  box-shadow: 0 0 0 4px rgba(1, 3, 249, 0.2);
 }
 
 .step-icon--pending {
@@ -100,12 +102,12 @@
 }
 
 .step-label--completed {
-  color: var(--color-primary);
+  color: #0103F9;
   font-weight: var(--font-weight-medium);
 }
 
 .step-label--current {
-  color: var(--color-primary);
+  color: #0103F9;
   font-weight: var(--font-weight-bold);
 }
 
@@ -124,7 +126,7 @@
 }
 
 .step-connector--completed {
-  background-color: var(--color-primary);
+  background-color: #0103F9;
 }
 
 .step-connector--pending {
