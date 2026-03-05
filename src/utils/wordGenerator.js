@@ -459,19 +459,15 @@ export function generateWordDocument(formData) {
       })
     );
     // 改行を含むテキストを複数のParagraphに分割
-    const selfPRParagraphs = createParagraphsWithBreaks(selfPR.selfPR, { size: 20 });
-    selfPRParagraphs.forEach((para, index) => {
-      if (index === selfPRParagraphs.length - 1) {
-        // 最後のParagraphにspacing.afterを追加
-        sections.push(
-          new Paragraph({
-            children: para.options.children,
-            spacing: { after: 400 },
-          })
-        );
-      } else {
-        sections.push(para);
-      }
+    const selfPRLines = selfPR.selfPR.split('\n');
+    selfPRLines.forEach((line, index) => {
+      const isLast = index === selfPRLines.length - 1;
+      sections.push(
+        new Paragraph({
+          children: [new TextRun({ text: line || '', size: 20 })],
+          spacing: isLast ? { after: 400 } : undefined,
+        })
+      );
     });
   }
 
