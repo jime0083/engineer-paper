@@ -7,10 +7,10 @@
      カラーパレット
      ======================================== */
 
-  /* プライマリカラー（緑系 - ステップインジケーター） */
-  --color-primary: #4a9f6e;
-  --color-primary-light: #6db88a;
-  --color-primary-dark: #3a7f58;
+  /* プライマリカラー（青系 - ステップインジケーター） */
+  --color-primary: #0007F5;
+  --color-primary-light: #3339F7;
+  --color-primary-dark: #0005C4;
 
   /* セカンダリカラー（ピンク系 - ボタン） */
   --color-secondary: #e85a7e;
@@ -56,7 +56,7 @@
   /* ボーダーカラー */
   --color-border: #e0e0e0;
   --color-border-light: #eeeeee;
-  --color-border-focus: #4a9f6e;
+  --color-border-focus: #0007F5;
   --color-border-error: #f44336;
 
   /* ========================================
