@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { FormProvider } from './context/FormContext';
 import MainLayout from './components/layout/MainLayout';
+import ScrollToTop from './components/common/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import AddressPage from './pages/AddressPage';
@@ -20,6 +21,7 @@ function App() {
   return (
     <FormProvider>
       <HashRouter>
+        <ScrollToTop />
         <MainLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
