@@ -176,118 +176,120 @@ export async function generateExcelWorkbook(formData) {
   const { profile, address, contact, skills, workHistories, selfPR, creationDate } = formData;
 
   const workbook = new ExcelJS.Workbook();
-  const sheet = workbook.addWorksheet('スキルシート');
 
-  // 列幅を設定
-  sheet.columns = [
-    { width: 12 },
-    { width: 18 },
-    { width: 12 },
-    { width: 18 },
-    { width: 15 },
-    { width: 20 },
+  // ========== シート1: プロフィール ==========
+  const profileSheet = workbook.addWorksheet('プロフィール');
+
+  // 列幅を設定（プロフィール用）
+  profileSheet.columns = [
+    { width: 12 },  // A
+    { width: 18 },  // B
+    { width: 12 },  // C
+    { width: 18 },  // D
+    { width: 15 },  // E
+    { width: 20 },  // F
   ];
 
   let rowNum = 1;
 
   // タイトル
-  sheet.mergeCells(`A${rowNum}:F${rowNum}`);
-  const titleCell = sheet.getCell(`A${rowNum}`);
-  titleCell.value = 'スキルシート';
-  titleCell.font = { bold: true, size: 18 };
-  titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-  sheet.getRow(rowNum).height = 30;
+  profileSheet.mergeCells(`A${rowNum}:F${rowNum}`);
+  let cell = profileSheet.getCell(`A${rowNum}`);
+  cell.value = 'スキルシート';
+  cell.font = { bold: true, size: 18 };
+  cell.alignment = { horizontal: 'center', vertical: 'middle' };
+  profileSheet.getRow(rowNum).height = 30;
   rowNum++;
 
   // 作成日
-  sheet.mergeCells(`A${rowNum}:F${rowNum}`);
-  const dateCell = sheet.getCell(`A${rowNum}`);
-  dateCell.value = `作成日: ${formatCreationDate(creationDate)}`;
-  dateCell.alignment = { horizontal: 'right', vertical: 'middle' };
-  dateCell.font = { size: 10 };
+  profileSheet.mergeCells(`A${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
+  cell.value = `作成日: ${formatCreationDate(creationDate)}`;
+  cell.alignment = { horizontal: 'right', vertical: 'middle' };
+  cell.font = { size: 10 };
   rowNum += 2;
 
   // 基本情報
   // 行1: 氏名・ふりがな
-  let cell = sheet.getCell(`A${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
   cell.value = '氏名';
   setLabelStyle(cell);
-  cell = sheet.getCell(`B${rowNum}`);
+  cell = profileSheet.getCell(`B${rowNum}`);
   cell.value = `${profile.lastName || ''} ${profile.firstName || ''}`;
   setCellStyle(cell);
-  cell = sheet.getCell(`C${rowNum}`);
+  cell = profileSheet.getCell(`C${rowNum}`);
   cell.value = 'ふりがな';
   setLabelStyle(cell);
-  sheet.mergeCells(`D${rowNum}:F${rowNum}`);
-  cell = sheet.getCell(`D${rowNum}`);
+  profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`D${rowNum}`);
   cell.value = `${profile.lastNameKana || ''} ${profile.firstNameKana || ''}`;
   setCellStyle(cell);
   rowNum++;
 
   // 行2: 性別・生年月日
-  cell = sheet.getCell(`A${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
   cell.value = '性別';
   setLabelStyle(cell);
-  cell = sheet.getCell(`B${rowNum}`);
+  cell = profileSheet.getCell(`B${rowNum}`);
   cell.value = formatGender(profile.gender);
   setCellStyle(cell);
-  cell = sheet.getCell(`C${rowNum}`);
+  cell = profileSheet.getCell(`C${rowNum}`);
   cell.value = '生年月日';
   setLabelStyle(cell);
-  sheet.mergeCells(`D${rowNum}:F${rowNum}`);
-  cell = sheet.getCell(`D${rowNum}`);
+  profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`D${rowNum}`);
   cell.value = formatBirthDate(profile.birthDate);
   setCellStyle(cell);
   rowNum++;
 
   // 行3: 年齢・最寄駅
-  cell = sheet.getCell(`A${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
   cell.value = '年齢';
   setLabelStyle(cell);
-  cell = sheet.getCell(`B${rowNum}`);
+  cell = profileSheet.getCell(`B${rowNum}`);
   cell.value = calculateAge(profile.birthDate);
   setCellStyle(cell);
-  cell = sheet.getCell(`C${rowNum}`);
+  cell = profileSheet.getCell(`C${rowNum}`);
   cell.value = '最寄駅';
   setLabelStyle(cell);
-  sheet.mergeCells(`D${rowNum}:F${rowNum}`);
-  cell = sheet.getCell(`D${rowNum}`);
+  profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`D${rowNum}`);
   cell.value = address.nearestStation || '-';
   setCellStyle(cell);
   rowNum++;
 
   // 行4: 住所
-  cell = sheet.getCell(`A${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
   cell.value = '住所';
   setLabelStyle(cell);
-  sheet.mergeCells(`B${rowNum}:F${rowNum}`);
-  cell = sheet.getCell(`B${rowNum}`);
+  profileSheet.mergeCells(`B${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`B${rowNum}`);
   cell.value = formatAddress(address);
   setCellStyle(cell);
   rowNum++;
 
   // 行5: 電話番号・メール
-  cell = sheet.getCell(`A${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
   cell.value = '電話番号';
   setLabelStyle(cell);
-  cell = sheet.getCell(`B${rowNum}`);
+  cell = profileSheet.getCell(`B${rowNum}`);
   cell.value = contact?.phone || '-';
   setCellStyle(cell);
-  cell = sheet.getCell(`C${rowNum}`);
+  cell = profileSheet.getCell(`C${rowNum}`);
   cell.value = 'メール';
   setLabelStyle(cell);
-  sheet.mergeCells(`D${rowNum}:F${rowNum}`);
-  cell = sheet.getCell(`D${rowNum}`);
+  profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`D${rowNum}`);
   cell.value = contact?.email || '-';
   setCellStyle(cell);
   rowNum++;
 
   // 行6: 資格
-  cell = sheet.getCell(`A${rowNum}`);
+  cell = profileSheet.getCell(`A${rowNum}`);
   cell.value = '資格';
   setLabelStyle(cell);
-  sheet.mergeCells(`B${rowNum}:F${rowNum}`);
-  cell = sheet.getCell(`B${rowNum}`);
+  profileSheet.mergeCells(`B${rowNum}:F${rowNum}`);
+  cell = profileSheet.getCell(`B${rowNum}`);
   cell.value = profile.qualifications || '-';
   setCellStyle(cell);
   rowNum += 2;
@@ -295,38 +297,38 @@ export async function generateExcelWorkbook(formData) {
   // スキル
   const confirmedSkills = skills.filter((s) => s.name && s.isConfirmed);
   if (confirmedSkills.length > 0) {
-    sheet.mergeCells(`A${rowNum}:F${rowNum}`);
-    cell = sheet.getCell(`A${rowNum}`);
+    profileSheet.mergeCells(`A${rowNum}:F${rowNum}`);
+    cell = profileSheet.getCell(`A${rowNum}`);
     cell.value = 'スキル';
     cell.font = { bold: true, size: 12 };
     rowNum++;
 
     // ヘッダー
-    cell = sheet.getCell(`A${rowNum}`);
+    cell = profileSheet.getCell(`A${rowNum}`);
     cell.value = 'スキル';
     setHeaderStyle(cell);
-    sheet.mergeCells(`B${rowNum}:C${rowNum}`);
-    cell = sheet.getCell(`B${rowNum}`);
+    profileSheet.mergeCells(`B${rowNum}:C${rowNum}`);
+    cell = profileSheet.getCell(`B${rowNum}`);
     cell.value = '経験年数';
     setHeaderStyle(cell);
-    sheet.mergeCells(`D${rowNum}:F${rowNum}`);
-    cell = sheet.getCell(`D${rowNum}`);
+    profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+    cell = profileSheet.getCell(`D${rowNum}`);
     cell.value = '習熟度・説明';
     setHeaderStyle(cell);
     rowNum++;
 
     // データ
     confirmedSkills.forEach((skill) => {
-      cell = sheet.getCell(`A${rowNum}`);
+      cell = profileSheet.getCell(`A${rowNum}`);
       cell.value = skill.name;
       setCellStyle(cell);
-      sheet.mergeCells(`B${rowNum}:C${rowNum}`);
-      cell = sheet.getCell(`B${rowNum}`);
+      profileSheet.mergeCells(`B${rowNum}:C${rowNum}`);
+      cell = profileSheet.getCell(`B${rowNum}`);
       cell.value = skill.experience;
       setCellStyle(cell);
       cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      sheet.mergeCells(`D${rowNum}:F${rowNum}`);
-      cell = sheet.getCell(`D${rowNum}`);
+      profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+      cell = profileSheet.getCell(`D${rowNum}`);
       cell.value = skill.description || '-';
       setCellStyle(cell);
       rowNum++;
@@ -337,22 +339,32 @@ export async function generateExcelWorkbook(formData) {
 
   // 自己PR
   if (selfPR?.selfPR) {
-    sheet.mergeCells(`A${rowNum}:F${rowNum}`);
-    cell = sheet.getCell(`A${rowNum}`);
+    profileSheet.mergeCells(`A${rowNum}:F${rowNum}`);
+    cell = profileSheet.getCell(`A${rowNum}`);
     cell.value = '自己PR';
     cell.font = { bold: true, size: 12 };
     rowNum++;
 
-    sheet.mergeCells(`A${rowNum}:F${rowNum}`);
-    cell = sheet.getCell(`A${rowNum}`);
+    profileSheet.mergeCells(`A${rowNum}:F${rowNum}`);
+    cell = profileSheet.getCell(`A${rowNum}`);
     cell.value = selfPR.selfPR;
     setCellStyle(cell);
     cell.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
-    sheet.getRow(rowNum).height = 60;
-    rowNum += 2;
+    profileSheet.getRow(rowNum).height = 120;
   }
 
-  // 職務経歴
+  // ========== シート2: 職務経歴 ==========
+  const workSheet = workbook.addWorksheet('職務経歴');
+
+  // 列幅を設定（職務経歴用、業務内容を広く）
+  workSheet.columns = [
+    { width: 14 },  // A: 期間
+    { width: 10 },  // B: 稼働
+    { width: 60 },  // C: 業務内容（広め）
+    { width: 15 },  // D: 役割/規模
+    { width: 30 },  // E: 言語等
+  ];
+
   const confirmedHistories = workHistories
     .filter((h) => h.projectName && h.isConfirmed)
     .sort((a, b) => {
@@ -361,56 +373,65 @@ export async function generateExcelWorkbook(formData) {
       return dateB - dateA;
     });
 
-  if (confirmedHistories.length > 0) {
-    sheet.mergeCells(`A${rowNum}:F${rowNum}`);
-    cell = sheet.getCell(`A${rowNum}`);
-    cell.value = '職務経歴';
-    cell.font = { bold: true, size: 12 };
-    rowNum++;
+  let workRow = 1;
 
+  // タイトル
+  workSheet.mergeCells(`A${workRow}:E${workRow}`);
+  cell = workSheet.getCell(`A${workRow}`);
+  cell.value = '職務経歴';
+  cell.font = { bold: true, size: 18 };
+  cell.alignment = { horizontal: 'center', vertical: 'middle' };
+  workSheet.getRow(workRow).height = 30;
+  workRow += 2;
+
+  if (confirmedHistories.length > 0) {
     // ヘッダー
-    cell = sheet.getCell(`A${rowNum}`);
+    cell = workSheet.getCell(`A${workRow}`);
     cell.value = '期間';
     setHeaderStyle(cell);
-    cell = sheet.getCell(`B${rowNum}`);
+    cell = workSheet.getCell(`B${workRow}`);
     cell.value = '稼働';
     setHeaderStyle(cell);
-    cell = sheet.getCell(`C${rowNum}`);
+    cell = workSheet.getCell(`C${workRow}`);
     cell.value = '業務内容';
     setHeaderStyle(cell);
-    cell = sheet.getCell(`D${rowNum}`);
+    cell = workSheet.getCell(`D${workRow}`);
     cell.value = '役割/規模';
     setHeaderStyle(cell);
-    sheet.mergeCells(`E${rowNum}:F${rowNum}`);
-    cell = sheet.getCell(`E${rowNum}`);
+    cell = workSheet.getCell(`E${workRow}`);
     cell.value = '言語/FW/MW/ツール等';
     setHeaderStyle(cell);
-    rowNum++;
+    workRow++;
 
     // データ
     confirmedHistories.forEach((history) => {
       const techStack = [history.languages, history.tools].filter(Boolean).join('\n');
 
-      cell = sheet.getCell(`A${rowNum}`);
+      cell = workSheet.getCell(`A${workRow}`);
       cell.value = formatPeriod(history);
       setCellStyle(cell);
-      cell = sheet.getCell(`B${rowNum}`);
+      cell = workSheet.getCell(`B${workRow}`);
       cell.value = calculateWorkDuration(history);
       setCellStyle(cell);
       cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      cell = sheet.getCell(`C${rowNum}`);
+      cell = workSheet.getCell(`C${workRow}`);
       cell.value = `${history.projectName || ''}\n${history.description || ''}`;
       setCellStyle(cell);
-      cell = sheet.getCell(`D${rowNum}`);
+      cell = workSheet.getCell(`D${workRow}`);
       cell.value = `${history.role || '-'}\n${history.scale || ''}`;
       setCellStyle(cell);
-      sheet.mergeCells(`E${rowNum}:F${rowNum}`);
-      cell = sheet.getCell(`E${rowNum}`);
+      cell = workSheet.getCell(`E${workRow}`);
       cell.value = techStack || '-';
       setCellStyle(cell);
-      sheet.getRow(rowNum).height = 40;
-      rowNum++;
+      workSheet.getRow(workRow).height = 80;
+      workRow++;
     });
+  } else {
+    // 職務経歴がない場合
+    workSheet.mergeCells(`A${workRow}:E${workRow}`);
+    cell = workSheet.getCell(`A${workRow}`);
+    cell.value = '職務経歴はありません';
+    cell.alignment = { horizontal: 'center', vertical: 'middle' };
   }
 
   return workbook;
