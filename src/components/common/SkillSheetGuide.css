@@ -1,17 +1,24 @@
 /**
  * スキルシートの書き方ガイド
+ * main-contentの中に配置され、全幅に広がる
  */
 
 .skill-sheet-guide {
   background-color: #f5f5f5;
   padding: 48px var(--spacing-md);
   margin-top: 32px;
+  /* main-contentのpaddingを打ち消して全幅に広げる */
+  margin-left: calc(-1 * var(--spacing-md));
+  margin-right: calc(-1 * var(--spacing-md));
+  margin-bottom: calc(-1 * var(--spacing-md));
+  /* border-radiusの下部を合わせる */
+  border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
 }
 
 .skill-sheet-guide-container {
-  max-width: var(--content-max-width);
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .skill-sheet-guide-title {
