@@ -1,0 +1,156 @@
+/**
+ * スキルシートの書き方ガイド
+ */
+
+.skill-sheet-guide {
+  background-color: #f5f5f5;
+  padding: 48px 24px;
+  margin-top: 32px;
+}
+
+.skill-sheet-guide-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.skill-sheet-guide-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.skill-sheet-guide-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* セクション */
+.guide-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.guide-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3b5998;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e8e8e8;
+}
+
+.guide-section-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444444;
+}
+
+/* コツ一覧 */
+.guide-tips {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guide-tip {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.guide-tip-number {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #3b5998 0%, #5a7bc0 100%);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.guide-tip-content {
+  flex: 1;
+}
+
+.guide-tip-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+
+.guide-tip-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555555;
+}
+
+/* FAQ */
+.guide-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guide-faq-item {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.guide-faq-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.guide-faq-question {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.guide-faq-answer {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555555;
+  padding-left: 20px;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .skill-sheet-guide {
+    padding: 32px 16px;
+  }
+
+  .skill-sheet-guide-title {
+    font-size: 24px;
+  }
+
+  .guide-section {
+    padding: 20px 16px;
+  }
+
+  .guide-section-title {
+    font-size: 18px;
+  }
+
+  .guide-tip {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .guide-tip-number {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+  }
+}

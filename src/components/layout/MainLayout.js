@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import AdPlaceholder from './AdPlaceholder';
+import SkillSheetGuide from '../common/SkillSheetGuide';
 import useBeforeUnload from '../../hooks/useBeforeUnload';
 import './MainLayout.css';
 
@@ -21,6 +22,7 @@ function MainLayout({ children }) {
         <main className="main-content">{children}</main>
         <AdPlaceholder position="right" />
       </div>
+      <SkillSheetGuide />
       <AdPlaceholder position="bottom" />
       <Footer />
     </div>
