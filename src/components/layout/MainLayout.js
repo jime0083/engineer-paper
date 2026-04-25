@@ -19,12 +19,10 @@ function MainLayout({ children }) {
       <Header />
       <div className="main-body">
         <AdPlaceholder position="left" />
-        <main className="main-content">
-          {children}
-          <SkillSheetGuide />
-        </main>
+        <main className="main-content">{children}</main>
         <AdPlaceholder position="right" />
       </div>
+      <SkillSheetGuide />
       <AdPlaceholder position="bottom" />
       <Footer />
     </div>

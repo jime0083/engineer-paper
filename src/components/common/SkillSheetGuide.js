@@ -1,17 +1,21 @@
 import React from 'react';
+import AdPlaceholder from '../layout/AdPlaceholder';
 import './SkillSheetGuide.css';
 
 /**
  * スキルシートの書き方ガイドコンポーネント
  * 全ページの下部に常時表示される有用なコンテンツ
+ * main-bodyと同じflex構造（広告+コンテンツ+広告）を使用
  */
 function SkillSheetGuide() {
   return (
     <section className="skill-sheet-guide">
-      <div className="skill-sheet-guide-container">
-        <h2 className="skill-sheet-guide-title">スキルシートの書き方</h2>
+      <div className="skill-sheet-guide-body">
+        <AdPlaceholder position="left" />
+        <div className="skill-sheet-guide-container">
+          <h2 className="skill-sheet-guide-title">スキルシートの書き方</h2>
 
-        <div className="skill-sheet-guide-content">
+          <div className="skill-sheet-guide-content">
           <div className="guide-section">
             <h3 className="guide-section-title">スキルシートとは？</h3>
             <p className="guide-section-text">
@@ -114,6 +118,8 @@ function SkillSheetGuide() {
             </div>
           </div>
         </div>
+        </div>
+        <AdPlaceholder position="right" />
       </div>
     </section>
   );
