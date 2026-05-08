@@ -107,6 +107,25 @@
   gap: var(--spacing-md);
 }
 
+/* 制限の注意書き */
+.limit-notice {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: var(--spacing-md);
+}
+
+/* 期間セパレータ */
+.period-separator {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+}
+
+/* フォーム行（中央揃え） */
+.form-row--align-center {
+  align-items: center;
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 720px) {
   .step-page {

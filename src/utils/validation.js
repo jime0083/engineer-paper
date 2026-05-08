@@ -194,6 +194,44 @@ export function validateWorkHistories(workHistories) {
 }
 
 /**
+ * 経歴のバリデーション（配列形式）
+ */
+export function validateCareers(careers) {
+  const errors = [];
+  let hasError = false;
+
+  careers.forEach((career, index) => {
+    const careerErrors = {};
+
+    // 経歴は任意入力だが、一部入力されていれば全て必要
+    const hasStartPeriod = career.startPeriod?.year && career.startPeriod?.month;
+    const hasEndPeriod = career.endPeriod?.year && career.endPeriod?.month;
+    const hasCompany = career.company && career.company.trim().length > 0;
+
+    if (hasCompany || hasStartPeriod || hasEndPeriod) {
+      if (!hasStartPeriod) {
+        careerErrors.startPeriod = '開始年月を入力してください';
+        hasError = true;
+      }
+      if (!hasEndPeriod) {
+        careerErrors.endPeriod = '終了年月を入力してください';
+        hasError = true;
+      }
+      if (!hasCompany) {
+        careerErrors.company = '職歴を入力してください';
+        hasError = true;
+      }
+    }
+    errors[index] = careerErrors;
+  });
+
+  return {
+    isValid: !hasError,
+    errors,
+  };
+}
+
+/**
  * 自己PRのバリデーション
  */
 export function validateSelfPR(selfPR) {
@@ -241,8 +279,10 @@ export function validateStep(step, formData) {
     case 5:
       return validateWorkHistories(formData.workHistories);
     case 6:
-      return validateSelfPR(formData.selfPR);
+      return validateCareers(formData.careers);
     case 7:
+      return validateSelfPR(formData.selfPR);
+    case 8:
       return validateCreationDate(formData.creationDate);
     default:
       return { isValid: true, errors: {} };

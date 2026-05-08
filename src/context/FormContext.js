@@ -48,11 +48,21 @@ const initialFormData = {
       isConfirmed: false,
     },
   ],
-  // ステップ6: 自己PR
+  // ステップ6: 経歴（配列形式、最大10件）
+  careers: [
+    {
+      id: 1,
+      startPeriod: { year: '', month: '' },
+      endPeriod: { year: '', month: '' },
+      company: '',
+      isConfirmed: false,
+    },
+  ],
+  // ステップ7: 自己PR
   selfPR: {
     selfPR: '',
   },
-  // ステップ7: 作成日
+  // ステップ8: 作成日
   creationDate: {
     creationDate: { year: '', month: '', day: '' },
   },
@@ -67,6 +77,7 @@ const ActionTypes = {
   UPDATE_CONTACT: 'UPDATE_CONTACT',
   UPDATE_SKILLS: 'UPDATE_SKILLS',
   UPDATE_WORK_HISTORIES: 'UPDATE_WORK_HISTORIES',
+  UPDATE_CAREERS: 'UPDATE_CAREERS',
   UPDATE_SELF_PR: 'UPDATE_SELF_PR',
   UPDATE_CREATION_DATE: 'UPDATE_CREATION_DATE',
   LOAD_DATA: 'LOAD_DATA',
@@ -88,6 +99,8 @@ function formReducer(state, action) {
       return { ...state, skills: action.payload };
     case ActionTypes.UPDATE_WORK_HISTORIES:
       return { ...state, workHistories: action.payload };
+    case ActionTypes.UPDATE_CAREERS:
+      return { ...state, careers: action.payload };
     case ActionTypes.UPDATE_SELF_PR:
       return { ...state, selfPR: { ...state.selfPR, ...action.payload } };
     case ActionTypes.UPDATE_CREATION_DATE:
@@ -132,6 +145,10 @@ export function FormProvider({ children }) {
     dispatch({ type: ActionTypes.UPDATE_WORK_HISTORIES, payload: workHistories });
   }, []);
 
+  const updateCareers = useCallback((careers) => {
+    dispatch({ type: ActionTypes.UPDATE_CAREERS, payload: careers });
+  }, []);
+
   const updateSelfPR = useCallback((data) => {
     dispatch({ type: ActionTypes.UPDATE_SELF_PR, payload: data });
   }, []);
@@ -152,7 +169,7 @@ export function FormProvider({ children }) {
    * データが入力されているかチェック
    */
   const hasData = useCallback(() => {
-    const { profile, address, contact, skills, workHistories, selfPR } = formData;
+    const { profile, address, contact, skills, workHistories, careers, selfPR } = formData;
 
     // プロフィール
     if (profile.lastName || profile.firstName || profile.lastNameKana || profile.firstNameKana) {
@@ -172,6 +189,10 @@ export function FormProvider({ children }) {
     }
     // 職務経歴
     if (workHistories.some(history => history.projectName || history.description)) {
+      return true;
+    }
+    // 経歴
+    if (careers.some(career => career.company || career.startPeriod?.year)) {
       return true;
     }
     // 自己PR
@@ -200,6 +221,7 @@ export function FormProvider({ children }) {
     updateContact,
     updateSkills,
     updateWorkHistories,
+    updateCareers,
     updateSelfPR,
     updateCreationDate,
     loadData,

@@ -8,6 +8,7 @@ import AddressPage from './pages/AddressPage';
 import ContactPage from './pages/ContactPage';
 import SkillsPage from './pages/SkillsPage';
 import WorkHistoryPage from './pages/WorkHistoryPage';
+import CareerPage from './pages/CareerPage';
 import SelfPRPage from './pages/SelfPRPage';
 import CreationDatePage from './pages/CreationDatePage';
 import ConfirmPage from './pages/ConfirmPage';
@@ -30,10 +31,11 @@ function App() {
           <Route path="/step/3" element={<ContactPage />} />
           <Route path="/step/4" element={<SkillsPage />} />
           <Route path="/step/5" element={<WorkHistoryPage />} />
-          <Route path="/step/6" element={<SelfPRPage />} />
-          <Route path="/step/7" element={<CreationDatePage />} />
-          <Route path="/step/8" element={<ConfirmPage />} />
-          <Route path="/step/9" element={<CompletePage />} />
+          <Route path="/step/6" element={<CareerPage />} />
+          <Route path="/step/7" element={<SelfPRPage />} />
+          <Route path="/step/8" element={<CreationDatePage />} />
+          <Route path="/step/9" element={<ConfirmPage />} />
+          <Route path="/step/10" element={<CompletePage />} />
           <Route path="/preview" element={<PreviewPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />

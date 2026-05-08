@@ -24,7 +24,7 @@ const SELF_PR_BASE_HEIGHT = 50;
 const SELF_PR_LINE_HEIGHT = 15;
 
 function SkillSheetTemplate({ formData }) {
-  const { profile, address, contact, skills, workHistories, selfPR, creationDate } = formData;
+  const { profile, address, contact, skills, workHistories, careers, selfPR, creationDate } = formData;
 
   // ヘルパー関数
   const calculateAge = () => {
@@ -102,6 +102,25 @@ function SkillSheetTemplate({ formData }) {
     return { start, end };
   };
 
+  const formatCareerPeriod = (career) => {
+    if (!career?.startPeriod?.year || !career?.startPeriod?.month) return '';
+    const start = `${career.startPeriod.year}年${career.startPeriod.month}月`;
+    let end = '';
+    if (career.endPeriod?.year && career.endPeriod?.month) {
+      end = `${career.endPeriod.year}年${career.endPeriod.month}月`;
+    }
+    return `${start}〜${end}`;
+  };
+
+  // 確認済みの経歴（時系列昇順でソート）
+  const confirmedCareers = careers
+    .filter(c => c.company && c.isConfirmed)
+    .sort((a, b) => {
+      const dateA = new Date(a.startPeriod?.year || 0, (a.startPeriod?.month || 1) - 1);
+      const dateB = new Date(b.startPeriod?.year || 0, (b.startPeriod?.month || 1) - 1);
+      return dateA - dateB; // 昇順（古い順）
+    });
+
   // データ準備
   const confirmedSkills = skills.filter(s => s.name && s.isConfirmed);
   const confirmedHistories = workHistories
@@ -144,7 +163,13 @@ function SkillSheetTemplate({ formData }) {
     // 2. 基本情報テーブル
     addToPage({ type: 'basicInfo' }, BASIC_INFO_ROW_HEIGHT * 6);
 
-    // 3. スキルセクション
+    // 3. 経歴セクション
+    if (confirmedCareers.length > 0) {
+      const careerHeight = SECTION_TITLE_HEIGHT + TABLE_HEADER_HEIGHT + (confirmedCareers.length * BASIC_INFO_ROW_HEIGHT);
+      addToPage({ type: 'careers' }, careerHeight);
+    }
+
+    // 4. スキルセクション
     if (confirmedSkills.length > 0) {
       const skillsHeight = SECTION_TITLE_HEIGHT + TABLE_HEADER_HEIGHT + (confirmedSkills.length * SKILL_ROW_HEIGHT);
       addToPage({ type: 'skills' }, skillsHeight);
@@ -247,6 +272,28 @@ function SkillSheetTemplate({ formData }) {
     </table>
   );
 
+  const renderCareers = () => (
+    <>
+      <h2 className="skillsheet-section-title">経歴</h2>
+      <table className="skillsheet-table skillsheet-career">
+        <thead>
+          <tr>
+            <th>期間</th>
+            <th>職歴</th>
+          </tr>
+        </thead>
+        <tbody>
+          {confirmedCareers.map((career) => (
+            <tr key={career.id}>
+              <td>{formatCareerPeriod(career)}</td>
+              <td>{career.company || '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
+
   const renderSkills = () => (
     <>
       <h2 className="skillsheet-section-title">スキル</h2>
@@ -335,6 +382,8 @@ function SkillSheetTemplate({ formData }) {
         return renderHeader();
       case 'basicInfo':
         return renderBasicInfo();
+      case 'careers':
+        return renderCareers();
       case 'skills':
         return renderSkills();
       case 'selfPR':

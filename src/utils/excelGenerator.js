@@ -118,6 +118,19 @@ function formatPeriod(history) {
 }
 
 /**
+ * 経歴の期間をフォーマット
+ */
+function formatCareerPeriod(career) {
+  if (!career?.startPeriod?.year || !career?.startPeriod?.month) return '';
+  const start = `${career.startPeriod.year}年${career.startPeriod.month}月`;
+  let end = '';
+  if (career.endPeriod?.year && career.endPeriod?.month) {
+    end = `${career.endPeriod.year}年${career.endPeriod.month}月`;
+  }
+  return `${start}〜${end}`;
+}
+
+/**
  * ヘッダーセルのスタイルを設定
  */
 function setHeaderStyle(cell) {
@@ -173,7 +186,7 @@ function setCellStyle(cell) {
  * Excelワークブックを生成
  */
 export async function generateExcelWorkbook(formData) {
-  const { profile, address, contact, skills, workHistories, selfPR, creationDate } = formData;
+  const { profile, address, contact, skills, workHistories, careers, selfPR, creationDate } = formData;
 
   const workbook = new ExcelJS.Workbook();
 
@@ -293,6 +306,49 @@ export async function generateExcelWorkbook(formData) {
   cell.value = profile.qualifications || '-';
   setCellStyle(cell);
   rowNum += 2;
+
+  // 経歴（配列対応）
+  const confirmedCareers = careers
+    .filter((c) => c.company && c.isConfirmed)
+    .sort((a, b) => {
+      const dateA = new Date(a.startPeriod?.year || 0, (a.startPeriod?.month || 1) - 1);
+      const dateB = new Date(b.startPeriod?.year || 0, (b.startPeriod?.month || 1) - 1);
+      return dateA - dateB; // 昇順（古い順）
+    });
+
+  if (confirmedCareers.length > 0) {
+    profileSheet.mergeCells(`A${rowNum}:F${rowNum}`);
+    cell = profileSheet.getCell(`A${rowNum}`);
+    cell.value = '経歴';
+    cell.font = { bold: true, size: 12 };
+    rowNum++;
+
+    // ヘッダー
+    profileSheet.mergeCells(`A${rowNum}:C${rowNum}`);
+    cell = profileSheet.getCell(`A${rowNum}`);
+    cell.value = '期間';
+    setHeaderStyle(cell);
+    profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+    cell = profileSheet.getCell(`D${rowNum}`);
+    cell.value = '職歴';
+    setHeaderStyle(cell);
+    rowNum++;
+
+    // 経歴データ
+    confirmedCareers.forEach((career) => {
+      profileSheet.mergeCells(`A${rowNum}:C${rowNum}`);
+      cell = profileSheet.getCell(`A${rowNum}`);
+      cell.value = formatCareerPeriod(career);
+      setCellStyle(cell);
+      profileSheet.mergeCells(`D${rowNum}:F${rowNum}`);
+      cell = profileSheet.getCell(`D${rowNum}`);
+      cell.value = career.company || '-';
+      setCellStyle(cell);
+      rowNum++;
+    });
+
+    rowNum++;
+  }
 
   // スキル
   const confirmedSkills = skills.filter((s) => s.name && s.isConfirmed);

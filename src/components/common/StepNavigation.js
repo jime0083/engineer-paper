@@ -7,7 +7,7 @@ import './StepNavigation.css';
  */
 function StepNavigation({
   currentStep,
-  totalSteps = 9,
+  totalSteps = 10,
   onPrev,
   onNext,
   onPreview,

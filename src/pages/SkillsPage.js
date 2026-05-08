@@ -10,8 +10,10 @@ import ProgressBar from '../components/common/ProgressBar';
 import StepNavigation from '../components/common/StepNavigation';
 import './StepPage.css';
 
+const MAX_SKILLS = 10;
+
 /**
- * ステップ5 - スキル画面
+ * ステップ4 - スキル画面
  */
 function SkillsPage() {
   const navigate = useNavigate();
@@ -25,6 +27,10 @@ function SkillsPage() {
   }, [contextData.skills]);
 
   const handleAddSkill = () => {
+    if (skills.length >= MAX_SKILLS) {
+      alert(`スキルは最大${MAX_SKILLS}個までです`);
+      return;
+    }
     const newId = Math.max(...skills.map((s) => s.id), 0) + 1;
     const newSkills = [
       ...skills,
@@ -33,6 +39,8 @@ function SkillsPage() {
     setSkills(newSkills);
     updateSkills(newSkills);
   };
+
+  const canAddMore = skills.length < MAX_SKILLS;
 
   const handleChangeSkill = (index, updatedSkill) => {
     const newSkills = [...skills];
@@ -98,7 +106,7 @@ function SkillsPage() {
         )}
 
         <div className="add-card-area">
-          <AddButton onClick={handleAddSkill} />
+          <AddButton onClick={handleAddSkill} disabled={!canAddMore} />
         </div>
 
         <div className="card-list">
@@ -115,6 +123,8 @@ function SkillsPage() {
             />
           ))}
         </div>
+
+        <p className="limit-notice">※ スキルは最大{MAX_SKILLS}個まで登録できます</p>
       </div>
 
       <StepNavigation

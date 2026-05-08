@@ -408,8 +408,62 @@ function createWorkHistoryTable(workHistories) {
 /**
  * Wordドキュメントを生成
  */
+/**
+ * 経歴の期間をフォーマット
+ */
+function formatCareerPeriod(career) {
+  if (!career?.startPeriod?.year || !career?.startPeriod?.month) return '';
+  const start = `${career.startPeriod.year}年${career.startPeriod.month}月`;
+  let end = '';
+  if (career.endPeriod?.year && career.endPeriod?.month) {
+    end = `${career.endPeriod.year}年${career.endPeriod.month}月`;
+  }
+  return `${start}〜${end}`;
+}
+
+/**
+ * 経歴テーブルを作成（配列対応）
+ */
+function createCareersTable(careers) {
+  // 確認済みの経歴を昇順でソート
+  const confirmedCareers = careers
+    .filter((c) => c.company && c.isConfirmed)
+    .sort((a, b) => {
+      const dateA = new Date(a.startPeriod?.year || 0, (a.startPeriod?.month || 1) - 1);
+      const dateB = new Date(b.startPeriod?.year || 0, (b.startPeriod?.month || 1) - 1);
+      return dateA - dateB; // 昇順（古い順）
+    });
+
+  if (confirmedCareers.length === 0) return null;
+
+  const headerRow = new TableRow({
+    children: [
+      createHeaderCell('期間', 40),
+      createHeaderCell('職歴', 60),
+    ],
+  });
+
+  const dataRows = confirmedCareers.map(
+    (career) =>
+      new TableRow({
+        children: [
+          createCell(formatCareerPeriod(career), 40),
+          createCell(career.company || '-', 60),
+        ],
+      })
+  );
+
+  return new Table({
+    width: { size: 100, type: WidthType.PERCENTAGE },
+    rows: [headerRow, ...dataRows],
+  });
+}
+
+/**
+ * Wordドキュメントを生成
+ */
 export function generateWordDocument(formData) {
-  const { skills, workHistories, selfPR, creationDate } = formData;
+  const { skills, workHistories, careers, selfPR, creationDate } = formData;
 
   const sections = [];
 
@@ -434,6 +488,20 @@ export function generateWordDocument(formData) {
   // 基本情報
   sections.push(createBasicInfoTable(formData));
   sections.push(new Paragraph({ spacing: { after: 400 } }));
+
+  // 経歴
+  const careersTable = createCareersTable(careers);
+  if (careersTable) {
+    sections.push(
+      new Paragraph({
+        children: [new TextRun({ text: '経歴', bold: true, size: 28 })],
+        heading: HeadingLevel.HEADING_2,
+        spacing: { before: 400, after: 200 },
+      })
+    );
+    sections.push(careersTable);
+    sections.push(new Paragraph({ spacing: { after: 400 } }));
+  }
 
   // スキル
   const skillsTable = createSkillsTable(skills);

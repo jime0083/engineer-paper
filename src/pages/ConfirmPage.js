@@ -20,11 +20,11 @@ function ConfirmPage() {
   const [saveError, setSaveError] = useState(null);
 
   const handlePrev = () => {
-    navigate('/step/7');
+    navigate('/step/8');
   };
 
   const handleNext = () => {
-    navigate('/step/9');
+    navigate('/step/10');
   };
 
   const handlePreview = () => {
@@ -56,8 +56,8 @@ function ConfirmPage() {
 
   return (
     <div className="step-page">
-      <StepIndicator currentStep={8} />
-      <ProgressBar currentStep={8} />
+      <StepIndicator currentStep={9} />
+      <ProgressBar currentStep={9} />
 
       <div className="step-page-content">
         <h2 className="step-page-title">確認</h2>
@@ -98,6 +98,10 @@ function ConfirmPage() {
               <span className="confirm-summary-label">職務経歴数</span>
               <span className="confirm-summary-value">{formData.workHistories.filter(w => w.projectName).length}件</span>
             </div>
+            <div className="confirm-summary-item">
+              <span className="confirm-summary-label">経歴数</span>
+              <span className="confirm-summary-value">{formData.careers.filter(c => c.company).length}件</span>
+            </div>
           </div>
 
           <div className="confirm-preview-area">
@@ -128,7 +132,7 @@ function ConfirmPage() {
       </div>
 
       <StepNavigation
-        currentStep={8}
+        currentStep={9}
         onPrev={handlePrev}
         onNext={handleNext}
         onPreview={handlePreview}

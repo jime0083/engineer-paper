@@ -32,7 +32,7 @@ function SelfPRPage() {
   };
 
   const handlePrev = () => {
-    navigate('/step/5');
+    navigate('/step/6');
   };
 
   const handleNext = () => {
@@ -41,7 +41,7 @@ function SelfPRPage() {
       setErrors(result.errors);
       return;
     }
-    navigate('/step/7');
+    navigate('/step/8');
   };
 
   const handlePreview = () => {
@@ -50,8 +50,8 @@ function SelfPRPage() {
 
   return (
     <div className="step-page">
-      <StepIndicator currentStep={6} />
-      <ProgressBar currentStep={6} />
+      <StepIndicator currentStep={7} />
+      <ProgressBar currentStep={7} />
 
       <div className="step-page-content">
         <h2 className="step-page-title">自己PR</h2>
@@ -75,7 +75,7 @@ function SelfPRPage() {
       </div>
 
       <StepNavigation
-        currentStep={6}
+        currentStep={7}
         onPrev={handlePrev}
         onNext={handleNext}
         onPreview={handlePreview}

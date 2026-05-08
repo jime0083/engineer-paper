@@ -11,10 +11,11 @@ const STEPS = [
   { id: 3, label: '連絡先', path: '/step/3' },
   { id: 4, label: 'スキル', path: '/step/4' },
   { id: 5, label: '職務経歴', path: '/step/5' },
-  { id: 6, label: '自己PR', path: '/step/6' },
-  { id: 7, label: '作成日', path: '/step/7' },
-  { id: 8, label: '確認', path: '/step/8' },
-  { id: 9, label: '完了', path: '/complete' },
+  { id: 6, label: '経歴', path: '/step/6' },
+  { id: 7, label: '自己PR', path: '/step/7' },
+  { id: 8, label: '作成日', path: '/step/8' },
+  { id: 9, label: '確認', path: '/step/9' },
+  { id: 10, label: '完了', path: '/complete' },
 ];
 
 /**
