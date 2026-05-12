@@ -160,6 +160,20 @@
   vertical-align: middle !important;
 }
 
+/* 経歴テーブル */
+.skillsheet-career {
+  margin-bottom: 12px;
+}
+
+.skillsheet-career th:nth-child(1),
+.skillsheet-career td:nth-child(1) {
+  width: 190px;
+}
+
+.skillsheet-career td {
+  vertical-align: middle !important;
+}
+
 /* 自己PR */
 .skillsheet-selfpr {
   border: 1px solid #666;
