@@ -249,6 +249,44 @@
 
 ================================================================================
 
+## 完了済み: Phase 12 - 経歴機能の強化
+================================================================================
+
+### Phase 12.1: 経歴の複数入力対応（2026-05-12）
+- [x] 経歴を単一入力から配列形式（複数入力）に変更
+- [x] CareerCardコンポーネントの作成（SkillCardと同様の構造）
+- [x] 最大10件までの制限と警告表示
+- [x] FormContextの更新（career → careers配列）
+- [x] バリデーション関数の更新（validateCareers）
+- [x] PDF/Word/Excel出力の複数経歴対応
+
+### Phase 12.2: 経歴の「現在」チェックボックス追加（2026-05-12）
+- [x] CareerCardに「現在」チェックボックス追加
+- [x] 「現在」選択時は終了年月を非表示・無効化
+- [x] 期間表示フォーマット対応（例: 2023年3月〜）
+- [x] バリデーション更新（isCurrentJob時は終了年月チェックをスキップ）
+- [x] PDF/Word/Excel出力のisCurrentJob対応
+
+### Phase 12.3: 経歴の順番変更機能（2026-05-12）
+- [x] CareerCardに上下移動ボタン追加（▲▼）
+- [x] CareerPageにhandleMoveUp/handleMoveDown関数追加
+- [x] SkillCard.cssに並び替えボタンスタイル追加
+- [x] 先頭/末尾の境界処理（disabled状態）
+
+実装ファイル:
+- src/context/FormContext.js - careers配列対応、isCurrentJobフィールド追加
+- src/components/cards/CareerCard.js - 複数入力、現在チェックボックス、順番変更対応
+- src/pages/CareerPage.js - 複数経歴管理、移動ハンドラ追加
+- src/components/cards/SkillCard.css - 並び替えボタンスタイル追加
+- src/utils/validation.js - validateCareers関数更新
+- src/components/pdf/SkillSheetTemplate.js - 複数経歴・isCurrentJob対応
+- src/utils/wordGenerator.js - 複数経歴・isCurrentJob対応
+- src/utils/excelGenerator.js - 複数経歴・isCurrentJob対応
+
+完了日: 2026-05-12
+
+================================================================================
+
 ## 完了済み: Phase 6 - 広告・マネタイズ機能
 ================================================================================
 

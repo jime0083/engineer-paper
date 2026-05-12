@@ -105,6 +105,12 @@ function SkillSheetTemplate({ formData }) {
   const formatCareerPeriod = (career) => {
     if (!career?.startPeriod?.year || !career?.startPeriod?.month) return '';
     const start = `${career.startPeriod.year}年${career.startPeriod.month}月`;
+
+    // 「現在」の場合は終了年月を表示しない
+    if (career.isCurrentJob) {
+      return `${start}〜`;
+    }
+
     let end = '';
     if (career.endPeriod?.year && career.endPeriod?.month) {
       end = `${career.endPeriod.year}年${career.endPeriod.month}月`;

@@ -207,13 +207,15 @@ export function validateCareers(careers) {
     const hasStartPeriod = career.startPeriod?.year && career.startPeriod?.month;
     const hasEndPeriod = career.endPeriod?.year && career.endPeriod?.month;
     const hasCompany = career.company && career.company.trim().length > 0;
+    const isCurrentJob = !!career.isCurrentJob;
 
-    if (hasCompany || hasStartPeriod || hasEndPeriod) {
+    if (hasCompany || hasStartPeriod || hasEndPeriod || isCurrentJob) {
       if (!hasStartPeriod) {
         careerErrors.startPeriod = '開始年月を入力してください';
         hasError = true;
       }
-      if (!hasEndPeriod) {
+      // 「現在」がチェックされている場合は終了年月のバリデーションをスキップ
+      if (!isCurrentJob && !hasEndPeriod) {
         careerErrors.endPeriod = '終了年月を入力してください';
         hasError = true;
       }

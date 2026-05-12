@@ -38,6 +38,7 @@ function CareerPage() {
         id: newId,
         startPeriod: { year: '', month: '' },
         endPeriod: { year: '', month: '' },
+        isCurrentJob: false,
         company: '',
         isConfirmed: false,
       },
@@ -71,6 +72,22 @@ function CareerPage() {
   const handleConfirmCareer = (index) => {
     const newCareers = [...careers];
     newCareers[index].isConfirmed = true;
+    setCareers(newCareers);
+    updateCareers(newCareers);
+  };
+
+  const handleMoveUp = (index) => {
+    if (index === 0) return;
+    const newCareers = [...careers];
+    [newCareers[index - 1], newCareers[index]] = [newCareers[index], newCareers[index - 1]];
+    setCareers(newCareers);
+    updateCareers(newCareers);
+  };
+
+  const handleMoveDown = (index) => {
+    if (index === careers.length - 1) return;
+    const newCareers = [...careers];
+    [newCareers[index], newCareers[index + 1]] = [newCareers[index + 1], newCareers[index]];
     setCareers(newCareers);
     updateCareers(newCareers);
   };
@@ -124,7 +141,11 @@ function CareerPage() {
               onChange={handleChangeCareer}
               onDelete={handleDeleteCareer}
               onConfirm={handleConfirmCareer}
+              onMoveUp={handleMoveUp}
+              onMoveDown={handleMoveDown}
               isConfirmed={career.isConfirmed}
+              isFirst={index === 0}
+              isLast={index === careers.length - 1}
               errors={errors[index]}
             />
           ))}

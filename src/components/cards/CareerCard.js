@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TextInput from '../common/TextInput';
 import YearMonthInput from '../common/YearMonthInput';
+import Checkbox from '../common/Checkbox';
 import './SkillCard.css';
 
 /**
@@ -13,7 +14,11 @@ function CareerCard({
   onChange,
   onDelete,
   onConfirm,
+  onMoveUp,
+  onMoveDown,
   isConfirmed = false,
+  isFirst = false,
+  isLast = false,
   errors = {},
 }) {
   const [isExpanded, setIsExpanded] = useState(!isConfirmed);
@@ -21,6 +26,20 @@ function CareerCard({
   const handleFieldChange = (event) => {
     const { name, value } = event.target;
     onChange(index, { ...career, [name]: value });
+  };
+
+  const handleCurrentJobChange = (event) => {
+    const isCurrentJob = event.target.checked;
+    // 「現在」をチェックした場合、終了年月をクリア
+    if (isCurrentJob) {
+      onChange(index, {
+        ...career,
+        isCurrentJob: true,
+        endPeriod: { year: '', month: '' },
+      });
+    } else {
+      onChange(index, { ...career, isCurrentJob: false });
+    }
   };
 
   const handleToggle = () => {
@@ -41,9 +60,15 @@ function CareerCard({
   };
 
   const formatPeriod = () => {
-    const { startPeriod, endPeriod } = career;
+    const { startPeriod, endPeriod, isCurrentJob } = career;
     if (!startPeriod?.year || !startPeriod?.month) return '';
     const start = `${startPeriod.year}/${startPeriod.month}`;
+
+    // 「現在」の場合は終了年月を表示しない
+    if (isCurrentJob) {
+      return `${start}〜`;
+    }
+
     const end = endPeriod?.year && endPeriod?.month
       ? `${endPeriod.year}/${endPeriod.month}`
       : '';
@@ -53,6 +78,35 @@ function CareerCard({
   return (
     <div className={`skill-card ${isConfirmed ? 'skill-card--confirmed' : ''}`}>
       <div className="skill-card-header" onClick={handleToggle}>
+        {/* 並び替え矢印 */}
+        <div className="skill-card-reorder">
+          <button
+            type="button"
+            className="skill-card-arrow"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoveUp && onMoveUp(index);
+            }}
+            disabled={isFirst}
+            aria-label="上に移動"
+            title="上に移動"
+          >
+            ▲
+          </button>
+          <button
+            type="button"
+            className="skill-card-arrow"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMoveDown && onMoveDown(index);
+            }}
+            disabled={isLast}
+            aria-label="下に移動"
+            title="下に移動"
+          >
+            ▼
+          </button>
+        </div>
         <div className="skill-card-title">
           <span className="skill-card-number">{index + 1}</span>
           <span className="skill-card-name">
@@ -91,7 +145,7 @@ function CareerCard({
 
       {isExpanded && (
         <div className="skill-card-body">
-          <div className="form-row form-row--align-center">
+          <div className="form-row" style={{ alignItems: 'flex-start' }}>
             <YearMonthInput
               label="開始年月"
               name="startPeriod"
@@ -99,14 +153,23 @@ function CareerCard({
               onChange={handleFieldChange}
               error={errors.startPeriod}
             />
-            <span className="period-separator" style={{ margin: '0 8px', marginTop: '24px' }}>〜</span>
-            <YearMonthInput
-              label="終了年月"
-              name="endPeriod"
-              value={career.endPeriod || { year: '', month: '' }}
-              onChange={handleFieldChange}
-              error={errors.endPeriod}
-            />
+            <span className="period-separator" style={{ margin: '0 8px', marginTop: '32px' }}>〜</span>
+            <div>
+              <YearMonthInput
+                label="終了年月"
+                name="endPeriod"
+                value={career.endPeriod || { year: '', month: '' }}
+                onChange={handleFieldChange}
+                error={errors.endPeriod}
+                disabled={career.isCurrentJob}
+              />
+              <Checkbox
+                label="現在"
+                name="isCurrentJob"
+                checked={career.isCurrentJob || false}
+                onChange={handleCurrentJobChange}
+              />
+            </div>
           </div>
 
           <TextInput
@@ -114,7 +177,7 @@ function CareerCard({
             name="company"
             value={career.company || ''}
             onChange={handleFieldChange}
-            placeholder="例：株式会社ライズフォース、フリーランス"
+            placeholder="例：株式会社〇〇〇〇,フリーランス etc..."
             required
             error={errors.company}
           />

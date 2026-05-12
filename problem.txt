@@ -1,0 +1,87 @@
+# 問題記録ファイル
+
+このファイルはアプリで発見された問題とその原因、修正計画を記録します。
+
+================================================================================
+## 問題 #1: 経歴画面で「次へ」を押すとエラーが表示され進めない
+================================================================================
+
+### 発見日
+2026-05-12
+
+### 症状
+- 経歴画面で全ての経歴を正しく入力・確認済みにしても「次へ」ボタンでエラーが表示される
+- 赤いエラーアラートが表示されるが、メッセージが見えない
+- コンソールにエラーは表示されない
+- **他のページ（スキル、職務経歴等）では同様の問題は発生しない**
+
+### 影響範囲
+- src/pages/CareerPage.js
+- src/utils/validation.js (validateCareers関数)
+
+### 原因
+**validateCareers関数での isCurrentJob の厳密比較**
+
+validation.js の validateCareers 関数（210行目）:
+```javascript
+const isCurrentJob = career.isCurrentJob === true;  // 厳密な等価比較
+```
+
+一方、validateWorkHistories 関数（179行目）:
+```javascript
+if (!history.isCurrentJob && !isRequired(history.endPeriod)) {  // truthy チェック
+```
+
+経歴のバリデーションだけ `=== true` という厳密な比較を使用しているため、
+isCurrentJob が以下のような値の場合にバリデーションが失敗する：
+- 文字列 "true"
+- 数値 1
+- その他の truthy な値
+
+この場合、isCurrentJob が false と判定され、終了年月が空のためバリデーションエラーとなる。
+しかし、エラーメッセージは各カードに紐づくため、確認済みカード（折りたたみ状態）では
+エラーが視覚的に見えない。
+
+また、Alert コンポーネントに渡している `message` プロパティは Alert が受け付けないため、
+上部のエラーアラートもメッセージが表示されない（空の赤いボックスのみ表示）。
+
+### 修正計画
+
+**Phase 1**: validateCareers の isCurrentJob チェックを修正
+- `career.isCurrentJob === true` を `!!career.isCurrentJob` に変更
+- 職務経歴と同じ truthy チェックに統一
+
+**修正箇所**: src/utils/validation.js 210行目
+```javascript
+// Before
+const isCurrentJob = career.isCurrentJob === true;
+
+// After
+const isCurrentJob = !!career.isCurrentJob;
+```
+
+**Phase 2**: Alert コンポーネントに message プロパティを追加（任意）
+- src/components/common/Alert.js に `message` プロパティを追加
+- `message` が渡された場合にも表示されるようにする
+
+**Phase 3**: 動作確認
+- 経歴画面で「現在」をチェックした経歴が正しく次へ進めることを確認
+
+### ステータス
+- [x] Phase 1: validateCareers 修正 ✅ 2026-05-12
+- [x] Phase 2: Alert コンポーネント修正 ✅ 2026-05-12
+- [x] Phase 3: デプロイ ✅ 2026-05-12
+- [ ] 動作確認（ユーザー確認待ち）
+
+### 修正内容
+**修正日**: 2026-05-12
+
+**修正ファイル**:
+1. src/utils/validation.js (210行目)
+   - `career.isCurrentJob === true` → `!!career.isCurrentJob`
+
+2. src/components/common/Alert.js
+   - `message` プロパティを追加
+   - `message` または `children` でメッセージを表示
+
+================================================================================

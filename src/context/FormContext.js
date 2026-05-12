@@ -54,6 +54,7 @@ const initialFormData = {
       id: 1,
       startPeriod: { year: '', month: '' },
       endPeriod: { year: '', month: '' },
+      isCurrentJob: false,
       company: '',
       isConfirmed: false,
     },

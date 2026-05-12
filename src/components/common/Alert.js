@@ -9,6 +9,7 @@ import './Alert.css';
 function Alert({
   type = 'info',
   title,
+  message,
   children,
   onClose,
   className = '',
@@ -31,7 +32,7 @@ function Alert({
       </span>
       <div className="alert-content">
         {title && <strong className="alert-title">{title}</strong>}
-        {children && <div className="alert-message">{children}</div>}
+        {(message || children) && <div className="alert-message">{message || children}</div>}
       </div>
       {onClose && (
         <button
