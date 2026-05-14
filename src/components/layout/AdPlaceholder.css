@@ -59,20 +59,16 @@
 
 /* レスポンシブ対応 */
 
-/* 990px以下: 左広告非表示 */
+/* 990px以下: 左右広告非表示 */
 @media screen and (max-width: 990px) {
-  .ad-left {
-    display: none;
-  }
-}
-
-/* 720px以下: 左右広告非表示 */
-@media screen and (max-width: 720px) {
   .ad-left,
   .ad-right {
     display: none;
   }
+}
 
+/* 720px以下: 下部広告のサイズ調整 */
+@media screen and (max-width: 720px) {
   .ad-bottom {
     height: 60px;
     box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);

@@ -93,18 +93,18 @@ function SkillSheetGuide() {
             <h3 className="guide-section-title">よくある質問</h3>
             <div className="guide-faq">
               <div className="guide-faq-item">
-                <h4 className="guide-faq-question">Q. どのくらいの分量が適切ですか？</h4>
+                <h4 className="guide-faq-question">Q. スキルシートと職務経歴書の違いは？</h4>
                 <p className="guide-faq-answer">
-                  A. 一般的にはA4用紙2〜3枚程度が目安です。
-                  経験が浅い場合は1〜2枚、ベテランエンジニアでも3〜4枚に収めるのが読みやすいとされています。
+                  A. 職務経歴書は経歴全体を時系列で記載しますが、スキルシートは技術スキルに特化した書類です。
+                  使用技術、開発環境、担当フェーズなど、より技術的な詳細を記載します。IT業界では両方求められることが多いです。
                 </p>
               </div>
 
               <div className="guide-faq-item">
-                <h4 className="guide-faq-question">Q. 古いプロジェクトも書くべきですか？</h4>
+                <h4 className="guide-faq-question">Q. 守秘義務のあるプロジェクトはどう書けばいい？</h4>
                 <p className="guide-faq-answer">
-                  A. 直近5年程度の経験を中心に記載するのがおすすめです。
-                  それ以前の経験は、特に重要なものや現在のスキルに関連するもののみ簡潔に記載しましょう。
+                  A. クライアント名や具体的なサービス名は伏せて、「大手EC企業」「金融系システム」のように業界や規模感で表現しましょう。
+                  技術スタックや担当した役割は記載しても問題ないケースがほとんどです。
                 </p>
               </div>
 

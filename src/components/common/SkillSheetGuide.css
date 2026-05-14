@@ -148,15 +148,15 @@
   }
 }
 
-@media screen and (min-width: 721px) and (max-width: 990px) {
+/* 990px以下: 左右広告なし */
+@media screen and (max-width: 990px) {
   .skill-sheet-guide-body {
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
+    padding: 0 var(--spacing-md);
   }
 
   .skill-sheet-guide-container {
-    margin-right: var(--spacing-md);
-    margin-left: 0;
+    max-width: 100%;
+    margin: 0;
   }
 }
 
@@ -189,8 +189,7 @@
   }
 
   .guide-tip {
-    flex-direction: column;
-    gap: 8px;
+    gap: 12px;
   }
 
   .guide-tip-number {
@@ -198,4 +197,17 @@
     height: 28px;
     font-size: 13px;
   }
+
+  .guide-tip-title {
+    font-size: 15px;
+  }
+
+  .guide-tip-text {
+    font-size: 13px;
+  }
+}
+
+/* 300px以上で常に数字と見出しを横並びに */
+.guide-tip {
+  flex-wrap: nowrap;
 }

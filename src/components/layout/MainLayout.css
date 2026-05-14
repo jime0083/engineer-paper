@@ -39,24 +39,20 @@
   }
 }
 
-@media screen and (min-width: 721px) and (max-width: 990px) {
+/* 990px以下: 左右広告なし */
+@media screen and (max-width: 990px) {
   .main-body {
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
+    padding: var(--spacing-md);
   }
 
   .main-content {
-    margin-right: var(--spacing-md);
+    max-width: 100%;
   }
 }
 
 @media screen and (max-width: 720px) {
   .main-layout {
     padding-bottom: 60px;
-  }
-
-  .main-body {
-    padding: var(--spacing-md);
   }
 
   .main-content {

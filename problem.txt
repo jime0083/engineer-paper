@@ -85,3 +85,68 @@ const isCurrentJob = !!career.isCurrentJob;
    - `message` または `children` でメッセージを表示
 
 ================================================================================
+
+## 変更 #2: 広告表示のレスポンシブルール変更
+================================================================================
+
+### 依頼日
+2026-05-12
+
+### 変更内容
+左右広告の表示ルールを変更する
+
+### 変更前のルール
+| 画面サイズ | 左広告 | 右広告 | 下部広告 |
+|-----------|--------|--------|---------|
+| 991px以上 | 表示 | 表示 | 表示 |
+| 721px〜990px | 非表示 | 表示 | 表示 |
+| 720px以下 | 非表示 | 非表示 | 表示 |
+
+### 変更後のルール
+| 画面サイズ | 左広告 | 右広告 | 下部広告 |
+|-----------|--------|--------|---------|
+| 991px以上 | 表示 | 表示 | 表示 |
+| 990px以下 | 非表示 | 非表示 | 表示 |
+
+### 影響範囲
+- src/styles/responsive.css
+- src/components/layout/AdPlaceholder.css
+- src/components/layout/MainLayout.css
+- src/components/common/SkillSheetGuide.css
+
+### 修正計画
+
+**Phase 1**: responsive.css の修正
+- 721px〜990px の中間ブレークポイントを削除
+- 990px以下で左右広告を非表示に統一
+
+**Phase 2**: AdPlaceholder.css の修正
+- 同様に990px以下で左右広告を非表示に
+
+**Phase 3**: MainLayout.css / SkillSheetGuide.css の修正
+- レイアウト調整のブレークポイントを統一
+
+### ステータス
+- [x] Phase 1: responsive.css 修正 ✅ 2026-05-12
+- [x] Phase 2: AdPlaceholder.css 修正 ✅ 2026-05-12
+- [x] Phase 3: MainLayout.css / SkillSheetGuide.css 修正 ✅ 2026-05-12
+- [x] デプロイ ✅ 2026-05-12
+
+### 修正内容
+**修正日**: 2026-05-12
+
+**修正ファイル**:
+1. src/styles/responsive.css
+   - 721px〜990px の中間ブレークポイントを削除
+   - 990px以下で左右広告を非表示に統一
+
+2. src/components/layout/AdPlaceholder.css
+   - 990px以下で左右広告を非表示に
+
+3. src/components/layout/MainLayout.css
+   - 990px以下のレイアウト調整を統一
+
+4. src/components/common/SkillSheetGuide.css
+   - 990px以下のレイアウト調整を統一
+
+================================================================================

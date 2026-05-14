@@ -6,8 +6,7 @@
    ブレークポイント
    ========================================
 
-   - 720px以下: 小画面（左右広告非表示、下部広告のみ）
-   - 721px〜990px: 中画面（左広告非表示、右+下部広告）
+   - 990px以下: 小〜中画面（左右広告非表示、下部広告のみ）
    - 991px以上: 大画面（左右+下部広告すべて表示）
 
    ======================================== */
@@ -23,19 +22,8 @@
   display: block;
 }
 
-/* 中画面（721px〜990px）: 左広告非表示 */
+/* 990px以下: 左右広告非表示 */
 @media screen and (max-width: 990px) {
-  .ad-left {
-    display: none;
-  }
-
-  .main-content {
-    margin-left: 0;
-  }
-}
-
-/* 小画面（720px以下）: 左右広告非表示 */
-@media screen and (max-width: 720px) {
   .ad-left,
   .ad-right {
     display: none;
@@ -64,21 +52,8 @@
   }
 }
 
-/* 中画面（721px〜990px） */
-@media screen and (min-width: 721px) and (max-width: 990px) {
-  .layout-with-ads {
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .layout-with-ads .main-content {
-    margin-right: var(--ad-sidebar-width);
-    flex: 1;
-  }
-}
-
-/* 小画面（720px以下） */
-@media screen and (max-width: 720px) {
+/* 990px以下 */
+@media screen and (max-width: 990px) {
   .layout-with-ads .main-content {
     width: 100%;
     padding: 0 var(--spacing-md);
