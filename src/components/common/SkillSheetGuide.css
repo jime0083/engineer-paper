@@ -48,6 +48,9 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .guide-section-title {
@@ -69,13 +72,50 @@
 .guide-tips {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+}
+
+.guide-tip-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.guide-tip-wrapper:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.guide-tip-image {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.guide-tip-image img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .guide-tip {
   display: flex;
   gap: 16px;
   align-items: flex-start;
+}
+
+/* 画像なしのコツ（直接の子要素）に区切り線 */
+.guide-tips > .guide-tip {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.guide-tips > .guide-tip:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 .guide-tip-number {
@@ -90,6 +130,7 @@
   justify-content: center;
   font-weight: 700;
   font-size: 14px;
+  margin-top: -4px;
 }
 
 .guide-tip-content {
@@ -204,6 +245,14 @@
 
   .guide-tip-text {
     font-size: 13px;
+  }
+}
+
+/* 700px以下: セクション幅を80%に（両側10%の空白） */
+@media screen and (max-width: 700px) {
+  .guide-section {
+    max-width: 80%;
+    width: 80%;
   }
 }
 

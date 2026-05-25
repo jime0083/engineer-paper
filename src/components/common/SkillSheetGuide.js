@@ -28,26 +28,36 @@ function SkillSheetGuide() {
           <div className="guide-section">
             <h3 className="guide-section-title">書き方のコツ</h3>
             <div className="guide-tips">
-              <div className="guide-tip">
-                <div className="guide-tip-number">1</div>
-                <div className="guide-tip-content">
-                  <h4 className="guide-tip-title">具体的な数値を入れる</h4>
-                  <p className="guide-tip-text">
-                    「Webアプリケーション開発」ではなく「月間10万PVのECサイト開発」のように、
-                    規模や成果を数値で表現しましょう。数値があると説得力が増します。
-                  </p>
+              <div className="guide-tip-wrapper">
+                <div className="guide-tip-image">
+                  <img src="./images/tip1.png" alt="具体的な数値を入れる例" />
+                </div>
+                <div className="guide-tip">
+                  <div className="guide-tip-number">1</div>
+                  <div className="guide-tip-content">
+                    <h4 className="guide-tip-title">具体的な数値を入れる</h4>
+                    <p className="guide-tip-text">
+                      「Webアプリケーション開発」ではなく「月間10万PVのECサイト開発」のように、
+                      規模や成果を数値で表現しましょう。数値があると説得力が増します。
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="guide-tip">
-                <div className="guide-tip-number">2</div>
-                <div className="guide-tip-content">
-                  <h4 className="guide-tip-title">担当した役割を明確に</h4>
-                  <p className="guide-tip-text">
-                    チーム開発の場合、自分が何を担当したのかを明確に記載します。
-                    「設計から実装まで担当」「バックエンドAPIの実装を担当」など、
-                    具体的な役割を書くことで、あなたのスキルレベルが伝わります。
-                  </p>
+              <div className="guide-tip-wrapper">
+                <div className="guide-tip-image">
+                  <img src="./images/tip2.png" alt="担当した役割を明確にする例" />
+                </div>
+                <div className="guide-tip">
+                  <div className="guide-tip-number">2</div>
+                  <div className="guide-tip-content">
+                    <h4 className="guide-tip-title">担当した役割を明確に</h4>
+                    <p className="guide-tip-text">
+                      チーム開発の場合、自分が何を担当したのかを明確に記載します。
+                      「設計から実装まで担当」「バックエンドAPIの実装を担当」など、
+                      具体的な役割を書くことで、あなたのスキルレベルが伝わります。
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -75,15 +85,20 @@ function SkillSheetGuide() {
                 </div>
               </div>
 
-              <div className="guide-tip">
-                <div className="guide-tip-number">5</div>
-                <div className="guide-tip-content">
-                  <h4 className="guide-tip-title">自己PRは具体的に</h4>
-                  <p className="guide-tip-text">
-                    「コミュニケーション能力が高い」などの抽象的な表現ではなく、
-                    「週1回のチームMTGでファシリテーターを担当」のように、
-                    具体的なエピソードを交えて書くと印象に残ります。
-                  </p>
+              <div className="guide-tip-wrapper">
+                <div className="guide-tip-image">
+                  <img src="./images/tip5.png" alt="自己PRは具体的にする例" />
+                </div>
+                <div className="guide-tip">
+                  <div className="guide-tip-number">5</div>
+                  <div className="guide-tip-content">
+                    <h4 className="guide-tip-title">自己PRは具体的に</h4>
+                    <p className="guide-tip-text">
+                      「コミュニケーション能力が高い」などの抽象的な表現ではなく、
+                      「週1回のチームMTGでファシリテーターを担当」のように、
+                      具体的なエピソードを交えて書くと印象に残ります。
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
