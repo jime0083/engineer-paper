@@ -15,7 +15,11 @@
       "Bash(git commit:*)",
       "Bash(git branch:*)",
       "Bash(lsof:*)",
-      "Bash(npm start)"
+      "Bash(npm start)",
+      "Bash(grep -iE '\\\\.\\(png|jpg|jpeg|svg|webp|gif\\)$')",
+      "Bash(npx eslint *)",
+      "Bash(echo \"---ESLINT EXIT: $?---\")",
+      "Bash(git remote *)"
     ]
   }
 }

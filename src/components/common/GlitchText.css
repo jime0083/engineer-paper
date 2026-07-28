@@ -1,0 +1,73 @@
+/* ==========================================================================
+   GlitchText - RGBずれ + 走査線グリッチ
+   ========================================================================== */
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+  color: var(--color-text-primary);
+}
+
+/* RGBずれ用の疑似要素（data-text の内容を複製） */
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.glitch-text::before {
+  color: var(--glitch-color-1); /* 青 */
+  z-index: -1;
+}
+
+.glitch-text::after {
+  color: var(--glitch-color-2); /* ピンク */
+  z-index: -2;
+}
+
+/* hover 時 / active 時に強くグリッチ */
+.glitch-text:hover::before,
+.glitch-text--active::before {
+  opacity: 0.9;
+  animation: glitch-shift-1 var(--motion-glitch) infinite
+    var(--ease-in-out-quart);
+}
+
+.glitch-text:hover::after,
+.glitch-text--active::after {
+  opacity: 0.9;
+  animation: glitch-shift-2 var(--motion-glitch) infinite
+    var(--ease-in-out-quart);
+}
+
+@keyframes glitch-shift-1 {
+  0%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  20% { transform: translate(calc(-1 * var(--glitch-offset-strong)), var(--glitch-offset)); clip-path: inset(0 0 60% 0); }
+  40% { transform: translate(var(--glitch-offset), calc(-1 * var(--glitch-offset))); clip-path: inset(50% 0 0 0); }
+  60% { transform: translate(calc(-1 * var(--glitch-offset)), 0); clip-path: inset(20% 0 40% 0); }
+  80% { transform: translate(var(--glitch-offset-strong), var(--glitch-offset)); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glitch-shift-2 {
+  0%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+  20% { transform: translate(var(--glitch-offset-strong), calc(-1 * var(--glitch-offset))); clip-path: inset(40% 0 20% 0); }
+  40% { transform: translate(calc(-1 * var(--glitch-offset)), var(--glitch-offset)); clip-path: inset(0 0 55% 0); }
+  60% { transform: translate(var(--glitch-offset), 0); clip-path: inset(55% 0 0 0); }
+  80% { transform: translate(calc(-1 * var(--glitch-offset-strong)), calc(-1 * var(--glitch-offset))); clip-path: inset(0 0 0 0); }
+}
+
+/* 演出無効化: モーション削減設定時はグリッチを停止 */
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text::before,
+  .glitch-text::after {
+    display: none;
+  }
+}

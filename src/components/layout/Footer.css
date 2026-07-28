@@ -4,10 +4,27 @@
    ========================================================================== */
 
 .footer {
+  position: relative;
   background-color: var(--color-white);
   border-top: var(--border-width) solid var(--color-border);
   height: var(--footer-height);
   margin-top: auto;
+}
+
+/* 上端のグラデーションアクセントライン（ヘッダーと対） */
+.footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-secondary),
+    var(--color-primary)
+  );
 }
 
 .footer-container {

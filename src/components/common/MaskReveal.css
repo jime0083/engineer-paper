@@ -1,0 +1,43 @@
+/* ==========================================================================
+   MaskReveal - clip-path マスク展開演出
+   ========================================================================== */
+
+.mask-reveal {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path var(--motion-mask) var(--ease-out-expo),
+    opacity var(--motion-mask) var(--ease-out-expo);
+  will-change: clip-path;
+}
+
+/* 初期状態（未表示）: 方向ごとにマスクで隠す */
+.mask-reveal--up:not(.mask-reveal--revealed) {
+  clip-path: inset(100% 0 0 0);
+  opacity: 0;
+}
+.mask-reveal--down:not(.mask-reveal--revealed) {
+  clip-path: inset(0 0 100% 0);
+  opacity: 0;
+}
+.mask-reveal--left:not(.mask-reveal--revealed) {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+.mask-reveal--right:not(.mask-reveal--revealed) {
+  clip-path: inset(0 0 0 100%);
+  opacity: 0;
+}
+
+/* 表示状態: マスクが全開 */
+.mask-reveal--revealed {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+
+/* 演出無効化: 即表示 */
+@media (prefers-reduced-motion: reduce) {
+  .mask-reveal {
+    clip-path: inset(0 0 0 0) !important;
+    opacity: 1 !important;
+    transition: none;
+  }
+}

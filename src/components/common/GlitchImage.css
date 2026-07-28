@@ -1,0 +1,67 @@
+/* ==========================================================================
+   GlitchImage - カーソル反応の歪みラッパー
+   ========================================================================== */
+
+.glitch-image {
+  --gx: 0; /* カーソルX位置 -1〜1（JSで更新） */
+  --skew: 0deg;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  transition: transform var(--transition-base) var(--ease-out-expo);
+}
+
+/* 強度によるずれ量の切り替え */
+.glitch-image--subtle { --gi-shift: 3px; }
+.glitch-image--normal { --gi-shift: 6px; }
+.glitch-image--strong { --gi-shift: 10px; }
+
+.glitch-image-layer {
+  position: relative;
+  width: 100%;
+  transition:
+    transform var(--transition-base) var(--ease-out-expo),
+    filter var(--transition-base) var(--ease-out-expo);
+}
+
+/* カーソルX位置に応じて全体を少し傾け、RGBずれ風の影を出す */
+.glitch-image:hover .glitch-image-layer--base {
+  transform: skewX(calc(var(--gx) * 1.5deg))
+    translateX(calc(var(--gx) * var(--gi-shift)));
+  filter:
+    drop-shadow(calc(var(--gx) * var(--gi-shift)) 0 0 var(--glitch-color-1))
+    drop-shadow(calc(var(--gx) * var(--gi-shift) * -1) 0 0 var(--glitch-color-2));
+}
+
+/* 走査線オーバーレイ */
+.glitch-image-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08) 0,
+    rgba(0, 0, 0, 0.08) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  transition: opacity var(--transition-base);
+  mix-blend-mode: multiply;
+}
+
+.glitch-image:hover .glitch-image-scanlines {
+  opacity: 1;
+}
+
+/* 演出無効化 */
+@media (prefers-reduced-motion: reduce) {
+  .glitch-image:hover .glitch-image-layer--base {
+    transform: none;
+    filter: none;
+  }
+  .glitch-image-scanlines {
+    display: none;
+  }
+}

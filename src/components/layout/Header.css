@@ -3,12 +3,28 @@
    ========================================================================== */
 
 .header {
-  background-color: var(--color-white);
-  border-bottom: var(--border-width) solid var(--color-border);
-  height: var(--header-height);
   position: sticky;
   top: 0;
   z-index: var(--z-index-sticky);
+  height: var(--header-height);
+  background-color: var(--color-white);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+/* 下端のグラデーションアクセントライン（青→ピンク→オレンジ） */
+.header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-secondary),
+    var(--color-accent)
+  );
 }
 
 .header-container {
@@ -42,7 +58,8 @@
   border-radius: var(--border-radius-sm);
 }
 
-.header-logo-text {
+/* GlitchText の既定色に負けないよう .header-logo で特異度を上げる */
+.header-logo .header-logo-text {
   color: var(--color-primary);
 }
 

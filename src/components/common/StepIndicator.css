@@ -31,7 +31,7 @@
   position: relative;
   flex: 1;
   padding: var(--spacing-xs);
-  border-radius: var(--radius-sm);
+  border-radius: var(--border-radius-sm);
   transition: background-color var(--transition-fast);
 }
 
@@ -45,7 +45,7 @@
 }
 
 .step-item--clickable:focus {
-  outline: 2px solid #0103F9;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -65,14 +65,14 @@
 }
 
 .step-icon--completed {
-  background-color: #0103F9;
+  background-color: var(--color-primary);
   color: var(--color-white);
 }
 
 .step-icon--current {
-  background-color: #0103F9;
+  background-color: var(--color-primary);
   color: var(--color-white);
-  box-shadow: 0 0 0 4px rgba(1, 3, 249, 0.2);
+  box-shadow: 0 0 0 4px rgba(0, 7, 245, 0.2);
 }
 
 .step-icon--pending {
@@ -102,12 +102,12 @@
 }
 
 .step-label--completed {
-  color: #0103F9;
+  color: var(--color-primary);
   font-weight: var(--font-weight-medium);
 }
 
 .step-label--current {
-  color: #0103F9;
+  color: var(--color-primary);
   font-weight: var(--font-weight-bold);
 }
 
@@ -126,7 +126,7 @@
 }
 
 .step-connector--completed {
-  background-color: #0103F9;
+  background-color: var(--color-primary);
 }
 
 .step-connector--pending {

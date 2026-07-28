@@ -63,8 +63,17 @@
      フォント
      ======================================== */
 
-  --font-family-base: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'メイリオ', Meiryo, sans-serif;
-  --font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  /*
+    ⚠ フォントルール（必須・全ページ共通）:
+    - このサイトのフォントは https://amp-el.jp/ と全く同じスタックに統一する。
+    - font-family を個別に指定せず、必ず --font-family-base / --font-family-mono を参照すること。
+    - 今後のページ追加・修正でもこのトークン以外のフォント指定は禁止（CLAUDE.md 参照）。
+  */
+  --font-family-base: Inter, 'Noto Sans JP', 'Helvetica Neue', 'Hiragino Sans',
+    'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic,
+    Verdana, Meiryo, 'M+ 1p', sans-serif;
+  --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 
   /* フォントサイズ */
   --font-size-xs: 0.75rem;    /* 12px */
@@ -124,6 +133,42 @@
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
+
+  /* ========================================
+     モーション / イージング（演出用）
+     ======================================== */
+
+  /* イージング */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* 演出のデュレーション */
+  --motion-glitch: 2.4s;         /* グリッチのループ周期 */
+  --motion-mask: 700ms;          /* マスク演出の展開時間 */
+  --motion-cursor: 120ms;        /* カーソル追従の追従速度 */
+
+  /* ========================================
+     演出用カラー（既存パレットを踏襲）
+     - グリッチのRGBずれは「青/ピンク」を基調にする
+     ======================================== */
+
+  --glitch-color-1: var(--color-primary);    /* 青 #0007F5 */
+  --glitch-color-2: var(--color-secondary);  /* ピンク #e85a7e */
+  --glitch-color-3: var(--color-accent);     /* オレンジ #f5a623（アクセント） */
+
+  /* グリッチのRGBずれ量 */
+  --glitch-offset: 2px;
+  --glitch-offset-strong: 4px;
+
+  /* マスク演出のベースカラー（切替時の下地） */
+  --mask-bg: var(--color-primary);
+
+  /*
+    ⚠ 演出無効化ポリシー:
+    - すべての演出（グリッチ/マスク/カーソル）は
+      @media (prefers-reduced-motion: reduce) で必ず無効化またはフォールバックすること。
+    - カーソル追従演出はポインタが coarse（タッチ）の環境では無効化すること。
+  */
 
   /* ========================================
      レイアウト

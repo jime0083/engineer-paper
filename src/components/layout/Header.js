@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GlitchText from '../common/GlitchText';
 import './Header.css';
 
 /**
@@ -10,13 +11,15 @@ function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <Link to="/" className="header-logo">
+        <Link to="/" className="header-logo" data-cursor="hover">
           <img
             src={`${process.env.PUBLIC_URL}/logo.png`}
             alt="スキルシートメーカー"
             className="header-logo-image"
           />
-          <span className="header-logo-text">スキルシートメーカー</span>
+          <GlitchText as="span" className="header-logo-text">
+            スキルシートメーカー
+          </GlitchText>
         </Link>
       </div>
     </header>

@@ -1,0 +1,36 @@
+/* ==========================================================================
+   KinematicText - シネマティックなブラー・トラックイン文字
+   ========================================================================== */
+
+.kinematic-text {
+  display: inline-block;
+}
+
+.kinematic-char {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(0.35em);
+  transition:
+    opacity 900ms var(--ease-out-expo),
+    filter 900ms var(--ease-out-expo),
+    transform 900ms var(--ease-out-expo);
+  will-change: opacity, filter, transform;
+}
+
+.kinematic-text--visible .kinematic-char {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* 演出無効化 */
+@media (prefers-reduced-motion: reduce) {
+  .kinematic-char {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}

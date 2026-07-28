@@ -27,6 +27,21 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* トップページ: 左右広告なし・幅いっぱい（ダークキャンバスを全幅で見せる）
+   ※ 下のメディアクエリより優先されるよう特異度を上げている */
+.main-body.main-body--home {
+  padding: 0;
+}
+
+.main-content.main-content--home {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 /* 広告エリアとの間隔 */
 @media screen and (min-width: 991px) {
   .main-body {

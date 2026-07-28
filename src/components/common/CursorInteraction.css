@@ -1,0 +1,43 @@
+/* ==========================================================================
+   CursorInteraction - カーソル追従リング
+   ========================================================================== */
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius-full);
+  pointer-events: none;
+  z-index: var(--z-index-tooltip);
+  opacity: 0;
+  mix-blend-mode: difference;
+  transition: width var(--transition-fast), height var(--transition-fast),
+    background-color var(--transition-fast), border-color var(--transition-fast),
+    opacity var(--transition-base);
+  will-change: transform;
+}
+
+/* インタラクティブ要素にhover中はリングを拡大＆塗りつぶし */
+.cursor-ring--hover {
+  width: 52px;
+  height: 52px;
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+/* タッチ環境では非表示（保険。JS側でも無効化済み） */
+@media (pointer: coarse) {
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* 演出無効化 */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring {
+    display: none;
+  }
+}

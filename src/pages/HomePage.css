@@ -1,129 +1,391 @@
 /* ==========================================================================
-   HomePage - トップページ
+   HomePage - トップページ（ディープブルー基調 / 知的・クール）
+   スクロールトンネル × 粒子再構成 × キネマティック文字
+   メインカラーの青 (#0007F5) を主役にしたダークキャンバス
    ========================================================================== */
 
 .home-page {
-  padding: var(--spacing-xl) var(--spacing-md);
-  max-width: 800px;
-  margin: 0 auto;
+  /* ダークキャンバス内のローカルトークン */
+  --home-canvas-1: #04051d;   /* 最深部（ほぼ黒に近い藍） */
+  --home-canvas-2: #0a0e52;   /* 深い青 */
+  --home-ink: #ffffff;
+  --home-ink-soft: rgba(235, 237, 255, 0.78);
+  --home-ink-dim: rgba(235, 237, 255, 0.45);
+  --home-line: rgba(174, 180, 255, 0.22);
+  --home-tint: #9aa0ff;       /* 明るい青（アクセント文字） */
+
+  /* 幅いっぱいのフルブリード表示（左右広告なし） */
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-2xl) clamp(var(--spacing-md), 4vw, var(--spacing-3xl))
+    var(--spacing-3xl);
+  background:
+    radial-gradient(110% 70% at 50% 0%, rgba(0, 7, 245, 0.55), transparent 62%),
+    radial-gradient(80% 60% at 100% 100%, rgba(232, 90, 126, 0.14), transparent 55%),
+    linear-gradient(175deg, var(--home-canvas-2), var(--home-canvas-1) 58%);
+  color: var(--home-ink);
 }
 
-.home-page-header {
-  text-align: center;
-  margin-bottom: var(--spacing-2xl);
+/* fine ポインタ環境ではデフォルトカーソルを隠し、カスタムカーソルに委ねる */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-page,
+  .home-page * {
+    cursor: none;
+  }
 }
 
-.home-page-title {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  margin: 0 0 var(--spacing-sm) 0;
-}
-
-.home-page-description {
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
+/* 共通：モノラベル（アイブロウ） */
+.home-hero-eyebrow,
+.home-section-eyebrow {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.22em;
+  color: var(--home-tint);
   margin: 0;
 }
 
-.home-page-cards {
+/* ========================================
+   ヒーロー（ファーストビュー）
+   ======================================== */
+
+.home-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(82vh, 700px);
+  padding: var(--spacing-2xl) 0;
+}
+
+/* 粒子再構成レイヤーは inset:0 / z-index:0 */
+
+.home-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+.home-hero-title {
+  font-size: clamp(2.4rem, 6.5vw, 4.25rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  margin: 0;
+  color: var(--home-ink);
+  text-shadow: 0 0 48px rgba(0, 7, 245, 0.65);
+}
+
+.home-hero-lead {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--home-ink-soft);
+  margin: 0;
+  max-width: 640px;
+}
+
+/* スクロールキュー */
+.home-hero-scrollcue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.home-hero-scrollcue-label {
+  font-family: var(--font-family-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  color: var(--home-ink-dim);
+}
+
+.home-hero-scrollcue-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(var(--home-tint), transparent);
+  animation: scrollcue 2s var(--ease-in-out-quart) infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollcue {
+  0% { transform: scaleY(0); opacity: 0; }
+  40% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-scrollcue-line {
+    animation: none;
+  }
+}
+
+/* ========================================
+   書類作成ボタン（2列グループ／横並び）
+   ======================================== */
+
+.home-doc-groups {
+  width: 100%;
+  margin-top: var(--spacing-xl);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-lg);
 }
 
-.home-card {
+.home-doc-group {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: var(--spacing-xl) var(--spacing-lg);
-  background-color: var(--color-bg-card);
-  border: var(--border-width-thick) solid var(--color-border);
-  border-radius: var(--border-radius-lg);
-  cursor: pointer;
-  transition: border-color var(--transition-fast),
-              box-shadow var(--transition-fast),
-              transform var(--transition-fast);
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border: var(--border-width) solid var(--home-line);
+  border-radius: var(--border-radius-md);
+  text-align: left;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+    transform var(--transition-fast), background-color var(--transition-fast);
 }
 
-.home-card--active:hover {
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+.home-doc-group:not(.home-doc-group--disabled):hover {
+  border-color: var(--home-tint);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 7, 245, 0.35);
+  transform: translateY(-3px);
 }
 
-.home-card--active:active {
-  transform: translateY(0);
+.home-doc-group-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: var(--border-width) solid var(--home-line);
 }
 
-.home-card--disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  background-color: var(--color-gray-100);
-}
-
-.home-card-coming-soon {
-  position: absolute;
-  top: var(--spacing-sm);
-  right: var(--spacing-sm);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  background-color: var(--color-accent);
-  color: var(--color-white);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  border-radius: var(--border-radius-sm);
-}
-
-.home-card-icon {
-  width: 64px;
-  height: 64px;
-  margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
-}
-
-.home-card--disabled .home-card-icon {
-  color: var(--color-gray-400);
-}
-
-.home-card-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.home-card-title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  margin: 0 0 var(--spacing-xs) 0;
-}
-
-.home-card--disabled .home-card-title {
-  color: var(--color-text-disabled);
-}
-
-.home-card-subtitle {
+.home-doc-group-label {
+  font-family: var(--font-family-mono);
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: var(--home-tint);
+}
+
+.home-doc-group-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--home-ink);
   margin: 0;
 }
 
-.home-card--disabled .home-card-subtitle {
-  color: var(--color-text-disabled);
+.home-doc-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
 }
 
-/* レスポンシブ対応 */
+.home-doc-btn {
+  padding: var(--spacing-md) var(--spacing-sm);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--home-ink);
+  background-color: transparent;
+  border: var(--border-width) solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast),
+    border-color var(--transition-fast), transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.home-doc-btn:not(:disabled):hover {
+  background-color: var(--home-ink);
+  border-color: var(--home-ink);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.home-doc-btn--primary {
+  color: var(--color-primary);
+  background-color: var(--home-ink);
+  border-color: var(--home-ink);
+}
+
+.home-doc-btn--primary:not(:disabled):hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: var(--home-ink);
+}
+
+/* 無効グループ（Coming Soon） */
+.home-doc-group--disabled {
+  opacity: 0.55;
+}
+
+.home-doc-group--disabled .home-doc-group-label,
+.home-doc-group--disabled .home-doc-group-title {
+  color: var(--home-ink-dim);
+}
+
+.home-doc-group--disabled .home-doc-btn {
+  color: var(--home-ink-dim);
+  border-color: var(--home-line);
+  cursor: not-allowed;
+}
+
+.home-doc-group-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--home-ink-soft);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  border-radius: var(--border-radius-sm);
+}
+
+/* ========================================
+   特徴（スクロールトンネル × 大画像）
+   ======================================== */
+
+.home-features {
+  max-width: 1120px;
+  margin: var(--spacing-3xl) auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3xl);
+}
+
+.home-features > .mask-reveal:first-child {
+  text-align: center;
+}
+
+.home-section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--home-ink);
+  margin-top: var(--spacing-xs);
+}
+
+.home-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--spacing-2xl);
+}
+
+/* 偶数番目は画像を右へ（交互レイアウト） */
+.home-feature:nth-child(even) .home-feature-visual {
+  order: 2;
+}
+
+.home-feature-visual {
+  width: 100%;
+}
+
+.home-feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.home-feature-index {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.1em;
+  color: var(--home-tint);
+}
+
+.home-feature-title {
+  font-size: var(--font-size-2xl);
+  color: var(--home-ink);
+  margin: 0;
+}
+
+.home-feature-text {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--home-ink-soft);
+  margin: 0;
+}
+
+/* ダークキャンバス上の画像プレースホルダー（暗色版に上書き） */
+.home-page .image-placeholder {
+  background-color: rgba(255, 255, 255, 0.04);
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+  border-color: var(--home-line);
+}
+
+.home-page .image-placeholder::before {
+  background-image:
+    linear-gradient(to top right,
+      transparent calc(50% - 0.5px),
+      var(--home-line) 50%,
+      transparent calc(50% + 0.5px)),
+    linear-gradient(to top left,
+      transparent calc(50% - 0.5px),
+      var(--home-line) 50%,
+      transparent calc(50% + 0.5px));
+}
+
+.home-page .image-placeholder-inner {
+  color: var(--home-ink-dim);
+}
+
+.home-page .image-placeholder-icon {
+  color: var(--home-ink-dim);
+}
+
+.home-page .image-placeholder-slot {
+  color: var(--home-tint);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.home-page .image-placeholder-label {
+  color: var(--home-ink-dim);
+}
+
+/* ========================================
+   レスポンシブ
+   ======================================== */
+
+@media (max-width: 900px) {
+  .home-hero {
+    min-height: auto;
+    padding: var(--spacing-2xl) 0;
+  }
+
+  .home-feature,
+  .home-feature:nth-child(even) .home-feature-visual {
+    grid-template-columns: 1fr;
+    order: 0;
+  }
+
+  .home-feature {
+    gap: var(--spacing-md);
+  }
+}
+
 @media (max-width: 600px) {
-  .home-page-cards {
+  .home-doc-groups {
     grid-template-columns: 1fr;
   }
 
-  .home-card {
-    padding: var(--spacing-lg) var(--spacing-md);
+  .home-section-title {
+    font-size: var(--font-size-2xl);
   }
+}
 
-  .home-card-icon {
-    width: 48px;
-    height: 48px;
+@media (max-width: 380px) {
+  .home-doc-actions {
+    grid-template-columns: 1fr;
   }
 }

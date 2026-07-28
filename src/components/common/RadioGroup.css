@@ -96,7 +96,7 @@
 
 .radio-input:focus + .radio-custom {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(74, 159, 110, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 7, 245, 0.2);
 }
 
 .radio-text {
