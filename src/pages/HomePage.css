@@ -1,7 +1,7 @@
 /* ==========================================================================
    HomePage - トップページ（ミニマル×テック）
    - 白基調＋ヘアライン罫線＋等幅フォントの注釈＋ブランド青のアクセント
-   - 演出（グリッチ/粒子/カーソル追従）は使用しない
+   - スクロールで各要素が登場（Reveal）／ヒーロー背景の格子はスクロール連動
    ========================================================================== */
 
 .home-page {
@@ -34,18 +34,6 @@
   line-height: var(--line-height-tight);
   color: var(--color-gray-900);
   margin: 0 0 var(--spacing-2xl);
-}
-
-/* 出力形式チップ（.pdf / .docx / .xlsx 等） */
-.home-format-chip {
-  display: inline-block;
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-xs);
-  color: var(--color-primary);
-  background-color: var(--color-white);
-  border: var(--border-width) solid var(--color-gray-300);
-  border-radius: var(--border-radius-sm);
-  padding: 3px 10px;
 }
 
 /* ボタン */
@@ -92,15 +80,26 @@
 
 .home-hero {
   position: relative;
+  overflow: hidden;
   border-bottom: var(--border-width) solid var(--color-gray-200);
-  /* 薄いグリッド線でテック感を出す（静的・演出なし） */
+}
+
+/* 薄いグリッド線でテック感を出す。スクロールに連動して transform で動かす */
+.home-hero-grid {
+  position: absolute;
+  inset: -30% 0;
   background-image:
     linear-gradient(to right, var(--color-gray-100) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-gray-100) 1px, transparent 1px);
   background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
 }
 
 .home-hero-inner {
+  position: relative;
+  z-index: 1;
   max-width: 1120px;
   margin: 0 auto;
   padding: var(--spacing-3xl) var(--spacing-lg);
@@ -125,12 +124,6 @@
   color: var(--color-text-secondary);
   margin: 0 0 var(--spacing-lg);
   max-width: 34em;
-}
-
-.home-hero-formats {
-  display: flex;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-xl);
 }
 
 .home-hero-actions {
@@ -186,7 +179,7 @@
 
 .home-doc-row {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--spacing-xl);
   padding: var(--spacing-lg) 0;
@@ -196,16 +189,6 @@
 .home-doc-row--disabled .home-doc-title,
 .home-doc-row--disabled .home-doc-text {
   color: var(--color-text-disabled);
-}
-
-.home-doc-index {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-}
-
-.home-doc-row--disabled .home-doc-index {
-  color: var(--color-gray-400);
 }
 
 .home-doc-title {
@@ -264,14 +247,6 @@
   order: 1;
 }
 
-.home-feature-index {
-  display: block;
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-sm);
-}
-
 .home-feature-title {
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
@@ -283,13 +258,7 @@
   font-size: var(--font-size-base);
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
-  margin: 0 0 var(--spacing-md);
-}
-
-.home-feature-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
+  margin: 0;
 }
 
 .home-feature-visual {
@@ -357,12 +326,8 @@
   }
 
   .home-doc-row {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     row-gap: var(--spacing-md);
-  }
-
-  .home-doc-actions {
-    grid-column: 2;
   }
 
   .home-hero-actions .home-btn {

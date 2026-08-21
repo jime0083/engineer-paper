@@ -70,18 +70,24 @@ Phase完了時に以下を報告：
 - 修正完了後は problem.txt のステータスを更新する
 
 ## フォントルール（必須・全ページ共通）
-このサイトのフォントは **https://amp-el.jp/ と全く同じ**スタックに統一する。
+このサイトのフォントは **portfolio-2025 サイトと全く同じ**スタックに統一する。
 今後のページ追加・修正でも必ずこのフォントを徹底すること。
 
 - 定義場所: `src/styles/variables.css` の `--font-family-base` / `--font-family-mono`
-- **本文**: `Inter, 'Noto Sans JP', 'Helvetica Neue', 'Hiragino Sans', 'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic, Verdana, Meiryo, 'M+ 1p', sans-serif`
-- **等幅**: `SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace`
+- **本文/全体（明朝体スタック）**: `游明朝, YuMincho, 'ヒラギノ明朝 ProN W3', 'Hiragino Mincho ProN', HG明朝E, 'ＭＳ Ｐ明朝', 'ＭＳ 明朝', serif`
+- **英字表記用（欧文サンセリフ）**: `'Helvetica Neue', Helvetica, Arial, sans-serif`
+  - ※ 変数名は歴史的経緯で `--font-family-mono` のままだが、役割は「英字用サンセリフ」
 
 **禁止事項:**
 - ⛔ コンポーネント/ページで `font-family` を直接ハードコードしない
 - ⛔ 必ず `var(--font-family-base)` / `var(--font-family-mono)` を参照する
-- ⛔ Webフォント（Google Fonts等）の読み込み追加も禁止（amp-el.jp と同じシステムフォント方式を維持）
+- ⛔ Webフォント（Google Fonts等）の読み込み追加も禁止（portfolio-2025 と同じシステムフォント方式を維持）
 - 例外: `src/components/pdf/SkillSheetTemplate.css`（PDF出力書類の字体）はサイトUIと別管理
+
+## デザイン要素ルール（必須）
+- ⛔ 装飾目的の連番（01, 02, 03 のようなセクション番号）を要素に入れない。
+  ユーザーからの明示的な指示がある場合のみ追加してよい。
+  （2026-08-22 ユーザー指示により恒久ルール化）
 
 ## 技術スタック
 - React（初学者向けコード）

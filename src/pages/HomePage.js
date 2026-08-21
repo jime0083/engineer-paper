@@ -1,14 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../context/FormContext';
 import { readJsonFile, validateLoadedData, migrateData } from '../utils/fileHandler';
 import Alert from '../components/common/Alert';
 import ImagePlaceholder from '../components/common/ImagePlaceholder';
+import Reveal from '../components/common/Reveal';
 import './HomePage.css';
 
 /**
  * トップページ（ミニマル×テック）
- * - 演出（グリッチ/粒子/カーソル追従）は使用しない
+ * - スクロールで各要素がフェード＋スライドで登場（Reveal）
+ * - ファーストビュー背景の格子はスクロールに連動して動く
  * - 画像はすべて ImagePlaceholder で配置位置を明示（内容は 必要画像.txt 参照）
  * - 訴求ポイント3点：
  *   ①ボタン1つで PDF / Word / Excel 全形式保存（フォーマット違いによる作り直しを解消）
@@ -19,30 +21,24 @@ import './HomePage.css';
 const FEATURES = [
   {
     slotId: 'HOME-FEATURE-FORMAT',
-    index: '01',
     title: '全形式で保存。作り直しはもう不要',
     text:
       'エンジニアごとにスキルシートのフォーマットは違い、会社や営業が変わるたびに新しく作らされるのは面倒です。' +
       'ここで一度作成すれば、ボタン1つで PDF・Word・Excel すべての形式で保存でき、どの提出先にもそのまま対応できます。',
-    tags: ['.pdf', '.docx', '.xlsx'],
   },
   {
     slotId: 'HOME-FEATURE-FREE',
-    index: '02',
     title: '無料で使える。転職の営業もない',
     text:
       '会員登録は不要、すべての機能を無料で使えます。' +
       '他のスキルシート作成サービスにありがちな、転職をすすめる営業連絡も一切ありません。',
-    tags: ['free', 'no-signup', 'no-sales'],
   },
   {
     slotId: 'HOME-FEATURE-EDIT',
-    index: '03',
     title: '並び替えはクリック1つ。編集がかんたん',
     text:
       '職務経歴の並び替えはクリック1つで完了。' +
       '項目の追加や修正もフォームに沿って入力するだけで、常に最新のスキルシートを保てます。',
-    tags: ['sort', 'edit'],
   },
 ];
 
@@ -50,7 +46,33 @@ function HomePage() {
   const navigate = useNavigate();
   const { loadData, resetData } = useFormContext();
   const fileInputRef = useRef(null);
+  const heroGridRef = useRef(null);
   const [error, setError] = useState(null);
+
+  // ファーストビュー背景の格子をスクロールに連動して動かす
+  useEffect(() => {
+    const grid = heroGridRef.current;
+    if (!grid) return undefined;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduce.matches) return undefined;
+
+    let raf = null;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        grid.style.transform = `translate3d(0, ${y * 0.35}px, 0)`;
+        raf = null;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const handleCreateSkillSheet = () => {
     resetData();
@@ -100,27 +122,23 @@ function HomePage() {
 
       {/* ===== ヒーロー（ファーストビュー） ===== */}
       <section className="home-hero">
+        <div className="home-hero-grid" ref={heroGridRef} aria-hidden="true" />
+
         <div className="home-hero-inner">
           <div className="home-hero-copy">
-            <p className="home-eyebrow">{'// SKILL SHEET MAKER — FOR ENGINEERS'}</p>
-            <h1 className="home-hero-title">
-              スキルシート、
-              <br />
-              もう作り直さない。
-            </h1>
-            <p className="home-hero-lead">
+            <Reveal as="p" className="home-eyebrow" delay={0}>
+              {'// SKILL SHEET MAKER — FOR ENGINEERS'}
+            </Reveal>
+            <Reveal as="h1" className="home-hero-title" delay={100}>
+              スキルシートの面倒くさいから解放
+            </Reveal>
+            <Reveal as="p" className="home-hero-lead" delay={200}>
               一度作れば、ボタン1つで PDF・Word・Excel すべての形式で保存。
               会社や営業ごとに違うフォーマットに合わせて作り直す手間をなくします。
               無料・登録不要、転職の営業もありません。
-            </p>
+            </Reveal>
 
-            <div className="home-hero-formats" aria-label="対応出力形式">
-              <span className="home-format-chip">.pdf</span>
-              <span className="home-format-chip">.docx</span>
-              <span className="home-format-chip">.xlsx</span>
-            </div>
-
-            <div className="home-hero-actions">
+            <Reveal className="home-hero-actions" delay={300}>
               <button
                 type="button"
                 className="home-btn home-btn--primary"
@@ -135,34 +153,35 @@ function HomePage() {
               >
                 ファイル読み込み
               </button>
-            </div>
+            </Reveal>
 
-            <ul className="home-hero-notes">
+            <Reveal as="ul" className="home-hero-notes" delay={400}>
               <li>登録不要</li>
               <li>完全無料</li>
               <li>転職営業なし</li>
-            </ul>
+            </Reveal>
           </div>
 
-          <div className="home-hero-visual">
+          <Reveal className="home-hero-visual" delay={250}>
             <ImagePlaceholder
               slotId="HOME-HERO"
               label="アプリ画面イメージ（完成スキルシート＋3形式出力）"
               ratio="4 / 3"
             />
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ===== 作成できる書類 ===== */}
       <section className="home-docs">
         <div className="home-section-inner">
-          <p className="home-eyebrow">{'// DOCUMENTS'}</p>
-          <h2 className="home-section-title">作成できる書類</h2>
+          <Reveal as="p" className="home-eyebrow">{'// DOCUMENTS'}</Reveal>
+          <Reveal as="h2" className="home-section-title" delay={80}>
+            作成できる書類
+          </Reveal>
 
           <div className="home-doc-list">
-            <div className="home-doc-row">
-              <span className="home-doc-index">01</span>
+            <Reveal className="home-doc-row">
               <div className="home-doc-info">
                 <h3 className="home-doc-title">スキルシート</h3>
                 <p className="home-doc-text">
@@ -185,10 +204,9 @@ function HomePage() {
                   ファイル読み込み
                 </button>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="home-doc-row home-doc-row--disabled">
-              <span className="home-doc-index">02</span>
+            <Reveal className="home-doc-row home-doc-row--disabled" delay={100}>
               <div className="home-doc-info">
                 <h3 className="home-doc-title">契約書</h3>
                 <p className="home-doc-text">
@@ -198,7 +216,7 @@ function HomePage() {
               <div className="home-doc-actions">
                 <span className="home-doc-badge">Coming Soon</span>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -206,33 +224,27 @@ function HomePage() {
       {/* ===== 選ばれる理由（訴求ポイント3点） ===== */}
       <section className="home-features">
         <div className="home-section-inner">
-          <p className="home-eyebrow">{'// FEATURES'}</p>
-          <h2 className="home-section-title">選ばれる理由</h2>
+          <Reveal as="p" className="home-eyebrow">{'// FEATURES'}</Reveal>
+          <Reveal as="h2" className="home-section-title" delay={80}>
+            スキルシートメーカーが選ばれる理由
+          </Reveal>
 
           {FEATURES.map((feature, i) => (
             <div
               key={feature.slotId}
               className={`home-feature ${i % 2 === 1 ? 'home-feature--reverse' : ''}`}
             >
-              <div className="home-feature-body">
-                <span className="home-feature-index">{feature.index}</span>
+              <Reveal className="home-feature-body">
                 <h3 className="home-feature-title">{feature.title}</h3>
                 <p className="home-feature-text">{feature.text}</p>
-                <div className="home-feature-tags">
-                  {feature.tags.map((tag) => (
-                    <span key={tag} className="home-format-chip">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="home-feature-visual">
+              </Reveal>
+              <Reveal className="home-feature-visual" delay={120}>
                 <ImagePlaceholder
                   slotId={feature.slotId}
                   label={feature.title}
                   ratio="4 / 3"
                 />
-              </div>
+              </Reveal>
             </div>
           ))}
         </div>
@@ -241,13 +253,13 @@ function HomePage() {
       {/* ===== 下部CTA ===== */}
       <section className="home-cta">
         <div className="home-section-inner home-cta-inner">
-          <p className="home-eyebrow">{'// GET STARTED'}</p>
-          <h2 className="home-cta-title">
+          <Reveal as="p" className="home-eyebrow">{'// GET STARTED'}</Reveal>
+          <Reveal as="h2" className="home-cta-title" delay={80}>
             次にスキルシートを求められたら、
             <br />
             作るのは最後の1枚に。
-          </h2>
-          <div className="home-hero-actions home-cta-actions">
+          </Reveal>
+          <Reveal className="home-hero-actions home-cta-actions" delay={160}>
             <button
               type="button"
               className="home-btn home-btn--primary"
@@ -262,7 +274,7 @@ function HomePage() {
             >
               ファイル読み込み
             </button>
-          </div>
+          </Reveal>
         </div>
       </section>
 

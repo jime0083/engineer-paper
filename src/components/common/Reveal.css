@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Reveal - スクロール登場アニメーション
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 720ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 720ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* モーション低減環境ではアニメーションを無効化して即表示 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

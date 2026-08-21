@@ -245,3 +245,93 @@ const isCurrentJob = !!career.isCurrentJob;
 - [x] Phase 2: ビルド・動作確認・デプロイ ✅ 2026-08-22
 
 ================================================================================
+
+## 変更 #5: トップページの追加調整・フォント変更（ミニマル×テック 第2弾）
+================================================================================
+
+### 依頼日
+2026-08-22
+
+### 修正点（ユーザー共有内容）と対応方針
+
+1. トップページ表示時に各要素が動くアニメーションを実装
+   - 度合い: 「しっかり目立つ動き」（確認済み）。ただしグリッチ等の派手演出ではなく
+     洗練されたスクロールリビール（フェード＋スライド＋スタガー）で実装
+   - 影響: src/pages/HomePage.js / HomePage.css、共通Revealフック or コンポーネント新設
+   - reduced-motion 対応必須
+
+2. 「選ばれる理由」各セクション上部の数字（01,02,03）を削除
+   - あわせて恒久ルール化: 今後こちらの指示がない限り、追加・修正する要素に
+     こうした装飾連番を入れない → CLAUDE.md に追記
+   - 影響: HomePage.js（FEATURES の index / home-feature-index）、HomePage.css
+
+3. ファーストビュー見出し文言変更
+   - 「スキルシート、もう作り直さない。」→「スキルシートの面倒くさいから解放」
+   - 影響: HomePage.js
+
+4. タグ状要素（.pdf / .docx / .xlsx / free / no-signup / no-sales / sort / edit）を全削除
+   - 範囲: ヒーロー上部の形式チップ含め全て削除（確認済み）
+   - 影響: HomePage.js（home-hero-formats / home-feature-tags / FEATURES.tags）、
+     HomePage.css（.home-format-chip 関連）
+
+5. セクション見出し「選ばれる理由」→「スキルシートメーカーが選ばれる理由」
+   - 影響: HomePage.js
+
+6. ファーストビュー背景の格子デザインをスクロールに合わせて動かす
+   - 影響: HomePage.js（スクロール連動）、HomePage.css（背景グリッド）
+   - reduced-motion 対応必須
+
+7. 利用規約・プライバシーポリシー下部の「スキルシートの書き方」要素を削除
+   - 調査結果: ガイドは MainLayout 経由で表示されており、Phase 13.3（2026-08-22）で
+     /terms・/privacy を含む非対象ページでは既に非表示化済み。
+     TermsPage.js / PrivacyPage.js への直接埋め込みは無し。
+   - 対応: 追加実装は不要。本番反映を確認する（デプロイ済み）。
+
+8. サイト内フォントを portfolio-2025 サイトと全く同じ明朝体スタックに変更
+   - 基本フォント（body/全体）→ 游明朝系スタック:
+     游明朝, YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN",
+     HG明朝E, "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif
+   - 欧文サンセリフ（旧 --font-family-mono 相当・英字表記用）→
+     "Helvetica Neue", Helvetica, Arial, sans-serif（仕様書 6-2 準拠）
+   - CLAUDE.md のフォントルール（旧: amp-el.jp と同一）を portfolio-2025 仕様に更新
+   - PDF出力書類（SkillSheetTemplate.css）は従来通り対象外
+   - 影響: src/styles/variables.css、CLAUDE.md
+
+### 影響範囲まとめ
+- src/pages/HomePage.js / HomePage.css
+- src/styles/variables.css
+- src/hooks/（Revealフック新設の可能性）
+- CLAUDE.md（フォントルール更新＋装飾連番禁止ルール追記）
+
+### 修正計画
+- Phase 15.1: フォント変更（variables.css / CLAUDE.md）
+- Phase 15.2: トップページの文言・要素修正（見出し2件・数字削除・タグ全削除）
+- Phase 15.3: アニメーション実装（要素リビール＋格子背景スクロール連動＋reduced-motion）
+- Phase 15.4: 修正点7の本番反映確認（追加実装なし）
+- Phase 15.5: ビルド・検証・デプロイ
+
+### ステータス
+- 実装完了・ユーザー確認待ち（2026-08-22）
+
+### 修正内容
+**修正日**: 2026-08-22
+
+**修正ファイル**:
+1. src/styles/variables.css … フォントを portfolio-2025 明朝体スタックに変更
+2. CLAUDE.md … フォントルール更新＋装飾連番禁止ルール追記
+3. src/components/common/Reveal.js / Reveal.css（新規）… スクロール登場アニメーション
+4. src/pages/HomePage.js / HomePage.css …
+   - 見出し「スキルシートの面倒くさいから解放」/「スキルシートメーカーが選ばれる理由」
+   - 数字（01,02,03）・タグ状要素（.pdf等）を全削除（ヒーローの形式チップ含む）
+   - 各要素に Reveal 適用（フェード＋スライド＋スタガー）
+   - ヒーロー背景の格子をスクロール連動（translate3d）で移動
+
+**検証結果（Playwright）**:
+- 見出し2件の文言・feature/docの数字0件・format-chip 0件を確認
+- body フォント先頭が游明朝、hero見出し opacity=1（読み込み後表示）
+- 格子 transform がスクロールで 0→translate3d(0,210px,0) と変化
+- コンソールエラーなし。npm run build 成功
+
+**修正点7について**: Phase 13.3 で /terms・/privacy のガイドは非表示化済み。追加実装なし。
+
+================================================================================

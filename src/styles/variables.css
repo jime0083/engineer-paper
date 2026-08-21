@@ -65,15 +65,17 @@
 
   /*
     ⚠ フォントルール（必須・全ページ共通）:
-    - このサイトのフォントは https://amp-el.jp/ と全く同じスタックに統一する。
+    - このサイトのフォントは portfolio-2025 サイトと全く同じスタックに統一する。
+    - 本文/全体は明朝体スタック（游明朝系）、英字表記用は欧文サンセリフ（Helvetica系）。
     - font-family を個別に指定せず、必ず --font-family-base / --font-family-mono を参照すること。
     - 今後のページ追加・修正でもこのトークン以外のフォント指定は禁止（CLAUDE.md 参照）。
+    - PDF出力書類（SkillSheetTemplate.css）はサイトUIと別管理のため対象外。
   */
-  --font-family-base: Inter, 'Noto Sans JP', 'Helvetica Neue', 'Hiragino Sans',
-    'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', YuGothic,
-    Verdana, Meiryo, 'M+ 1p', sans-serif;
-  --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+  /* 基本フォント（body/サイト全体）: 明朝体スタック */
+  --font-family-base: 游明朝, YuMincho, 'ヒラギノ明朝 ProN W3',
+    'Hiragino Mincho ProN', HG明朝E, 'ＭＳ Ｐ明朝', 'ＭＳ 明朝', serif;
+  /* 英字表記用: 欧文サンセリフ（portfolio-2025 仕様書 6-2 準拠。旧mono相当の役割で維持） */
+  --font-family-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
   /* フォントサイズ */
   --font-size-xs: 0.75rem;    /* 12px */
