@@ -8,9 +8,9 @@
   border-bottom: var(--border-width) solid var(--color-border);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  /* 上部に固定（ヘッダーの下） */
+  /* 上部に固定（ステップページにはヘッダーが表示されないため top: 0） */
   position: fixed;
-  top: var(--header-height);
+  top: 0;
   left: 0;
   right: 0;
   z-index: 100;
