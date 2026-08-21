@@ -15,10 +15,12 @@ function MainLayout({ children }) {
   // 入力データがある場合にページ離脱時にアラートを表示
   useBeforeUnload();
 
-  // トップページ（/）では書き方ガイドを表示しない
-  // ※ 全ステップページ下部への正式な再配置は Phase 13.3 で実施
   const location = useLocation();
   const isHome = location.pathname === '/';
+
+  // 書き方ガイドは入力ステップ（step/1〜8）の下部にのみ表示する
+  // （確認/完了/プレビュー/規約/プライバシー/トップでは非表示）
+  const isGuideVisible = /^\/step\/[1-8]$/.test(location.pathname);
 
   return (
     <div className="main-layout">
@@ -32,7 +34,7 @@ function MainLayout({ children }) {
         </main>
         {!isHome && <AdPlaceholder position="right" />}
       </div>
-      {!isHome && <SkillSheetGuide />}
+      {isGuideVisible && <SkillSheetGuide />}
       <AdPlaceholder position="bottom" />
       <Footer />
     </div>
