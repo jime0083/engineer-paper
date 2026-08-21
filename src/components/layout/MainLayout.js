@@ -22,7 +22,8 @@ function MainLayout({ children }) {
 
   return (
     <div className="main-layout">
-      <Header />
+      {/* ヘッダーはトップページのみ表示（Phase 14 仕様） */}
+      {isHome && <Header />}
       <div className={`main-body ${isHome ? 'main-body--home' : ''}`}>
         {/* トップページは左右広告なしで幅いっぱいに表示する */}
         {!isHome && <AdPlaceholder position="left" />}

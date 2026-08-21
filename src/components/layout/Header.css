@@ -1,75 +1,101 @@
 /* ==========================================================================
-   Header Component Styles
+   Header Component Styles（トップページ専用・ミニマル×テック）
    ========================================================================== */
 
 .header {
   position: sticky;
   top: 0;
   z-index: var(--z-index-sticky);
-  height: var(--header-height);
-  background-color: var(--color-white);
-  border-bottom: var(--border-width) solid var(--color-border);
-}
-
-/* 下端のグラデーションアクセントライン（青→ピンク→オレンジ） */
-.header::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--color-primary),
-    var(--color-secondary),
-    var(--color-accent)
-  );
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: var(--border-width) solid var(--color-gray-200);
 }
 
 .header-container {
-  max-width: var(--content-max-width);
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 var(--spacing-md);
-  height: 100%;
+  padding: 0 var(--spacing-lg);
+  height: 64px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
 }
 
-.header-logo {
+/* --------------------------------------------------------------------------
+   ロゴ配置領域（実ロゴ画像が用意でき次第 <img> に差し替え）
+   -------------------------------------------------------------------------- */
+.header-logo-slot {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-size: var(--font-size-xl);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+  width: 200px;
+  height: 40px;
+  padding: 0 10px;
+  border: var(--border-width) dashed var(--color-gray-400);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-gray-50);
+  text-decoration: none;
+  line-height: 1.1;
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.header-logo-slot:hover {
+  border-color: var(--color-primary);
+}
+
+.header-logo-slot-id {
+  font-family: var(--font-family-mono);
+  font-size: 10px;
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
-  text-decoration: none;
-  margin: 0;
 }
 
-.header-logo:hover {
-  opacity: 0.9;
+.header-logo-slot-label {
+  font-size: 11px;
+  color: var(--color-gray-600);
+  white-space: nowrap;
 }
 
-.header-logo-image {
-  width: 36px;
-  height: 36px;
+/* --------------------------------------------------------------------------
+   スキルシート作成ボタン
+   -------------------------------------------------------------------------- */
+.header-create-btn {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
   border-radius: var(--border-radius-sm);
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
-/* GlitchText の既定色に負けないよう .header-logo で特異度を上げる */
-.header-logo .header-logo-text {
-  color: var(--color-primary);
+.header-create-btn:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
 }
 
+/* --------------------------------------------------------------------------
+   レスポンシブ
+   -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
-  .header-logo-image {
-    width: 28px;
-    height: 28px;
+  .header-container {
+    padding: 0 var(--spacing-md);
   }
 
-  .header-logo-text {
-    font-size: var(--font-size-lg);
+  .header-logo-slot {
+    width: 150px;
+  }
+
+  .header-create-btn {
+    padding: 8px 14px;
   }
 }
