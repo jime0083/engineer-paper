@@ -33,7 +33,8 @@
       "Bash(grep -rhoE \"#[0-9a-fA-F]{3,6}\" --include=\"*.css\" .)",
       "Bash(grep -rhoE \"#[0-9a-fA-F]{3,6}\" components/pdf/SkillSheetTemplate.css)",
       "Bash(node shot17.js)",
-      "Bash(node shot18.js)"
+      "Bash(node shot18.js)",
+      "Bash(node shot20.js)"
     ]
   }
 }

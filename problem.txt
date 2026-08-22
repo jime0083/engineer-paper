@@ -502,3 +502,52 @@ npm run build 成功。
 ### 修正内容
 - HomePage.js の表示テキスト内の「、」を全削除（読みやすさ維持のため半角スペースに置換。
   改行タグ直前の1件は削除）。grep で残存0件を確認。npm run build 成功。
+
+## 変更 #10: トップページの文言・レイアウト調整（複数）
+================================================================================
+
+### 依頼日
+2026-08-22
+
+### 修正点（ユーザー共有内容）
+1. ヘッダーのアイコンと favicon を public/icon2.png に変更
+2. 「作成できる書類」「スキルシートメーカーが選ばれる理由」の文字サイズを
+   下部CTA見出し（.home-cta-title）と同じサイズにする
+3. ヒーロー見出し「スキルシートの面倒くさいから解放」を「スキルシートの」で改行
+4. ヒーロー本文を「…すべての形式で保存。」の後で改行
+5. ヒーロー下部の「登録不要」「完全無料」「転職営業なし」を削除
+6. 選ばれる理由1番目の見出しを「全形式で保存、作り直しはもう不要」に変更
+7. 上記1番目の本文を「…面倒です。」の後で改行
+8. 選ばれる理由2番目の見出しを「エージェントからの営業無し、もちろん無料」に変更
+9. 選ばれる理由3番目の見出しを「並び替えはクリック1つ、編集が簡単」に変更
+10. 下部CTA「次にスキルシートを求められたら作るのは最後の1枚に。」とボタンを横並びに。
+    見出しの左端は他セクションと揃える（左寄せ）
+
+### 影響範囲
+- src/components/layout/Header.js（icon.png→icon2.png）
+- public/index.html（favicon/apple-touch-icon を icon2.png）
+- src/pages/HomePage.js（見出し文言・改行・notes削除・FEATURESテキスト・CTA構造）
+- src/pages/HomePage.css（.home-section-title サイズ、CTA横並びレイアウト、
+  feature-text の改行対応 white-space: pre-line）
+
+### 修正計画
+- Phase 20.1: ヘッダーアイコン・favicon を icon2.png に
+- Phase 20.2: 見出しサイズ統一（section-title = cta-title サイズ）
+- Phase 20.3: ヒーロー（h1改行・lead改行・notes削除）
+- Phase 20.4: 選ばれる理由（見出し3件変更・1番目本文改行）
+- Phase 20.5: 下部CTA横並び＋左寄せ
+- Phase 20.6: ビルド・目視検証・デプロイ
+
+### ステータス
+- 実装完了・ユーザー確認待ち（2026-08-22）
+
+### 修正内容
+- Header.js/index.html: アイコン・faviconを icon2.png に
+- HomePage.css: .home-section-title を .home-cta-title と同じ clamp(1.5rem,3vw,2.2rem) に統一
+  （720の上書きfont-sizeも削除）
+- HomePage.js: h1を「スキルシートの」で改行、leadを「…保存。」で改行、hero-notes削除、
+  FEATURES見出し3件変更、1番目本文に\nで改行（CSSに white-space: pre-line 追加）
+- CTA: 見出し+ボタンを .home-cta-row で横並び・左寄せ（見出し左端は他セクションと一致）、
+  狭幅は縦積みにするレスポンシブ追加
+- 検証(Playwright): icon2読込OK・notes 0件・section/cta見出し同サイズ(35.2px)・
+  見出し3件変更確認・エラー0、目視でヒーロー/特徴/CTA確認、npm run build 成功

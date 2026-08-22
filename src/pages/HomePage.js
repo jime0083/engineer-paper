@@ -22,15 +22,15 @@ const FEATURES = [
   {
     slotId: 'HOME-FEATURE-FORMAT',
     image: '/images/セクション1.jpeg',
-    title: '全形式で保存。作り直しはもう不要',
+    title: '全形式で保存、作り直しはもう不要',
     text:
-      'エンジニアごとにスキルシートのフォーマットは違い 会社や営業が変わるたびに新しく作らされるのは面倒です。' +
+      'エンジニアごとにスキルシートのフォーマットは違い 会社や営業が変わるたびに新しく作らされるのは面倒です。\n' +
       'ここで一度作成すれば ボタン1つで PDF・Word・Excel すべての形式で保存でき どの提出先にもそのまま対応できます。',
   },
   {
     slotId: 'HOME-FEATURE-FREE',
     image: '/images/セクション2.jpeg',
-    title: '無料で使える。転職の営業もない',
+    title: 'エージェントからの営業無し、もちろん無料',
     text:
       '会員登録は不要 すべての機能を無料で使えます。' +
       '他のスキルシート作成サービスにありがちな 転職をすすめる営業連絡も一切ありません。',
@@ -38,7 +38,7 @@ const FEATURES = [
   {
     slotId: 'HOME-FEATURE-EDIT',
     image: '/images/セクション3.png',
-    title: '並び替えはクリック1つ。編集がかんたん',
+    title: '並び替えはクリック1つ、編集が簡単',
     text:
       '職務経歴の並び替えはクリック1つで完了。' +
       '項目の追加や修正もフォームに沿って入力するだけで 常に最新のスキルシートを保てます。',
@@ -112,10 +112,13 @@ function HomePage() {
               {'// SKILL SHEET MAKER — FOR ENGINEERS'}
             </Reveal>
             <Reveal as="h1" className="home-hero-title" delay={100}>
-              スキルシートの面倒くさいから解放
+              スキルシートの
+              <br />
+              面倒くさいから解放
             </Reveal>
             <Reveal as="p" className="home-hero-lead" delay={200}>
               一度作れば ボタン1つで PDF・Word・Excel すべての形式で保存。
+              <br />
               会社や営業ごとに違うフォーマットに合わせて作り直す手間をなくします。
               無料・登録不要 転職の営業もありません。
             </Reveal>
@@ -135,12 +138,6 @@ function HomePage() {
               >
                 ファイル読み込み
               </button>
-            </Reveal>
-
-            <Reveal as="ul" className="home-hero-notes" delay={400}>
-              <li>登録不要</li>
-              <li>完全無料</li>
-              <li>転職営業なし</li>
             </Reveal>
           </div>
         </div>
@@ -230,26 +227,26 @@ function HomePage() {
       <section className="home-cta">
         <div className="home-section-inner home-cta-inner">
           <Reveal as="p" className="home-eyebrow">{'// GET STARTED'}</Reveal>
-          <Reveal as="h2" className="home-cta-title" delay={80}>
-            次にスキルシートを求められたら
-            <br />
-            作るのは最後の1枚に。
-          </Reveal>
-          <Reveal className="home-hero-actions home-cta-actions" delay={160}>
-            <button
-              type="button"
-              className="home-btn home-btn--primary"
-              onClick={handleCreateSkillSheet}
-            >
-              無料でスキルシートを作成
-            </button>
-            <button
-              type="button"
-              className="home-btn home-btn--ghost"
-              onClick={handleLoadSkillSheet}
-            >
-              ファイル読み込み
-            </button>
+          <Reveal className="home-cta-row" delay={80}>
+            <h2 className="home-cta-title">
+              次にスキルシートを求められたら作るのは最後の1枚に。
+            </h2>
+            <div className="home-hero-actions home-cta-actions">
+              <button
+                type="button"
+                className="home-btn home-btn--primary"
+                onClick={handleCreateSkillSheet}
+              >
+                無料でスキルシートを作成
+              </button>
+              <button
+                type="button"
+                className="home-btn home-btn--ghost"
+                onClick={handleLoadSkillSheet}
+              >
+                ファイル読み込み
+              </button>
+            </div>
           </Reveal>
         </div>
       </section>

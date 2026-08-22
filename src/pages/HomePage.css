@@ -29,7 +29,8 @@
 }
 
 .home-section-title {
-  font-size: var(--font-size-3xl);
+  /* 下部CTA見出し(.home-cta-title)と同サイズに統一 */
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);
   color: var(--color-gray-900);
@@ -265,6 +266,8 @@
   line-height: var(--line-height-relaxed);
   color: var(--color-text-secondary);
   margin: 0;
+  /* テキスト内の改行(\n)を反映する */
+  white-space: pre-line;
 }
 
 .home-feature-visual {
@@ -280,23 +283,35 @@
 }
 
 .home-cta-inner {
-  text-align: center;
+  text-align: left;
 }
 
 .home-cta .home-eyebrow {
   margin-bottom: var(--spacing-md);
 }
 
+/* 見出しとボタンを横並び（見出し左端は home-section-inner の左padで他セクションと揃う） */
+.home-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2xl);
+}
+
 .home-cta-title {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: var(--font-weight-bold);
   line-height: 1.4;
-  margin: 0 0 var(--spacing-xl);
+  margin: 0;
+  /* 長い見出しは折り返してボタンの領域を確保する */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .home-cta-actions {
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 0;
+  flex-shrink: 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -330,7 +345,6 @@
 
 @media (max-width: 720px) {
   .home-section-title {
-    font-size: var(--font-size-2xl);
     margin-bottom: var(--spacing-xl);
   }
 
@@ -341,6 +355,13 @@
 
   .home-hero-actions .home-btn {
     width: 100%;
+  }
+
+  /* CTAは縦積みにして見出し→ボタンの順に */
+  .home-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-lg);
   }
 
   .home-docs,

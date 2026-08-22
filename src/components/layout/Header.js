@@ -28,7 +28,7 @@ function Header() {
         >
           <img
             className="header-logo-img"
-            src={`${process.env.PUBLIC_URL}/icon.png`}
+            src={`${process.env.PUBLIC_URL}/icon2.png`}
             alt="スキルシートメーカー"
           />
         </Link>
