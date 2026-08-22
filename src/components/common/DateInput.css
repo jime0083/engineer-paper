@@ -34,7 +34,7 @@
 
 .date-input-select {
   appearance: none;
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-md);
   padding: var(--spacing-sm) var(--spacing-xl) var(--spacing-sm) var(--spacing-md);

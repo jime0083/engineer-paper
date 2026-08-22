@@ -155,7 +155,7 @@
 }
 
 .skill-card-button--edit {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-primary);
   border: var(--border-width) solid var(--color-primary);
 }

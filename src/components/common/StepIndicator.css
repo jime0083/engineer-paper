@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .step-indicator {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   padding: var(--spacing-md) var(--spacing-sm);
   border-bottom: var(--border-width) solid var(--color-border);
   overflow-x: auto;
@@ -76,7 +76,7 @@
 }
 
 .step-icon--pending {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-gray-500);
   border: 2px solid var(--color-gray-300);
 }

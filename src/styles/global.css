@@ -92,7 +92,7 @@ select {
   padding: var(--spacing-sm) var(--spacing-md);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius-md);
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 

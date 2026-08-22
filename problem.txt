@@ -383,3 +383,49 @@ const isCurrentJob = !!career.isCurrentJob;
 npm run build 成功。
 
 ================================================================================
+
+## 変更 #7: サイト内の背景色を #F7F8FF に変更
+================================================================================
+
+### 依頼日
+2026-08-22
+
+### 修正点（ユーザー共有内容）
+- このサイト内の背景で使用する色を #F7F8FF（青みのごく薄い白）にする
+
+### 確認済み仕様（質問への回答）
+- 適用範囲: 「ページ下地＋白い面全て」
+  → ページ全体の下地（bg-secondary）と、白い面（bg-primary/bg-card、
+    および背景に var(--color-white) を使っている全サーフェス）を #F7F8FF にする
+
+### 影響範囲・原因整理
+- 背景専用トークン: --color-bg-primary(#ffffff) / --color-bg-secondary(#f5f5f5) /
+  --color-bg-card(#ffffff) を #F7F8FF に変更すればよい。
+- ただし多数のコンポーネントが背景に var(--color-white) を直書きしている（27箇所/19ファイル）。
+  --color-white 自体はボタン文字色など前景でも19箇所使用しているため値を変えられない。
+  → 背景用途の var(--color-white) を var(--color-bg-card) に付け替える。
+- ハードコード #ffffff 背景: SkillSheetGuide.css 1箇所も付け替え。
+- 半透明の白（ヘッダー rgba(255,255,255,.92)、ヒーロー白オーバーレイ rgba(...,.7)）は
+  透過演出用のため対象外（下地が #F7F8FF になることで自然に馴染む）。
+- PDF出力書類（SkillSheetTemplate.css）は別管理のため対象外。
+
+### 修正計画
+- Phase 17.1: variables.css の bg トークン3種を #F7F8FF に変更
+- Phase 17.2: 背景の var(--color-white) → var(--color-bg-card) に一括置換（27箇所）
+             ＋ SkillSheetGuide.css の #ffffff 背景を付け替え
+- Phase 17.3: 仕様.txt の背景色記載を更新
+- Phase 17.4: ビルド・目視検証（前景の白／文字色が壊れていないこと）・デプロイ
+
+### ステータス
+- 実装完了・ユーザー確認待ち（2026-08-22）
+
+### 修正内容
+- variables.css: --color-bg-primary/secondary/card を #F7F8FF に変更
+- 背景の var(--color-white) → var(--color-bg-card) を27箇所/19ファイルで一括置換
+- SkillSheetGuide.css の #ffffff 背景を var(--color-bg-card) に付け替え
+- 仕様.txt の背景色記載を更新
+- 検証(Playwright): home/body/step-indicator 背景 = rgb(247,248,255)、
+  プライマリボタン文字色 = rgb(255,255,255)（前景の白は維持）、
+  コンソールエラーなし、npm run build 成功
+
+================================================================================

@@ -42,7 +42,7 @@
   height: 20px;
   border: 2px solid var(--color-border);
   border-radius: var(--border-radius-sm);
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
   flex-shrink: 0;
 }

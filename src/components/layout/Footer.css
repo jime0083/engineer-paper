@@ -5,7 +5,7 @@
 
 .footer {
   position: relative;
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   border-top: var(--border-width) solid var(--color-border);
   height: var(--footer-height);
   margin-top: auto;

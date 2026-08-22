@@ -67,7 +67,7 @@
   height: 20px;
   border: 2px solid var(--color-border);
   border-radius: var(--border-radius-full);
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   position: relative;
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
   flex-shrink: 0;

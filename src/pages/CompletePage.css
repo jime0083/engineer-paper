@@ -47,7 +47,7 @@
 }
 
 .complete-actions .button--primary:not(.button--word):not(.button--excel):hover:not(:disabled) {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-secondary);
 }
 
@@ -59,7 +59,7 @@
 }
 
 .complete-actions .button--word:hover:not(:disabled) {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: #2B579A;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .complete-actions .button--excel:hover:not(:disabled) {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: #217346;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .affiliate-link--freelance:hover {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-primary);
 }
 
@@ -134,7 +134,7 @@
 }
 
 .affiliate-link--career:hover {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-secondary);
 }
 

@@ -19,7 +19,20 @@
       "Bash(grep -iE '\\\\.\\(png|jpg|jpeg|svg|webp|gif\\)$')",
       "Bash(npx eslint *)",
       "Bash(echo \"---ESLINT EXIT: $?---\")",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Read(//Users/jime0083/Library/Caches/ms-playwright/**)",
+      "Bash(npm ls *)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node shot.js)",
+      "Bash(python3 *)",
+      "Bash(node scrollcheck.js)",
+      "Bash(node guidecheck.js)",
+      "Bash(node phase15.js)",
+      "Bash(node shot15.js)",
+      "Bash(node shot16.js)",
+      "Bash(grep -rhoE \"#[0-9a-fA-F]{3,6}\" --include=\"*.css\" .)",
+      "Bash(grep -rhoE \"#[0-9a-fA-F]{3,6}\" components/pdf/SkillSheetTemplate.css)",
+      "Bash(node shot17.js)"
     ]
   }
 }

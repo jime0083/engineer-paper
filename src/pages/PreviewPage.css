@@ -65,7 +65,7 @@
 }
 
 .preview-paper-wrapper {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   box-shadow: var(--shadow-lg);
   margin: var(--spacing-md);
 }

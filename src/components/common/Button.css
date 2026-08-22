@@ -70,7 +70,7 @@
 
 /* バリアント: セカンダリ（前へボタン） */
 .button--secondary {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-text-primary);
   border: var(--border-width) solid var(--color-border);
 }
@@ -98,7 +98,7 @@
 
 /* バリアント: 削除ボタン */
 .button--delete {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-card);
   color: var(--color-error);
   border: var(--border-width) solid var(--color-error);
 }
