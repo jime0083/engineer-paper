@@ -24,16 +24,16 @@ const FEATURES = [
     image: '/images/セクション1.jpeg',
     title: '全形式で保存。作り直しはもう不要',
     text:
-      'エンジニアごとにスキルシートのフォーマットは違い、会社や営業が変わるたびに新しく作らされるのは面倒です。' +
-      'ここで一度作成すれば、ボタン1つで PDF・Word・Excel すべての形式で保存でき、どの提出先にもそのまま対応できます。',
+      'エンジニアごとにスキルシートのフォーマットは違い 会社や営業が変わるたびに新しく作らされるのは面倒です。' +
+      'ここで一度作成すれば ボタン1つで PDF・Word・Excel すべての形式で保存でき どの提出先にもそのまま対応できます。',
   },
   {
     slotId: 'HOME-FEATURE-FREE',
     image: '/images/セクション2.jpeg',
     title: '無料で使える。転職の営業もない',
     text:
-      '会員登録は不要、すべての機能を無料で使えます。' +
-      '他のスキルシート作成サービスにありがちな、転職をすすめる営業連絡も一切ありません。',
+      '会員登録は不要 すべての機能を無料で使えます。' +
+      '他のスキルシート作成サービスにありがちな 転職をすすめる営業連絡も一切ありません。',
   },
   {
     slotId: 'HOME-FEATURE-EDIT',
@@ -41,7 +41,7 @@ const FEATURES = [
     title: '並び替えはクリック1つ。編集がかんたん',
     text:
       '職務経歴の並び替えはクリック1つで完了。' +
-      '項目の追加や修正もフォームに沿って入力するだけで、常に最新のスキルシートを保てます。',
+      '項目の追加や修正もフォームに沿って入力するだけで 常に最新のスキルシートを保てます。',
   },
 ];
 
@@ -115,9 +115,9 @@ function HomePage() {
               スキルシートの面倒くさいから解放
             </Reveal>
             <Reveal as="p" className="home-hero-lead" delay={200}>
-              一度作れば、ボタン1つで PDF・Word・Excel すべての形式で保存。
+              一度作れば ボタン1つで PDF・Word・Excel すべての形式で保存。
               会社や営業ごとに違うフォーマットに合わせて作り直す手間をなくします。
-              無料・登録不要、転職の営業もありません。
+              無料・登録不要 転職の営業もありません。
             </Reveal>
 
             <Reveal className="home-hero-actions" delay={300}>
@@ -159,7 +159,7 @@ function HomePage() {
               <div className="home-doc-info">
                 <h3 className="home-doc-title">スキルシート</h3>
                 <p className="home-doc-text">
-                  スキル・職務経歴・経歴・自己PRなど、エンジニアの実務に沿った項目で作成できます。
+                  スキル・職務経歴・経歴・自己PRなど エンジニアの実務に沿った項目で作成できます。
                 </p>
               </div>
               <div className="home-doc-actions">
@@ -231,7 +231,7 @@ function HomePage() {
         <div className="home-section-inner home-cta-inner">
           <Reveal as="p" className="home-eyebrow">{'// GET STARTED'}</Reveal>
           <Reveal as="h2" className="home-cta-title" delay={80}>
-            次にスキルシートを求められたら、
+            次にスキルシートを求められたら
             <br />
             作るのは最後の1枚に。
           </Reveal>
