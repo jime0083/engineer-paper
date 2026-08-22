@@ -86,38 +86,11 @@
   align-items: center;
   border-bottom: var(--border-width) solid var(--color-gray-200);
 
-  /* ▼▼ 背景画像：実画像が用意でき次第、下記コメントを有効化して差し替える ▼▼
-     background-image: url('/images/home-hero.jpg');
-     ▲▲ 用意した画像は public/images/ に配置（必要画像.txt [HOME-HERO] 参照） ▲▲ */
+  /* 背景画像（public/images/ファーストビュー.jpeg）は JSX で background-image を指定 */
   background-color: var(--color-gray-100);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-  /* 画像未用意時のプレースホルダ表示（チェック柄＋枠）。差し替え後は視覚的に隠れる */
-  background-image:
-    linear-gradient(45deg, var(--color-gray-200) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--color-gray-200) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--color-gray-200) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--color-gray-200) 75%);
-  background-size: 28px 28px;
-  background-position: 0 0, 0 14px, 14px -14px, -14px 0;
-}
-
-/* 画像未用意を示すバッジ（左上）。実画像差し替え後は削除してよい */
-.home-hero-slot-badge {
-  position: absolute;
-  top: var(--spacing-md);
-  left: var(--spacing-md);
-  z-index: 2;
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  background-color: var(--color-bg-card);
-  border: var(--border-width) dashed var(--color-gray-400);
-  border-radius: var(--border-radius-sm);
-  padding: 4px 8px;
 }
 
 /* 白めオーバーレイ：背景画像の上でテキストの可読性を確保する */

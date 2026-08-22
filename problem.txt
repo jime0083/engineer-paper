@@ -429,3 +429,49 @@ npm run build 成功。
   コンソールエラーなし、npm run build 成功
 
 ================================================================================
+
+## 変更 #8: 用意した実画像の配置（ファーストビュー・特徴3枚・ヘッダーアイコン/favicon）
+================================================================================
+
+### 依頼日
+2026-08-22
+
+### 修正点（ユーザー共有内容）
+- ファーストビュー背景 → public/images/ファーストビュー.jpeg
+- 特徴1「全形式で保存。作り直しはもう不要」 → public/images/セクション1.jpeg
+- 特徴2「無料で使える。転職の営業もない」 → public/images/セクション2.jpeg
+- 特徴3「並び替えはクリック1つ。編集がかんたん」 → public/images/セクション3.png
+- ヘッダーのアイコン と favicon → public/icon.png
+
+### 影響範囲
+- src/components/common/ImagePlaceholder.js（実画像src対応の分岐を追加）
+- src/pages/HomePage.js（ヒーロー背景を実画像に、特徴3枚に画像src指定、プレースホルダ表示除去）
+- src/pages/HomePage.css（ヒーローのチェック柄/バッジ除去、背景画像スタイル）
+- src/components/layout/Header.js / Header.css（ロゴ枠→icon.png の<img>に差し替え）
+- public/index.html（favicon を icon.png に）
+- 必要画像.txt（各スロットのステータスを「配置済み」に更新）
+
+### 補足
+- 画像パスは既存踏襲で process.env.PUBLIC_URL 経由（GitHub Pages のサブパス対応）
+- 日本語ファイル名はそのまま使用（ブラウザが自動でパーセントエンコード）
+
+### 修正計画
+- Phase 18.1: ImagePlaceholder に実画像src対応を追加
+- Phase 18.2: HomePage のヒーロー背景・特徴3枚を実画像に差し替え
+- Phase 18.3: ヘッダーアイコン・favicon を icon.png に
+- Phase 18.4: 必要画像.txt 更新、ビルド・検証・デプロイ
+
+### ステータス
+- 実装完了・ユーザー確認待ち（2026-08-22）
+
+### 修正内容
+- ImagePlaceholder.js/css: src/alt対応（src指定時は<img> object-fit:cover、枠/対角線を打ち消し）
+- HomePage.js: ヒーロー背景=ファーストビュー.jpeg（PUBLIC_URL経由）、特徴3枚に
+  セクション1.jpeg/セクション2.jpeg/セクション3.png を指定、プレースホルダ表示を除去
+- HomePage.css: ヒーローのチェック柄/バッジ用CSSを削除
+- Header.js/css: ロゴ枠を icon.png の<img>に差し替え
+- index.html: favicon と apple-touch-icon を icon.png に
+- 必要画像.txt: 全スロットを配置済みに更新
+- 検証(Playwright): 全画像 naturalWidth>0・失敗リクエスト0・エラー0、
+  日本語ファイル名も自動エンコードで解決、PC目視でヒーロー背景/ヘッダーアイコン/
+  特徴3枚の表示を確認、npm run build 成功

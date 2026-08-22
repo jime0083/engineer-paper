@@ -13,6 +13,8 @@ import './ImagePlaceholder.css';
  * - ratio: アスペクト比（例: '16 / 9' | '4 / 3' | '1 / 1'）。デフォルト '16 / 9'
  * - rounded: 角丸にするか（デフォルト true）
  * - className: 追加クラス
+ * - src: 実画像のパス（指定時はプレースホルダではなく <img> を表示）
+ * - alt: 実画像の代替テキスト（src指定時。省略時は label/slotId）
  */
 function ImagePlaceholder({
   slotId,
@@ -20,14 +22,26 @@ function ImagePlaceholder({
   ratio = '16 / 9',
   rounded = true,
   className = '',
+  src,
+  alt,
 }) {
   const classNames = [
     'image-placeholder',
     rounded ? 'image-placeholder--rounded' : '',
+    src ? 'image-placeholder--filled' : '',
     className,
   ]
     .filter(Boolean)
     .join(' ');
+
+  // 実画像が指定された場合は <img> を表示（object-fit: cover で枠にフィット）
+  if (src) {
+    return (
+      <div className={classNames} style={{ aspectRatio: ratio }} data-slot-id={slotId}>
+        <img className="image-placeholder-img" src={src} alt={alt || label || slotId || ''} />
+      </div>
+    );
+  }
 
   return (
     <div

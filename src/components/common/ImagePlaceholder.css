@@ -24,6 +24,25 @@
   border-radius: var(--border-radius-lg);
 }
 
+/* 実画像を配置した状態：枠・チェック柄・対角線を消して画像だけを表示
+   （記述順に依存しないよう特異度を上げて確実に打ち消す） */
+.image-placeholder.image-placeholder--filled {
+  background: none;
+  border: none;
+}
+
+.image-placeholder.image-placeholder--filled::before {
+  content: none;
+  background-image: none;
+}
+
+.image-placeholder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ワイヤーフレームの対角線（枠であることを示す） */
 .image-placeholder::before {
   content: '';

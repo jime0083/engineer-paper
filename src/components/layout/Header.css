@@ -24,41 +24,23 @@
 }
 
 /* --------------------------------------------------------------------------
-   ロゴ配置領域（実ロゴ画像が用意でき次第 <img> に差し替え）
+   ロゴ（サービスアイコン icon.png）
    -------------------------------------------------------------------------- */
-.header-logo-slot {
+.header-logo {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2px;
-  width: 200px;
-  height: 40px;
-  padding: 0 10px;
-  border: var(--border-width) dashed var(--color-gray-400);
-  border-radius: var(--border-radius-sm);
-  background-color: var(--color-gray-50);
+  align-items: center;
   text-decoration: none;
-  line-height: 1.1;
-  overflow: hidden;
-  transition: border-color var(--transition-fast);
+  transition: opacity var(--transition-fast);
 }
 
-.header-logo-slot:hover {
-  border-color: var(--color-primary);
+.header-logo:hover {
+  opacity: 0.85;
 }
 
-.header-logo-slot-id {
-  font-family: var(--font-family-mono);
-  font-size: 10px;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-}
-
-.header-logo-slot-label {
-  font-size: 11px;
-  color: var(--color-gray-600);
-  white-space: nowrap;
+.header-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 /* --------------------------------------------------------------------------
@@ -91,8 +73,8 @@
     padding: 0 var(--spacing-md);
   }
 
-  .header-logo-slot {
-    width: 150px;
+  .header-logo-img {
+    height: 32px;
   }
 
   .header-create-btn {

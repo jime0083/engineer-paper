@@ -21,6 +21,7 @@ import './HomePage.css';
 const FEATURES = [
   {
     slotId: 'HOME-FEATURE-FORMAT',
+    image: '/images/セクション1.jpeg',
     title: '全形式で保存。作り直しはもう不要',
     text:
       'エンジニアごとにスキルシートのフォーマットは違い、会社や営業が変わるたびに新しく作らされるのは面倒です。' +
@@ -28,6 +29,7 @@ const FEATURES = [
   },
   {
     slotId: 'HOME-FEATURE-FREE',
+    image: '/images/セクション2.jpeg',
     title: '無料で使える。転職の営業もない',
     text:
       '会員登録は不要、すべての機能を無料で使えます。' +
@@ -35,6 +37,7 @@ const FEATURES = [
   },
   {
     slotId: 'HOME-FEATURE-EDIT',
+    image: '/images/セクション3.png',
     title: '並び替えはクリック1つ。編集がかんたん',
     text:
       '職務経歴の並び替えはクリック1つで完了。' +
@@ -95,13 +98,12 @@ function HomePage() {
       )}
 
       {/* ===== ヒーロー（ファーストビュー：背景画像＋白オーバーレイ） ===== */}
-      {/* 背景画像は未用意のため .home-hero を背景プレースホルダ枠として実装。
-          実画像は 必要画像.txt [HOME-HERO] 参照。用意でき次第 .home-hero の
-          background-image に差し替える（下記CSSのコメント箇所）。 */}
-      <section className="home-hero" data-slot-id="HOME-HERO">
-        <span className="home-hero-slot-badge" aria-hidden="true">
-          [HOME-HERO] 背景画像を配置予定
-        </span>
+      <section
+        className="home-hero"
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/images/ファーストビュー.jpeg)`,
+        }}
+      >
         <div className="home-hero-overlay" aria-hidden="true" />
 
         <div className="home-hero-inner">
@@ -215,6 +217,8 @@ function HomePage() {
                   slotId={feature.slotId}
                   label={feature.title}
                   ratio="4 / 3"
+                  src={`${process.env.PUBLIC_URL}${feature.image}`}
+                  alt={feature.title}
                 />
               </Reveal>
             </div>
