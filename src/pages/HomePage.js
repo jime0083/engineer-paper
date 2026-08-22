@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormContext } from '../context/FormContext';
 import { readJsonFile, validateLoadedData, migrateData } from '../utils/fileHandler';
@@ -10,7 +10,7 @@ import './HomePage.css';
 /**
  * トップページ（ミニマル×テック）
  * - スクロールで各要素がフェード＋スライドで登場（Reveal）
- * - ファーストビュー背景の格子はスクロールに連動して動く
+ * - ファーストビューは背景画像（HOME-HERO）＋白オーバーレイの上に左寄せテキストを重ねる
  * - 画像はすべて ImagePlaceholder で配置位置を明示（内容は 必要画像.txt 参照）
  * - 訴求ポイント3点：
  *   ①ボタン1つで PDF / Word / Excel 全形式保存（フォーマット違いによる作り直しを解消）
@@ -46,33 +46,7 @@ function HomePage() {
   const navigate = useNavigate();
   const { loadData, resetData } = useFormContext();
   const fileInputRef = useRef(null);
-  const heroGridRef = useRef(null);
   const [error, setError] = useState(null);
-
-  // ファーストビュー背景の格子をスクロールに連動して動かす
-  useEffect(() => {
-    const grid = heroGridRef.current;
-    if (!grid) return undefined;
-
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduce.matches) return undefined;
-
-    let raf = null;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        const y = window.scrollY;
-        grid.style.transform = `translate3d(0, ${y * 0.35}px, 0)`;
-        raf = null;
-      });
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   const handleCreateSkillSheet = () => {
     resetData();
@@ -120,9 +94,15 @@ function HomePage() {
         />
       )}
 
-      {/* ===== ヒーロー（ファーストビュー） ===== */}
-      <section className="home-hero">
-        <div className="home-hero-grid" ref={heroGridRef} aria-hidden="true" />
+      {/* ===== ヒーロー（ファーストビュー：背景画像＋白オーバーレイ） ===== */}
+      {/* 背景画像は未用意のため .home-hero を背景プレースホルダ枠として実装。
+          実画像は 必要画像.txt [HOME-HERO] 参照。用意でき次第 .home-hero の
+          background-image に差し替える（下記CSSのコメント箇所）。 */}
+      <section className="home-hero" data-slot-id="HOME-HERO">
+        <span className="home-hero-slot-badge" aria-hidden="true">
+          [HOME-HERO] 背景画像を配置予定
+        </span>
+        <div className="home-hero-overlay" aria-hidden="true" />
 
         <div className="home-hero-inner">
           <div className="home-hero-copy">
@@ -161,14 +141,6 @@ function HomePage() {
               <li>転職営業なし</li>
             </Reveal>
           </div>
-
-          <Reveal className="home-hero-visual" delay={250}>
-            <ImagePlaceholder
-              slotId="HOME-HERO"
-              label="アプリ画面イメージ（完成スキルシート＋3形式出力）"
-              ratio="4 / 3"
-            />
-          </Reveal>
         </div>
       </section>
 
