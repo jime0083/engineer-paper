@@ -26,8 +26,9 @@ function applyPdfHeadingLift(element) {
   const saved = [];
   titles.forEach((el) => {
     saved.push({ el, padding: el.style.getPropertyValue('padding'), priority: el.style.getPropertyPriority('padding') });
-    // 現行CSSは padding:0 8px !important。左右8pxは維持し、下に20px足して文字を約10px上へ。
-    el.style.setProperty('padding', '0 8px 20px 8px', 'important');
+    // 現行CSSは padding:0 8px !important。左右8pxは維持し、下に14px足して文字を約7px上へ。
+    // （padding-bottom の半分だけ文字が上がる。20px=10px上げは上すぎたため14px=7px上げに調整）
+    el.style.setProperty('padding', '0 8px 14px 8px', 'important');
   });
   return () => {
     saved.forEach(({ el, padding, priority }) => {
