@@ -55,7 +55,14 @@
       "Bash(sips -g pixelWidth -g pixelHeight real.png)",
       "Bash(node iterate.js)",
       "Bash(node finalcmp.js)",
-      "Bash(sips -g pixelWidth -g pixelHeight fc-preview.png)"
+      "Bash(sips -g pixelWidth -g pixelHeight fc-preview.png)",
+      "Bash(python3 -m http.server 8765)",
+      "Bash(node measure_cur.js)",
+      "Bash(node calib.js)",
+      "Bash(node verify_final.js)",
+      "Bash(sips -s format png real2.pdf --out real2.png)",
+      "Bash(sed 's/crop-real.html/crop2.html/;s/fc-realpdf.png/vf-realpdf-band.png/' croponly.js)",
+      "Bash(node crop2.js)"
     ]
   }
 }

@@ -11,6 +11,35 @@ import html2canvas from 'html2canvas';
  * @param {HTMLElement} element - PDF化する要素（.skillsheet-pages）
  * @returns {Promise<jsPDF>} PDFオブジェクト
  */
+/**
+ * PDF出力時のみ、見出し（.skillsheet-section-title）の文字を帯内で約10px上へ移動する。
+ * - プレビュー（画面表示）は変更せず、html2canvasでキャプチャする瞬間だけスタイルを適用し、
+ *   キャプチャ後に元へ戻す。
+ * - 見出しは height:30px + display:flex + align-items:center + box-sizing:border-box。
+ *   padding-bottom を 20px 足すと content領域が上に寄り、文字中心が 15px → 5px（=10px上）になる。
+ *   帯の高さ・背景・位置は不変。
+ * @param {HTMLElement} element
+ * @returns {() => void} 元に戻す関数
+ */
+function applyPdfHeadingLift(element) {
+  const titles = element.querySelectorAll('.skillsheet-section-title');
+  const saved = [];
+  titles.forEach((el) => {
+    saved.push({ el, padding: el.style.getPropertyValue('padding'), priority: el.style.getPropertyPriority('padding') });
+    // 現行CSSは padding:0 8px !important。左右8pxは維持し、下に20px足して文字を約10px上へ。
+    el.style.setProperty('padding', '0 8px 20px 8px', 'important');
+  });
+  return () => {
+    saved.forEach(({ el, padding, priority }) => {
+      if (padding) {
+        el.style.setProperty('padding', padding, priority);
+      } else {
+        el.style.removeProperty('padding');
+      }
+    });
+  };
+}
+
 export async function generatePdfFromElement(element) {
   // A4サイズの設定（mm）
   const a4Width = 210;
@@ -26,6 +55,10 @@ export async function generatePdfFromElement(element) {
     format: 'a4',
   });
 
+  // PDF出力時のみ、見出し文字を10px上へ（プレビューは変更しない）
+  const revertHeadingLift = applyPdfHeadingLift(element);
+
+  try {
   // 各ページ要素を取得
   const pages = element.querySelectorAll('.skillsheet-page');
 
@@ -80,7 +113,11 @@ export async function generatePdfFromElement(element) {
     );
   }
 
-  return pdf;
+    return pdf;
+  } finally {
+    // キャプチャ後、見出しのスタイルを元へ戻す（プレビュー表示を変更しない）
+    revertHeadingLift();
+  }
 }
 
 /**
