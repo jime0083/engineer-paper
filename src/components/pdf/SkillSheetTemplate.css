@@ -81,11 +81,16 @@
   font-size: 13px !important;
   font-weight: bold !important;
   margin: 15px 0 8px 0 !important;
-  /* 帯の高さは維持しつつ、上paddingを詰めて文字を約6px上へ（座布団内で下寄りを解消） */
-  padding: 0 8px 12px 8px !important;
+  /*
+    プレビュー(ブラウザ)とPDF(html2canvas)で文字の縦位置を一致させるための指定。
+    line-height:1.4 の余白(leading)を html2canvas がブラウザと異なる配分で描画するため、
+    プレビューでは中央でもPDFでは下寄りになっていた。
+    → line-height:1 で leading を無くし、上下対称 padding で中央に固定（両エンジンで一致）。
+  */
+  padding: 9px 8px 9px 8px !important;
   background-color: #f0f0f0 !important;
   border-left: 3px solid #333 !important;
-  line-height: 1.4 !important;
+  line-height: 1 !important;
   display: block !important;
   box-sizing: border-box !important;
 }

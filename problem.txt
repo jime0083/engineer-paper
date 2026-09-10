@@ -576,17 +576,24 @@ npm run build 成功。
   文字を押し上げる）。実CSSを使った再現ハーネスで計測し10px上がることを確認。
 - Phase 2: ビルド・デプロイ
 
+### 真因（徹底調査の結論・2026-09-10）
+プレビュー(ブラウザ)は見出しが中央、ダウンロードPDFでは下寄り、という差異の原因は
+**html2canvas と ブラウザで line-height の余白(leading)配分が異なる**こと。
+.skillsheet-section-title は line-height:1.4（13pxに対し約5pxの余白）。ブラウザは
+この余白を上下半分ずつ配分して文字を中央に描画するが、html2canvas は配分が異なり
+文字を約6〜8px下げて描画するため、帯の下部に寄って見えた。
+実CSS＋html2canvas(scale2)で「.skillsheet-page 全体をキャプチャ」する忠実再現を作り、
+DOMとcanvasを左右に並べて比較して確認した（full/side ハーネス）。
+
+※ 前回の暫定対応（padding 0/12 で文字を上へ）は、DOM側だけが上に動き html2canvas 側は
+  中央のまま＝プレビューとPDFが逆に不一致になるため、本対応で置き換えた。
+
+### 修正内容（最終）
+- SkillSheetTemplate.css .skillsheet-section-title:
+  line-height:1.4 → 1（leadingを除去）、padding → 9px 8px 9px 8px（上下対称で中央固定）。
+  これにより leading 由来のエンジン差が消え、ブラウザ/ html2canvas とも同じ中央位置に。
+- 検証: 実CSSで DOM と html2canvas を左右比較し、経歴/スキル/自己PR の見出しが
+  両者で中央・完全一致することを目視確認。npm run build 成功。
+
 ### ステータス
 - 実装完了・ユーザー確認待ち（2026-09-10）
-
-### 調査結果（重要）
-実CSS＋html2canvas(scale2)で忠実に再現し画素計測した結果、現状の見出し文字は
-帯内でほぼ中央（上余白9px/下余白10.5px）で、下寄りではなかった。上側の余白が約9pxしか
-無いため文字を10px上げると帯上端をはみ出す。→ ユーザーに確認し「帯の高さは変えず可能な
-範囲で上げる」方針を選択。
-
-### 修正内容
-- SkillSheetTemplate.css .skillsheet-section-title の padding を
-  6px 8px 6px 8px → 0 8px 12px 8px に変更（帯高さ31pxを維持、文字を約6px上へ）。
-- html2canvasラスタライズで before/after を目視確認（帯高さ同一・文字が上へ・はみ出しなし）。
-- npm run build 成功。
