@@ -34,7 +34,11 @@
       "Bash(grep -rhoE \"#[0-9a-fA-F]{3,6}\" components/pdf/SkillSheetTemplate.css)",
       "Bash(node shot17.js)",
       "Bash(node shot18.js)",
-      "Bash(node shot20.js)"
+      "Bash(node shot20.js)",
+      "Bash(cat)",
+      "Bash(sed -i '' 's/^最終更新: 2026-08-22$/## Phase 21: スキルシート見出しの縦位置調整（10px上げ） ※problem.txt 問題#11\\\\n- [ ] 21.1 .skillsheet-section-title の縦位置を約10px上へ（padding調整・再現ハーネスで計測）\\\\n- [ ] 21.2 ビルド・デプロイ\\\\n\\\\n================================================================================\\\\n\\\\n最終更新: 2026-09-10/' progress.txt)",
+      "Bash(node band.js)",
+      "Bash(node h2c-run.js)"
     ]
   }
 }

@@ -81,7 +81,8 @@
   font-size: 13px !important;
   font-weight: bold !important;
   margin: 15px 0 8px 0 !important;
-  padding: 6px 8px 6px 8px !important;
+  /* 帯の高さは維持しつつ、上paddingを詰めて文字を約6px上へ（座布団内で下寄りを解消） */
+  padding: 0 8px 12px 8px !important;
   background-color: #f0f0f0 !important;
   border-left: 3px solid #333 !important;
   line-height: 1.4 !important;
