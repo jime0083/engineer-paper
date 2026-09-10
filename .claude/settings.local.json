@@ -44,7 +44,18 @@
       "Bash(node visual.js)",
       "Bash(sed -i '' 's/y:cb.y, width:Math.min\\(cb.width,760\\), height:460/y:cb.y+150, width:Math.min\\(cb.width,760\\), height:220/' full2.js)",
       "Bash(node full2.js)",
-      "Bash(node side.js)"
+      "Bash(node side.js)",
+      "Read(//Users/jime0083/Desktop/**)",
+      "Bash(rm -f crops.jsonl v-*.png)",
+      "Bash(node verify.js)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"http.server 8765\")",
+      "Bash(node realpdf.js)",
+      "Bash(sips -s format png real.pdf --out real.png)",
+      "Bash(sips -g pixelWidth -g pixelHeight real.png)",
+      "Bash(node iterate.js)",
+      "Bash(node finalcmp.js)",
+      "Bash(sips -g pixelWidth -g pixelHeight fc-preview.png)"
     ]
   }
 }

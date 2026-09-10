@@ -82,16 +82,18 @@
   font-weight: bold !important;
   margin: 15px 0 8px 0 !important;
   /*
-    プレビュー(ブラウザ)とPDF(html2canvas)で文字の縦位置を一致させるための指定。
-    line-height:1.4 の余白(leading)を html2canvas がブラウザと異なる配分で描画するため、
-    プレビューでは中央でもPDFでは下寄りになっていた。
-    → line-height:1 で leading を無くし、上下対称 padding で中央に固定（両エンジンで一致）。
+    プレビュー(ブラウザ)とPDF(html2canvas)で見出し文字の縦位置を一致させるための指定。
+    line-height の余白(leading)配分が html2canvas とブラウザで異なり、縦位置がズレていた
+    （プレビュー中央でもPDFでは下/上に寄る）。line-height 依存の縦位置指定をやめ、
+    固定高さの帯に flex で中央寄せすることで、両エンジンとも文字を中央に一致させる。
   */
-  padding: 9px 8px 9px 8px !important;
+  height: 30px !important;
+  padding: 0 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
   background-color: #f0f0f0 !important;
   border-left: 3px solid #333 !important;
-  line-height: 1 !important;
-  display: block !important;
   box-sizing: border-box !important;
 }
 
