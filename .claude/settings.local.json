@@ -62,7 +62,20 @@
       "Bash(node verify_final.js)",
       "Bash(sips -s format png real2.pdf --out real2.png)",
       "Bash(sed 's/crop-real.html/crop2.html/;s/fc-realpdf.png/vf-realpdf-band.png/' croponly.js)",
-      "Bash(node crop2.js)"
+      "Bash(node crop2.js)",
+      "Read(//Applications/LibreOffice.app/Contents/MacOS/**)",
+      "Read(//Applications/**)",
+      "Bash(node -e \"const d=require\\('./node_modules/docx'\\); console.log\\(['ShadingType','BorderStyle'].map\\(k=>k+':'+\\(k in d\\)\\).join\\(', '\\)\\)\")",
+      "Bash(node getword.js)",
+      "Bash(rm -rf newdocx)",
+      "Bash(mkdir newdocx *)",
+      "Bash(unzip -o ../new.docx)",
+      "Bash(textutil -convert html new.docx -output new.html)",
+      "Bash(textutil -convert html \"/Users/jime0083/Downloads/栗田_20260901.docx\" -output old.html)",
+      "Bash(rm -rf ql)",
+      "Bash(mkdir ql *)",
+      "Bash(qlmanage -t -s 1400 -o ql new.docx)",
+      "Bash(qlmanage -t -s 1400 -o ql \"/Users/jime0083/Downloads/栗田_20260901.docx\")"
     ]
   }
 }

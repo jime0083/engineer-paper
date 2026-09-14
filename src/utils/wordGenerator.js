@@ -12,10 +12,22 @@ import {
   WidthType,
   AlignmentType,
   BorderStyle,
-  HeadingLevel,
+  ShadingType,
+  TableLayoutType,
   Packer,
 } from 'docx';
 import { saveAs } from 'file-saver';
+
+/**
+ * ページ本文の横幅（twips）。A4(11906) - 左右マージン(各1440) = 9026。
+ * テーブルの列幅グリッド（columnWidths）算出に使用する。
+ */
+const CONTENT_WIDTH = 9026;
+
+/** 割合(合計100)から列幅(twips)の配列を作る */
+function colWidths(percents) {
+  return percents.map((pct) => Math.round((CONTENT_WIDTH * pct) / 100));
+}
 
 /**
  * 改行を含むテキストをTextRunの配列に変換
@@ -55,6 +67,23 @@ function createParagraphsWithBreaks(text, options = {}) {
         children: [new TextRun({ text: line, ...options })],
       })
   );
+}
+
+/**
+ * セクション見出しを作成（PDFと同じデザイン：グレー座布団＋左の濃い縦バー＋黒太字）
+ * ※ Word標準の「Heading2」スタイル（青色）は使わない。
+ */
+function createSectionHeading(text) {
+  return new Paragraph({
+    children: [new TextRun({ text, bold: true, size: 26, color: '333333' })],
+    // グレーの座布団（背景色）
+    shading: { type: ShadingType.CLEAR, color: 'auto', fill: 'F0F0F0' },
+    // 左端の濃い縦アクセントバー（PDFの border-left: 3px #333 相当）
+    border: {
+      left: { style: BorderStyle.SINGLE, size: 18, color: '333333', space: 6 },
+    },
+    spacing: { before: 400, after: 200 },
+  });
 }
 
 /**
@@ -238,6 +267,8 @@ function createBasicInfoTable(formData) {
 
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: colWidths([15, 35, 15, 35]),
+    layout: TableLayoutType.FIXED,
     rows: [
       new TableRow({
         children: [
@@ -334,6 +365,8 @@ function createSkillsTable(skills) {
 
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: colWidths([30, 20, 50]),
+    layout: TableLayoutType.FIXED,
     rows: [headerRow, ...dataRows],
   });
 }
@@ -401,6 +434,8 @@ function createWorkHistoryTable(workHistories) {
 
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: colWidths([15, 10, 35, 15, 25]),
+    layout: TableLayoutType.FIXED,
     rows: [headerRow, ...dataRows],
   });
 }
@@ -461,6 +496,8 @@ function createCareersTable(careers) {
 
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
+    columnWidths: colWidths([40, 60]),
+    layout: TableLayoutType.FIXED,
     rows: [headerRow, ...dataRows],
   });
 }
@@ -498,13 +535,7 @@ export function generateWordDocument(formData) {
   // 経歴
   const careersTable = createCareersTable(careers);
   if (careersTable) {
-    sections.push(
-      new Paragraph({
-        children: [new TextRun({ text: '経歴', bold: true, size: 28 })],
-        heading: HeadingLevel.HEADING_2,
-        spacing: { before: 400, after: 200 },
-      })
-    );
+    sections.push(createSectionHeading('経歴'));
     sections.push(careersTable);
     sections.push(new Paragraph({ spacing: { after: 400 } }));
   }
@@ -512,26 +543,14 @@ export function generateWordDocument(formData) {
   // スキル
   const skillsTable = createSkillsTable(skills);
   if (skillsTable) {
-    sections.push(
-      new Paragraph({
-        children: [new TextRun({ text: 'スキル', bold: true, size: 28 })],
-        heading: HeadingLevel.HEADING_2,
-        spacing: { before: 400, after: 200 },
-      })
-    );
+    sections.push(createSectionHeading('スキル'));
     sections.push(skillsTable);
     sections.push(new Paragraph({ spacing: { after: 400 } }));
   }
 
   // 自己PR
   if (selfPR?.selfPR) {
-    sections.push(
-      new Paragraph({
-        children: [new TextRun({ text: '自己PR', bold: true, size: 28 })],
-        heading: HeadingLevel.HEADING_2,
-        spacing: { before: 400, after: 200 },
-      })
-    );
+    sections.push(createSectionHeading('自己PR'));
     // 改行を含むテキストを複数のParagraphに分割
     const selfPRLines = selfPR.selfPR.split('\n');
     selfPRLines.forEach((line, index) => {
@@ -548,19 +567,20 @@ export function generateWordDocument(formData) {
   // 職務経歴
   const workHistoryTable = createWorkHistoryTable(workHistories);
   if (workHistoryTable) {
-    sections.push(
-      new Paragraph({
-        children: [new TextRun({ text: '職務経歴', bold: true, size: 28 })],
-        heading: HeadingLevel.HEADING_2,
-        spacing: { before: 400, after: 200 },
-      })
-    );
+    sections.push(createSectionHeading('職務経歴'));
     sections.push(workHistoryTable);
   }
 
   const doc = new Document({
     sections: [
       {
+        properties: {
+          page: {
+            // A4・上下左右1inch(1440twips)。CONTENT_WIDTH(9026)の前提。
+            size: { width: 11906, height: 16838 },
+            margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 },
+          },
+        },
         children: sections,
       },
     ],

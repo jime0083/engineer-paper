@@ -651,3 +651,39 @@ PDFを完全一致させるアプローチは環境差(html2canvasのフォン�
 ### ステータス
 - 実装完了・ユーザー確認待ち（2026-09-10 深夜／PDFのみ約7px上げ）
 ================================================================================
+
+## 問題 #12: Wordのデザインだけ崩れる（テーブル列の潰れ＋見出しが青）
+================================================================================
+### 発見日
+2026-09-14（ユーザー報告：PDF/Word/Excelを比較しWordのみ崩れ）
+
+### 症状
+- Wordで基本情報テーブル等の列が極端に潰れ、文字が1文字ずつ縦積みになる（レイアウト崩壊）
+- 見出し（経歴/スキル/自己PR/職務経歴）がWord標準「Heading2」スタイルの青色で、
+  PDFのグレー座布団＋左バー＋黒太字と異なる
+
+### 調査方法
+- 生成docxを macOS Quick Look（Word相当の描画エンジン）でPNG化して確認。
+  → 基本情報テーブルの列が潰れて文字が縦積みになる崩れを再現（textutilでは再現せず、
+    レンダラ依存であることも判明）。styles.xml で Heading2 が color=2E74B5(青) と確認。
+
+### 原因
+1. テーブルがセル幅をパーセント指定のみで、明示的な列グリッド(tblGrid=columnWidths)と
+   固定レイアウト(tblLayout=fixed)が無い → 一部レンダラ(Word/Quick Look)で列が最小幅に潰れる。
+2. 見出しに docx 組み込みの HeadingLevel.HEADING_2 を使用 → Word標準の青色見出しになる。
+
+### 修正（wordGenerator.js のみ。PDF/Excelは一切変更なし）
+1. 全4テーブル(基本情報/経歴/スキル/職務経歴)に columnWidths(twips) と
+   layout: TableLayoutType.FIXED を付与。ページも A4・余白1inch を明示し
+   本文幅9026twipsを基準に列幅を算出。→ 全レンダラで列が正しく表示。
+2. 見出しを HEADING_2 廃止し、createSectionHeading() を新設。
+   PDFと同じデザイン（shd fill=F0F0F0 の座布団＋左 pBdr 濃色バー＋黒太字 color=333333）。
+
+### 検証
+- 修正後docxを Quick Look でPNG化し、テーブルの列が正常表示（縦積み解消）を確認。
+- docx内XMLで tblGrid×4 / fixed×4 / gridCol×14 / Heading2=0 / shd F0F0F0×4 / pBdr×8 を確認。
+- PDF(pdfGenerator/SkillSheetTemplate)・Excel(excelGenerator)は未変更（git差分は wordGenerator.js のみ）。
+
+### ステータス
+- 実装完了・ユーザー確認待ち（2026-09-14）
+================================================================================
