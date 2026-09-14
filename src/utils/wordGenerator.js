@@ -553,15 +553,15 @@ export function generateWordDocument(formData) {
     sections.push(createSectionHeading('自己PR'));
     // 改行を含むテキストを複数のParagraphに分割
     const selfPRLines = selfPR.selfPR.split('\n');
-    selfPRLines.forEach((line, index) => {
-      const isLast = index === selfPRLines.length - 1;
+    selfPRLines.forEach((line) => {
       sections.push(
         new Paragraph({
           children: [new TextRun({ text: line || '', size: 20 })],
-          spacing: isLast ? { after: 400 } : undefined,
         })
       );
     });
+    // 他セクション（経歴/スキル）と同じスペーサーを入れ、次セクションとの余白を揃える
+    sections.push(new Paragraph({ spacing: { after: 400 } }));
   }
 
   // 職務経歴
